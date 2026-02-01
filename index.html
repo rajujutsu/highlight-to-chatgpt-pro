@@ -49,21 +49,21 @@
         display:flex; align-items:center; gap:10px;
         font-weight:800; letter-spacing:.2px;
       }
-      .logo{
-        width:34px; height:34px; border-radius:12px;
-        background: linear-gradient(135deg, rgba(255,79,216,.9), rgba(55,243,255,.9));
-        box-shadow: 0 10px 30px rgba(255,79,216,.18);
-        position:relative;
-        overflow:hidden;
+      .logo {
+        width: 34px;
+        height: 34px;
+        border-radius: 12px;
+        object-fit: contain;
+        box-shadow: 0 10px 30px rgba(138, 92, 255, 0.35);
+        background: rgba(255, 255, 255, 0.04);
+        padding: 4px;
       }
-      .logo:after{
-        content:"";
-        position:absolute; inset:-60%;
-        background: conic-gradient(from 120deg, rgba(255,79,216,.0), rgba(255,79,216,.35), rgba(55,243,255,.35), rgba(138,92,255,.35), rgba(255,79,216,.0));
-        animation: spin 7s linear infinite;
+      .logo:hover {
+        box-shadow:
+        0 0 20px rgba(255, 79, 216, 0.55),
+        0 0 40px rgba(55, 243, 255, 0.35);
+        transition: box-shadow 0.25s ease;
       }
-      @keyframes spin{to{transform:rotate(360deg)}}
-
       .pill{
         display:inline-flex; align-items:center; gap:8px;
         padding: 8px 12px;
@@ -222,7 +222,7 @@
     <div class="wrap">
       <div class="topbar">
         <div class="brand">
-          <div class="logo" aria-hidden="true"></div>
+          <img src="./jellyfish.png" alt="Highlight to ChatGPT Pro logo" class="logo"/>
           <div>Highlight to ChatGPT Pro</div>
         </div>
         <a class="pill" href="./privacy.html">
