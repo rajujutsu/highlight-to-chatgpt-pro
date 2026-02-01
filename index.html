@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Highlight to ChatGPT Pro</title>
+    <meta name="description" content="Highlight text on any webpage and send it to ChatGPT with one click. Templates, favorites, and fast prompts." />
+
+    <style>
+      :root{
+        --bg:#070715;
+        --card:#0c0c22cc;
+        --text:#f5f7ff;
+        --muted:#b8bce6;
+        --line:#1c1c3f;
+        --pink:#ff4fd8;
+        --cyan:#37f3ff;
+        --purple:#8a5cff;
+        --green:#37ff9a;
+        --shadow: 0 18px 60px rgba(0,0,0,.45);
+        --radius: 18px;
+      }
+      *{box-sizing:border-box}
+      body{
+        margin:0;
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+        color:var(--text);
+        background:
+          radial-gradient(1200px 700px at 10% 15%, rgba(255,79,216,.25), transparent 60%),
+          radial-gradient(900px 600px at 90% 20%, rgba(55,243,255,.18), transparent 55%),
+          radial-gradient(900px 600px at 50% 85%, rgba(138,92,255,.20), transparent 60%),
+          linear-gradient(180deg, #050510, #070715 35%, #050510);
+        min-height:100vh;
+      }
+      a{color:inherit}
+      .wrap{
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 26px 18px 44px;
+      }
+      .topbar{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:14px;
+        padding: 10px 0 18px;
+      }
+      .brand{
+        display:flex; align-items:center; gap:10px;
+        font-weight:800; letter-spacing:.2px;
+      }
+      .logo{
+        width:34px; height:34px; border-radius:12px;
+        background: linear-gradient(135deg, rgba(255,79,216,.9), rgba(55,243,255,.9));
+        box-shadow: 0 10px 30px rgba(255,79,216,.18);
+        position:relative;
+        overflow:hidden;
+      }
+      .logo:after{
+        content:"";
+        position:absolute; inset:-60%;
+        background: conic-gradient(from 120deg, rgba(255,79,216,.0), rgba(255,79,216,.35), rgba(55,243,255,.35), rgba(138,92,255,.35), rgba(255,79,216,.0));
+        animation: spin 7s linear infinite;
+      }
+      @keyframes spin{to{transform:rotate(360deg)}}
+
+      .pill{
+        display:inline-flex; align-items:center; gap:8px;
+        padding: 8px 12px;
+        border: 1px solid rgba(255,255,255,.10);
+        border-radius: 999px;
+        background: rgba(255,255,255,.04);
+        color: var(--muted);
+        font-size: 12px;
+        text-decoration:none;
+        white-space:nowrap;
+      }
+      .pill strong{color:var(--text)}
+      .hero{
+        border: 1px solid rgba(255,255,255,.10);
+        border-radius: var(--radius);
+        background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+        box-shadow: var(--shadow);
+        overflow:hidden;
+      }
+      .heroInner{
+        padding: 26px 22px;
+        display:grid;
+        grid-template-columns: 1.2fr .8fr;
+        gap: 18px;
+      }
+      @media (max-width:860px){
+        .heroInner{grid-template-columns:1fr}
+      }
+      h1{
+        margin: 0 0 10px;
+        font-size: 34px;
+        line-height: 1.12;
+        letter-spacing: -.3px;
+      }
+      .sub{
+        margin: 0 0 16px;
+        color: var(--muted);
+        line-height: 1.45;
+      }
+      .ctaRow{
+        display:flex;
+        flex-wrap:wrap;
+        gap:10px;
+        margin-top: 10px;
+      }
+      .btn{
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
+        gap:10px;
+        padding: 11px 14px;
+        border-radius: 14px;
+        border: 1px solid rgba(255,255,255,.12);
+        text-decoration:none;
+        font-weight:800;
+        box-shadow: 0 16px 50px rgba(0,0,0,.35);
+      }
+      .btnPrimary{
+        background: linear-gradient(135deg, rgba(255,79,216,.95), rgba(55,243,255,.85));
+        color: #08101a;
+        border-color: rgba(255,255,255,.0);
+      }
+      .btnSecondary{
+        background: rgba(255,255,255,.04);
+        color: var(--text);
+      }
+      .grid{
+        display:grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        padding: 16px;
+        border-top: 1px solid rgba(255,255,255,.08);
+        background: rgba(0,0,0,.12);
+      }
+      @media (max-width:860px){
+        .grid{grid-template-columns:1fr}
+      }
+      .card{
+        padding: 14px 14px 12px;
+        border-radius: 16px;
+        border: 1px solid rgba(255,255,255,.10);
+        background: rgba(12,12,34,.65);
+      }
+      .card h3{
+        margin:0 0 6px;
+        font-size: 14px;
+        letter-spacing:.2px;
+      }
+      .card p{
+        margin:0;
+        color: var(--muted);
+        line-height: 1.35;
+        font-size: 13px;
+      }
+      .section{
+        margin-top: 18px;
+        display:grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      @media (max-width:860px){
+        .section{grid-template-columns:1fr}
+      }
+      .panel{
+        border-radius: var(--radius);
+        border: 1px solid rgba(255,255,255,.10);
+        background: rgba(255,255,255,.04);
+        box-shadow: var(--shadow);
+        padding: 16px;
+      }
+      .panel h2{
+        margin:0 0 10px;
+        font-size: 15px;
+        letter-spacing:.2px;
+      }
+      .bullets{
+        margin: 0;
+        padding-left: 18px;
+        color: var(--muted);
+        line-height: 1.55;
+        font-size: 13px;
+      }
+      .tagRow{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px}
+      .tag{
+        font-size:12px;
+        color: var(--muted);
+        border: 1px solid rgba(255,255,255,.10);
+        background: rgba(0,0,0,.14);
+        padding: 6px 10px;
+        border-radius: 999px;
+      }
+      .footer{
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 12px;
+        display:flex;
+        justify-content:space-between;
+        gap:12px;
+        flex-wrap:wrap;
+      }
+      .smallLink{color:var(--muted); text-decoration:none}
+      .smallLink:hover{color:var(--text)}
+      .kbd{
+        display:inline-block;
+        padding: 2px 6px;
+        border-radius: 8px;
+        border: 1px solid rgba(255,255,255,.12);
+        background: rgba(0,0,0,.2);
+        font-size: 12px;
+        color: var(--text);
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrap">
+      <div class="topbar">
+        <div class="brand">
+          <div class="logo" aria-hidden="true"></div>
+          <div>Highlight to ChatGPT Pro</div>
+        </div>
+        <a class="pill" href="./privacy.html">
+          <strong>Privacy</strong> · policy
+        </a>
+      </div>
+
+      <div class="hero">
+        <div class="heroInner">
+          <div>
+            <h1>Highlight text → send to ChatGPT in one click.</h1>
+            <p class="sub">
+              Select text on any webpage, right-click, and open ChatGPT with your prompt already inserted.
+              Pro adds custom templates, favorites, and a live preview—built for fast workflows.
+            </p>
+
+            <div class="ctaRow">
+              <a class="btn btnPrimary" href="./support.html">Support</a>
+              <a class="btn btnSecondary" href="./privacy.html">Privacy policy</a>
+            </div>
+
+            <div class="tagRow" aria-label="keywords">
+              <span class="tag">right-click to ChatGPT</span>
+              <span class="tag">highlight text</span>
+              <span class="tag">templates & favorites</span>
+              <span class="tag">no ads · no trackers</span>
+            </div>
+
+            <p class="sub" style="margin-top:12px">
+              Shortcut: <span class="kbd">Ctrl/Cmd</span> + <span class="kbd">Shift</span> + <span class="kbd">Y</span> (configurable)
+            </p>
+          </div>
+
+          <div>
+            <div class="card" style="height:100%">
+              <h3>How it works</h3>
+              <p>
+                1) Highlight text<br />
+                2) Right-click → Ask / tools / templates<br />
+                3) ChatGPT opens with your text inserted
+              </p>
+              <div style="height:12px"></div>
+              <h3>Pro features</h3>
+              <p>
+                Custom templates · Favorites · Live preview · Bigger history · Clean menu mode
+              </p>
+              <div style="height:12px"></div>
+              <h3>Template variables</h3>
+              <p>
+                <code>{{text}}</code> <code>{{url}}</code> <code>{{title}}</code> <code>{{date}}</code> <code>{{lang}}</code>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <h3>Summarize & extract key points</h3>
+            <p>Turn long pages into bullets or TL;DR instantly.</p>
+          </div>
+          <div class="card">
+            <h3>Rewrite with better tone</h3>
+            <p>Clearer, shorter, more formal, or more readable.</p>
+          </div>
+          <div class="card">
+            <h3>Reusable templates</h3>
+            <p>Save your best prompts and run them from the menu.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="panel">
+          <h2>Privacy-first</h2>
+          <ul class="bullets">
+            <li>No ads, no trackers, no analytics.</li>
+            <li>Templates and history are stored locally in your browser.</li>
+            <li>Text is sent to ChatGPT only when you choose to run a prompt.</li>
+          </ul>
+        </div>
+
+        <div class="panel">
+          <h2>Notices</h2>
+          <ul class="bullets">
+            <li>Requires a ChatGPT account to generate responses.</li>
+            <li>Not affiliated with or endorsed by OpenAI.</li>
+            <li>Chrome context menus refresh when reopened.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer">
+        <div>© 2026 Highlight to ChatGPT Pro</div>
+        <div>
+          <a class="smallLink" href="./privacy.html">Privacy</a> ·
+          <a class="smallLink" href="./support.html">Support</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
