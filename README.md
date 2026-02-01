@@ -1,113 +1,134 @@
-Privacy Policy
+# Privacy Policy – Highlight to ChatGPT Pro
 
-Last updated: 01/31/2026
+**Last updated:** February 1, 2026
 
-This Privacy Policy explains how the Highlight → Ask ChatGPT Chrome Pro extension handles user data
-1. Overview
+Highlight to ChatGPT Pro (“the Product”, “the extension”) is a browser extension that allows users to highlight text on a webpage and send it to ChatGPT using a right-click menu, keyboard shortcut, or floating action button. The extension is designed to be privacy-first and only processes data when the user explicitly initiates an action.
 
-The Extension allows users to highlight text on a webpage and send it to ChatGPT with one click.
-Optional Pro features add custom templates, favorites, and extended history.
+---
 
-We take privacy seriously. The Extension is designed to minimize data collection and keep most data on your device.
+## Data We Collect and Process
 
-2. Data We Store Locally (On Your Device)
+### Website Content (User-Initiated)
 
-The Extension stores the following data locally in your browser using Chrome’s storage APIs:
+**What is collected**
+- Text that the user highlights and chooses to send to ChatGPT
+- The page URL and page title associated with that highlighted text
 
-Custom templates you create
+**How it is collected**
+- Data is collected only when the user manually activates the extension (right-click menu, shortcut, or button)
 
-Template favorites
+**How it is used**
+- To construct prompts sent to ChatGPT
+- To support optional features such as templates and local history
 
-History entries (highlighted text and generated prompts)
+**How it is shared**
+- Sent to ChatGPT (chatgpt.com) only when the user chooses to send it
 
-Floating button preferences
+---
 
-Last highlighted text (used only to power the live preview in Options)
+### Local Storage and Settings
 
-Pro status flag (whether Pro is unlocked)
+**What is stored locally**
+- Highlighted text
+- Page URL and page title
+- Timestamp of actions
+- User-created templates
+- Template favorites and preferences
+- Feature and menu settings
+- Pro activation status
 
-This data:
+**How it is used**
+- To display local history
+- To enable template previews and favorites
+- To preserve user preferences between sessions
 
-Is not sold
+**How it is shared**
+- This data is not transmitted to the developer
+- This data is not shared with third parties
+- All data remains stored locally using Chrome extension storage APIs
 
-Is not shared
+---
 
-Does not leave your device unless explicitly stated below
+### License Verification (Optional)
 
-You can remove this data at any time by uninstalling the Extension or clearing extension storage.
+**What is collected**
+- A license key entered by the user (optional)
 
-3. Data Sent Off Your Device
+**How it is collected**
+- The user manually enters a license key to unlock Pro features
 
-The Extension only sends data from your device in the following cases:
+**How it is used**
+- To verify eligibility for Pro features
 
-A) License Verification (Pro Unlock)
+**How it is shared**
+- The license key is sent to a license verification service
+- No browsing data, highlighted text, or personal information is included
 
-When you enter a license key to unlock Pro:
+---
 
-The key is sent securely to a license verification endpoint
+## Data Sharing and Third Parties
 
-The endpoint validates whether the key is valid
+User data is shared only in the following cases:
 
-No browsing data or highlighted content is transmitted during verification
+1. **ChatGPT (OpenAI)**  
+   - When the user chooses to send highlighted text to ChatGPT  
+   - Subject to OpenAI’s privacy policy  
 
-This verification is required to activate paid features.
+2. **License Verification Service**  
+   - Only the license key entered by the user is transmitted  
+   - Used solely to validate Pro access  
 
-B) ChatGPT Interaction
+The extension does not sell, rent, or transfer user data to advertisers, analytics providers, or other third parties.
 
-When you choose to send highlighted text to ChatGPT:
+---
 
-The Extension opens ChatGPT and pastes the content locally
+## Data We Do Not Collect
 
-The Extension does not intercept, store, or analyze ChatGPT responses
+The Product does not collect or process:
+- Personally identifiable information (name, email, address)
+- Authentication credentials or passwords
+- Financial or payment information
+- Health data
+- Location data
+- Browsing behavior outside of user-initiated actions
+- Keystroke logging, mouse tracking, or analytics
 
-All interactions with ChatGPT are governed by ChatGPT’s own privacy policy
+---
 
-4. Data We Do Not Collect
+## Remote Code and Tracking
 
-The Extension does not:
+- The extension does not execute remote code
+- No tracking scripts, analytics tools, or advertising SDKs are used
 
-Track browsing behavior
+---
 
-Inject advertisements
+## User Control
 
-Sell or share personal data
+- All data processing is initiated by the user
+- Users can remove all locally stored data by uninstalling the extension or clearing extension storage
 
-Use analytics, trackers, or ad networks
+---
 
-Read page content without a user action (highlight + click)
+## Policy Accessibility
 
-Access passwords, form data, or cookies
+This privacy policy is publicly available and linked from the Chrome Web Store listing in accordance with the Chrome Web Store Developer Program Policies.
 
-5. Permissions Explained
+---
 
-The Extension requests only the permissions required to function:
+## Changes to This Policy
 
-Context menus – to add right-click actions
+This policy may be updated to reflect changes in functionality or legal requirements. Any updates will be posted on this page.
 
-Storage – to save templates, settings, and history
+---
 
-Scripting – to paste text into ChatGPT when you request it
+## Contact
 
-Tabs (if enabled) – only to open ChatGPT and inject the content you chose
+For questions about this privacy policy or data handling practices:
 
-No permission is used for background tracking or data collection.
+- **Support Email:** rajual@protonmail.com 
 
-6. Payments
+---
 
-Payments for Pro features are handled by a third-party platform.
-The Extension itself does not process or store payment information.
+## Compliance Statement
 
-7. Children’s Privacy
-
-The Extension is not directed at children under 13 and does not knowingly collect personal data from children.
-
-8. Changes to This Policy
-
-This Privacy Policy may be updated to reflect changes in features or legal requirements.
-Updates will be reflected on this page with a revised “Last updated” date.
-
-9. Contact
-
-If you have questions or concerns about privacy, you can contact:
-
-Email: rajualzaki@gmail.com
+This privacy policy accurately reflects Highlight to ChatGPT Pro's data handling practices and complies with the Chrome Web Store Developer Program Policies.
