@@ -1,90 +1,139 @@
 # Highlight → Ask ChatGPT Pro — Support
 
-Thanks for using Highlight → Ask ChatGPT Pro. This page covers the most common questions: **lost keys**, **new devices**, **device limit**, and **basic troubleshooting**.
+Welcome 👋  
+Use this page for **license key help**, **device resets**, and **troubleshooting**.
 
 ---
 
 ## 🔑 Lost your license key? (Key recovery)
 
-Your license key is included in your **Gumroad receipt email** sent at purchase.
+Your license key is included in your **Gumroad receipt email**.
 
-### Try this first (fastest)
-1. Search your inbox for: **Gumroad**
-2. Also search: **Highlight → Ask ChatGPT Pro**
-3. Check **Spam / Promotions / Social** folders
-4. Make sure you’re checking the **same email used at checkout**
-   - If you paid with PayPal, your PayPal email may be different.
+**Try this first:**
+- Search your inbox for: `Gumroad`
+- Also search: `Highlight → Ask ChatGPT Pro`
+- Check **Spam** / **Promotions**
+- Make sure you’re checking the **email used at checkout** (PayPal email can differ)
 
-### Still can’t find it?
-Open a support request (GitHub Issue) and include:
-- The **email used at checkout**
-- Approximate **purchase date**
-- Product name: **Highlight → Ask ChatGPT Pro**
-
-We’ll help you recover it.
+**Privacy note:**  
+Do **not** post your full license key publicly. If you must reference it, redact it:  
+`ABCD-****-****-WXYZ`
 
 ---
 
-## 💻 Device limit / new computer (2 devices per license)
+## 💻 Device limit (2 devices per license)
 
-Each Pro license can be used on **up to 2 devices**.
+Each license can be used on up to **2 devices**.
 
-You might hit the device limit if:
-- You installed on multiple computers
-- You reinstalled your browser/OS and it generated a new device ID
+You may hit the limit if you:
+- switched computers
+- reinstalled your OS
+- created a new Chrome profile
+- cleared browser storage
+- reinstalled the extension
 
-### If you got a new device
-Use **Reset devices** (see below), then activate again on the new device.
-
----
-
-## 🔄 Reset devices (with cooldown)
-
-If you hit the device limit, you can reset your device slots.
-
-✅ **Reset devices is available once every 30 days** (cooldown).
-
-### How it works
-- Reset devices clears the saved device list for your license
-- After resetting, you can activate again on up to **2 devices**
-- Cooldown prevents abuse (so the licensing stays fair)
-
-### If Reset says “cooldown”
-It means you’ve reset recently. The message should show your next reset date/time.
+If you see a **device_limit** error, use **Reset devices** below.
 
 ---
 
-## ✅ Activation checklist (when Pro won’t unlock)
+## 🔄 Reset devices (30-day cooldown)
 
-If activation fails:
-1. Make sure the key is pasted **exactly** (no extra spaces)
-2. Confirm you’re online
-3. Try again after a minute (rate limit protection)
-4. If you see **Device limit reached**, use **Reset devices**
-5. If you still can’t activate, contact support (below)
+If you got a new device (or lost access to an old one), you can reset device slots.
+
+✅ **Reset clears the device list** for your license  
+✅ After reset, you can activate on **up to 2 devices** again  
+⏳ Reset is limited to **once every 30 days** (cooldown)
+
+**Where to reset**
+- Open the extension **Options**
+- Go to **Pro / License**
+- Click **Reset devices**
+
+If you see a cooldown message, you’ll be shown the next eligible reset time.
 
 ---
 
-## 🛠 Troubleshooting
+## ✅ Activation checklist
 
-### “Pro turned off” after reinstall / new browser profile
-That’s normal. Your browser storage may have been cleared.
-- Just **activate again** with your key.
+If Pro won’t activate:
+- Paste the key exactly (no spaces before/after)
+- Confirm you’re online
+- Try again in 60 seconds (rate limit protection)
+- If you see **device_limit**, do **Reset devices**
+- If you see **invalid_token**, follow the steps in Troubleshooting
 
-### Shortcuts / floating buttons not showing
-- Confirm the extension is enabled
+---
+
+## 🧰 Troubleshooting
+
+### I get `409 (Conflict)` from `/verify-license`
+That usually means **device_limit** (you’re trying to activate a 3rd device).
+
+**Fix:**
+1. Use **Reset devices** (Options → Pro / License)
+2. Activate again with your key
+
+---
+
+### I get `401 Invalid JWT` / `{ ok:false, reason:"invalid_token" }`
+This means the request is sending a token that your server can’t validate.
+
+**Most common causes:**
+- `H2C_JWT_SECRET` changed (tokens minted with the old secret won’t validate)
+- Token is missing / not being passed as `Authorization: Bearer <token>`
+- Token expired (check `h2c_pro_token_exp`)
+
+**Fix (fast):**
+1. In extension Options → **Log out / Reset Pro**
+2. Re-activate with your license key (this mints a fresh token)
+
+---
+
+### Floating buttons / shortcut not working
+- Make sure the extension is enabled
 - Reload the page
-- Make sure you highlighted enough text (minimum selection setting)
+- Confirm you’re selecting enough text (minimum selection setting)
+- Some pages are blocked (`chrome://`, extension pages, etc.)
 
 ---
 
-## 📩 Contact / Support
+## 📨 Contact support / Open an issue
 
-Open a GitHub Issue and include:
-- What happened (steps)
-- Browser + OS
-- Any error message shown
-- (Optional) Screenshot of the error
+Best support channel: **GitHub Issues**.
 
-> Never post your full license key publicly.
-> If you need to share it, redact most of it (example: `ABCD-****-****-WXYZ`).
+➡️ Open a new issue:  
+- https://github.com/YOUR_USERNAME/YOUR_REPO/issues/new
+
+**Please include:**
+- What you expected to happen
+- What actually happened
+- Browser + OS (example: Chrome 122 / macOS 14)
+- The exact error message
+- Screenshot (optional)
+- Redacted license key (optional): `ABCD-****-****-WXYZ`
+
+---
+
+## 🧾 Issue template (copy/paste)
+
+```text
+**What happened?**
+…
+
+**Steps to reproduce**
+1)
+2)
+3)
+
+**Browser / OS**
+Chrome version:
+OS:
+
+**Error message**
+(paste here)
+
+**License key (redacted)**
+ABCD-****-****-WXYZ
+
+**Anything else**
+…
