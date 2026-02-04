@@ -1,8 +1,143 @@
+# Highlight → Ask ChatGPT Pro — Support
+
+> **Need help fast?**  
+> Most issues are either **lost key**, **device limit (2 devices)**, or **reset cooldown (30 days)**.
+
+---
+
+## 🔑 Key recovery (lost your license key)
+
+Your license key is in your **Gumroad receipt email**.
+
+**Try:**
+- Search your inbox for **Gumroad**
+- Search **Highlight → Ask ChatGPT Pro**
+- Check **Spam** / **Promotions**
+- Confirm you’re checking the **email used at checkout**
+
+> **Privacy:** Never post your full key publicly.  
+> Redact it like: `ABCD-****-****-WXYZ`
+
+---
+
+## 💻 Device limit (2 devices per license)
+
+Each license activates on up to **2 devices**.
+
+You might hit the limit after:
+- new computer / new Chrome profile
+- OS reinstall
+- clearing browser storage
+- reinstalling the extension
+
+If you see `device_limit` or `409 (Conflict)`, you need a reset.
+
+---
+
+## 🔄 Reset devices (30-day cooldown)
+
+Reset clears your device list so you can activate again on **2 devices**.
+
+- ✅ Clears device slots
+- ✅ Lets you activate again
+- ⏳ Allowed **once every 30 days**
+
+**Where to reset:**  
+Extension **Options → Pro / License → Reset devices**
+
+If you’re still on cooldown, you’ll see the next reset time.
+
+---
+
+## ✅ Activation checklist
+
+If Pro doesn’t activate:
+- paste the key exactly (no spaces)
+- confirm you’re online
+- try again in ~60 seconds (rate-limits happen)
+- if you see `device_limit` → reset devices
+- if you see `invalid_token` → follow below
+
+---
+
+## 🧰 Troubleshooting
+
+### `409 (Conflict)` from `/verify-license`
+This usually means **device limit reached**.
+
+**Fix:**
+1. Reset devices (Options → Pro / License)
+2. Activate again
+
+---
+
+### `401 Invalid JWT` / `{ ok:false, reason:"invalid_token" }`
+Most common causes:
+- server `H2C_JWT_SECRET` changed (old tokens won’t validate)
+- token missing / not sent as Bearer
+- token expired
+
+**Fix (fast):**
+1. Options → **Log out / Reset Pro**
+2. Activate again (mints a fresh token)
+
+---
+
+## 📨 Support / Bug reports
+
+Open a GitHub issue and include details:
+
+- expected vs actual behavior
+- browser + OS
+- exact error text
+- optional screenshot
+- **redacted key** if relevant
+
+**Issue template:**
+
+```text
+**What happened?**
+…
+
+**Steps to reproduce**
+1)
+2)
+3)
+
+**Browser / OS**
+Chrome:
+OS:
+
+**Error**
+…
+
+**License key (redacted)**
+ABCD-****-****-WXYZ
+
+That will render **much cleaner** on GitHub than the earlier version.
+
+---
+
+## 2) `support.html` (your neon/glass look, perfect match)
+
+If you want the **exact visual style** you pasted, add this file:
+
+### Option A (recommended): `docs/support/index.html`
+Then enable GitHub Pages:
+- Repo → Settings → Pages
+- Source: **Deploy from a branch**
+- Branch: `main` / folder: `/docs`
+
+Paste this:
+
+```html
+<!doctype html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Highlight to ChatGPT Pro</title>
-    <meta name="description" content="Highlight text on any webpage and send it to ChatGPT with one click. Templates, favorites, and fast prompts." />
+    <title>Highlight → Ask ChatGPT Pro — Support</title>
+    <meta name="description" content="License key recovery, device reset, and troubleshooting for Highlight → Ask ChatGPT Pro." />
 
     <style>
       :root{
@@ -31,309 +166,210 @@
         min-height:100vh;
       }
       a{color:inherit}
-      .wrap{
-        max-width: 980px;
-        margin: 0 auto;
-        padding: 26px 18px 44px;
-      }
-      .topbar{
-        display:flex;
-        align-items:center;
-        justify-content:space-between;
-        gap:14px;
-        padding: 10px 0 18px;
-      }
-      .brand{
-        display:flex; align-items:center; gap:10px;
-        font-weight:800; letter-spacing:.2px;
-      }
-      .logo {
-        width: 34px;
-        height: 34px;
-        border-radius: 12px;
-        object-fit: contain;
-        box-shadow: 0 10px 30px rgba(138, 92, 255, 0.35);
-        background: rgba(255, 255, 255, 0.04);
-        padding: 4px;
-      }
-      .logo:hover {
-        box-shadow:
-        0 0 20px rgba(255, 79, 216, 0.55),
-        0 0 40px rgba(55, 243, 255, 0.35);
-        transition: box-shadow 0.25s ease;
-      }
+      .wrap{max-width:980px;margin:0 auto;padding:26px 18px 44px}
+      .topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:10px 0 18px}
+      .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.2px}
       .pill{
-        display:inline-flex; align-items:center; gap:8px;
-        padding: 8px 12px;
-        border: 1px solid rgba(255,255,255,.10);
-        border-radius: 999px;
-        background: rgba(255,255,255,.04);
-        color: var(--muted);
-        font-size: 12px;
-        text-decoration:none;
-        white-space:nowrap;
+        display:inline-flex;align-items:center;gap:8px;
+        padding:8px 12px;border:1px solid rgba(255,255,255,.10);
+        border-radius:999px;background:rgba(255,255,255,.04);
+        color:var(--muted);font-size:12px;text-decoration:none;white-space:nowrap
       }
       .pill strong{color:var(--text)}
       .hero{
-        border: 1px solid rgba(255,255,255,.10);
-        border-radius: var(--radius);
-        background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-        box-shadow: var(--shadow);
+        border:1px solid rgba(255,255,255,.10);
+        border-radius:var(--radius);
+        background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+        box-shadow:var(--shadow);
         overflow:hidden;
       }
       .heroInner{
-        padding: 26px 22px;
+        padding:26px 22px;
         display:grid;
-        grid-template-columns: 1.2fr .8fr;
-        gap: 18px;
+        grid-template-columns:1.2fr .8fr;
+        gap:18px;
       }
-      @media (max-width:860px){
-        .heroInner{grid-template-columns:1fr}
-      }
-      h1{
-        margin: 0 0 10px;
-        font-size: 34px;
-        line-height: 1.12;
-        letter-spacing: -.3px;
-      }
-      .sub{
-        margin: 0 0 16px;
-        color: var(--muted);
-        line-height: 1.45;
-      }
-      .ctaRow{
-        display:flex;
-        flex-wrap:wrap;
-        gap:10px;
-        margin-top: 10px;
-      }
+      @media (max-width:860px){.heroInner{grid-template-columns:1fr}}
+      h1{margin:0 0 10px;font-size:34px;line-height:1.12;letter-spacing:-.3px}
+      .sub{margin:0 0 16px;color:var(--muted);line-height:1.45}
+      .ctaRow{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
       .btn{
-        display:inline-flex;
-        align-items:center;
-        justify-content:center;
-        gap:10px;
-        padding: 11px 14px;
-        border-radius: 14px;
-        border: 1px solid rgba(255,255,255,.12);
-        text-decoration:none;
-        font-weight:800;
-        box-shadow: 0 16px 50px rgba(0,0,0,.35);
+        display:inline-flex;align-items:center;justify-content:center;gap:10px;
+        padding:11px 14px;border-radius:14px;border:1px solid rgba(255,255,255,.12);
+        text-decoration:none;font-weight:800;box-shadow:0 16px 50px rgba(0,0,0,.35)
       }
-      .btnPrimary{
-        background: linear-gradient(135deg, #595CFF, #C6F8FF);
-        color: #08101a;
-        border-color: rgba(255,255,255,.0);
-      }
-      .btnSecondary{
-        background: rgba(255,255,255,.04);
-        color: var(--text);
-      }
+      .btnPrimary{background:linear-gradient(135deg, #595CFF, #C6F8FF);color:#08101a;border-color:transparent}
+      .btnSecondary{background:rgba(255,255,255,.04);color:var(--text)}
       .grid{
-        display:grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 12px;
-        padding: 16px;
-        border-top: 1px solid rgba(255,255,255,.08);
-        background: rgba(0,0,0,.12);
+        display:grid;grid-template-columns:repeat(3, 1fr);
+        gap:12px;padding:16px;border-top:1px solid rgba(255,255,255,.08);
+        background:rgba(0,0,0,.12);
       }
-      @media (max-width:860px){
-        .grid{grid-template-columns:1fr}
-      }
+      @media (max-width:860px){.grid{grid-template-columns:1fr}}
       .card{
-        padding: 14px 14px 12px;
-        border-radius: 16px;
-        border: 1px solid rgba(255,255,255,.10);
-        background: rgba(12,12,34,.65);
+        padding:14px 14px 12px;border-radius:16px;
+        border:1px solid rgba(255,255,255,.10);
+        background:rgba(12,12,34,.65);
       }
-      .card h3{
-        margin:0 0 6px;
-        font-size: 14px;
-        letter-spacing:.2px;
-      }
-      .card p{
-        margin:0;
-        color: var(--muted);
-        line-height: 1.35;
-        font-size: 13px;
-      }
-      .section{
-        margin-top: 18px;
-        display:grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 12px;
-      }
-      @media (max-width:860px){
-        .section{grid-template-columns:1fr}
-      }
+      .card h3{margin:0 0 6px;font-size:14px;letter-spacing:.2px}
+      .card p{margin:0;color:var(--muted);line-height:1.35;font-size:13px}
+      .section{margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+      @media (max-width:860px){.section{grid-template-columns:1fr}}
       .panel{
-        border-radius: var(--radius);
-        border: 1px solid rgba(255,255,255,.10);
-        background: rgba(255,255,255,.04);
-        box-shadow: var(--shadow);
-        padding: 16px;
+        border-radius:var(--radius);
+        border:1px solid rgba(255,255,255,.10);
+        background:rgba(255,255,255,.04);
+        box-shadow:var(--shadow);
+        padding:16px;
       }
-      .panel h2{
-        margin:0 0 10px;
-        font-size: 15px;
-        letter-spacing:.2px;
-      }
-      .bullets{
-        margin: 0;
-        padding-left: 18px;
-        color: var(--muted);
-        line-height: 1.55;
-        font-size: 13px;
-      }
-      .tagRow{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px}
-      .tag{
-        font-size:12px;
-        color: var(--muted);
-        border: 1px solid rgba(255,255,255,.10);
-        background: rgba(0,0,0,.14);
-        padding: 6px 10px;
-        border-radius: 999px;
-      }
+      .panel h2{margin:0 0 10px;font-size:15px;letter-spacing:.2px}
+      .bullets{margin:0;padding-left:18px;color:var(--muted);line-height:1.55;font-size:13px}
+      .tagRow{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+      .tag{font-size:12px;color:var(--muted);border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.14);padding:6px 10px;border-radius:999px}
       .footer{
-        margin-top: 18px;
-        color: var(--muted);
-        font-size: 12px;
-        display:flex;
-        justify-content:space-between;
-        gap:12px;
-        flex-wrap:wrap;
+        margin-top:18px;color:var(--muted);font-size:12px;
+        display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
       }
-      .smallLink{color:var(--muted); text-decoration:none}
+      .smallLink{color:var(--muted);text-decoration:none}
       .smallLink:hover{color:var(--text)}
-      .kbd{
-        display:inline-block;
-        padding: 2px 6px;
-        border-radius: 8px;
-        border: 1px solid rgba(255,255,255,.12);
-        background: rgba(0,0,0,.2);
-        font-size: 12px;
-        color: var(--text);
-      }
+      .kbd{display:inline-block;padding:2px 6px;border-radius:8px;border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.2);font-size:12px;color:var(--text)}
+      code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace}
+      .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace}
+      .note{padding:10px 12px;border-radius:14px;border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.18);color:var(--muted);font-size:13px;line-height:1.45}
+      .note strong{color:var(--text)}
+      .hr{height:1px;background:rgba(255,255,255,.08);margin:14px 0}
     </style>
+  </head>
 
-# Highlight → Ask ChatGPT Pro — Support
+  <body>
+    <div class="wrap">
+      <div class="topbar">
+        <div class="brand">
+          <span>Highlight → Ask ChatGPT Pro</span>
+          <a class="pill" href="../" title="Back to docs">Docs</a>
+        </div>
+        <a class="pill" href="https://github.com/YOUR_USERNAME/YOUR_REPO/issues/new" target="_blank" rel="noreferrer">
+          <strong>Open an issue</strong> ↗
+        </a>
+      </div>
 
-Welcome 👋  
-Use this page for **license key help**, **device resets**, and **troubleshooting**.
+      <div class="hero">
+        <div class="heroInner">
+          <div>
+            <h1>Support</h1>
+            <p class="sub">
+              License key recovery, device resets, and troubleshooting.
+              Most problems are solved in under 2 minutes.
+            </p>
 
----
+            <div class="note">
+              <strong>Privacy:</strong> Never post your full license key publicly.
+              Redact it like <span class="mono">ABCD-****-****-WXYZ</span>.
+            </div>
 
-## 🔑 Lost your license key? (Key recovery)
+            <div class="ctaRow">
+              <a class="btn btnPrimary" href="https://github.com/YOUR_USERNAME/YOUR_REPO/issues/new" target="_blank" rel="noreferrer">
+                Open a support ticket
+              </a>
+              <a class="btn btnSecondary" href="#reset">Reset devices</a>
+              <a class="btn btnSecondary" href="#troubleshoot">Troubleshoot</a>
+            </div>
 
-Your license key is included in your **Gumroad receipt email**.
+            <div class="tagRow">
+              <span class="tag">2 devices / license</span>
+              <span class="tag">Reset cooldown: 30 days</span>
+              <span class="tag">Fast replies</span>
+            </div>
+          </div>
 
-**Try this first:**
-- Search your inbox for: `Gumroad`
-- Also search: `Highlight → Ask ChatGPT Pro`
-- Check **Spam** / **Promotions**
-- Make sure you’re checking the **email used at checkout** (PayPal email can differ)
+          <div>
+            <div class="card">
+              <h3>Quick fixes</h3>
+              <p>Device limit? → Reset devices.</p>
+              <p>Invalid JWT? → Reset Pro → Activate again.</p>
+              <p>Lost key? → Find your Gumroad receipt email.</p>
+            </div>
+            <div class="hr"></div>
+            <div class="card">
+              <h3>Keyboard shortcuts</h3>
+              <p><span class="kbd">Ctrl/⌘</span> <span class="kbd">Shift</span> <span class="kbd">Y</span> Ask about selection</p>
+              <p><span class="kbd">Ctrl/⌘</span> <span class="kbd">Shift</span> <span class="kbd">U</span> Capture region (Pro)</p>
+            </div>
+          </div>
+        </div>
 
-**Privacy note:**  
-Do **not** post your full license key publicly. If you must reference it, redact it:  
-`ABCD-****-****-WXYZ`
+        <div class="grid">
+          <div class="card" id="key">
+            <h3>🔑 Key recovery</h3>
+            <p>Search your email for <strong>Gumroad</strong> or the product name. Check Spam/Promotions.</p>
+          </div>
+          <div class="card" id="devices">
+            <h3>💻 Device limit</h3>
+            <p>Each license allows <strong>2 devices</strong>. Reinstalls/new profiles can consume slots.</p>
+          </div>
+          <div class="card" id="reset">
+            <h3>🔄 Reset devices</h3>
+            <p>Clears your device list. Allowed <strong>once every 30 days</strong>.</p>
+          </div>
+        </div>
+      </div>
 
----
+      <div class="section">
+        <div class="panel">
+          <h2>🔑 Lost your license key?</h2>
+          <ul class="bullets">
+            <li>Search your inbox for <strong>Gumroad</strong></li>
+            <li>Search for <strong>Highlight → Ask ChatGPT Pro</strong></li>
+            <li>Check <strong>Spam</strong> and <strong>Promotions</strong></li>
+            <li>Make sure you’re checking the email used at checkout</li>
+          </ul>
+        </div>
 
-## 💻 Device limit (2 devices per license)
+        <div class="panel">
+          <h2>🔄 Reset devices (30-day cooldown)</h2>
+          <ul class="bullets">
+            <li>Open extension <strong>Options</strong></li>
+            <li>Go to <strong>Pro / License</strong></li>
+            <li>Click <strong>Reset devices</strong></li>
+            <li>If you’re on cooldown, you’ll see the next reset time</li>
+          </ul>
+        </div>
+      </div>
 
-Each license can be used on up to **2 devices**.
+      <div class="section" id="troubleshoot">
+        <div class="panel">
+          <h2>🧰 `409 (Conflict)` from verify-license</h2>
+          <ul class="bullets">
+            <li>Usually means <strong>device_limit</strong> (3rd device attempt)</li>
+            <li>Fix: Reset devices → Activate again</li>
+          </ul>
+        </div>
 
-You may hit the limit if you:
-- switched computers
-- reinstalled your OS
-- created a new Chrome profile
-- cleared browser storage
-- reinstalled the extension
+        <div class="panel">
+          <h2>🧰 `401 Invalid JWT` / `invalid_token`</h2>
+          <ul class="bullets">
+            <li>Common causes: server secret changed, expired token, missing Bearer token</li>
+            <li>Fix: Options → <strong>Reset Pro</strong> → Activate again</li>
+          </ul>
+        </div>
+      </div>
 
-If you see a **device_limit** error, use **Reset devices** below.
+      <div class="section">
+        <div class="panel">
+          <h2>🧾 When opening an issue, include:</h2>
+          <ul class="bullets">
+            <li>Expected vs actual behavior</li>
+            <li>Browser + OS</li>
+            <li>Exact error message</li>
+            <li>Optional screenshot</li>
+            <li>Optional redacted key: <span class="mono">ABCD-****-****-WXYZ</span></li>
+          </ul>
+        </div>
 
----
-
-## 🔄 Reset devices (30-day cooldown)
-
-If you got a new device (or lost access to an old one), you can reset device slots.
-
-✅ **Reset clears the device list** for your license  
-✅ After reset, you can activate on **up to 2 devices** again  
-⏳ Reset is limited to **once every 30 days** (cooldown)
-
-**Where to reset**
-- Open the extension **Options**
-- Go to **Pro / License**
-- Click **Reset devices**
-
-If you see a cooldown message, you’ll be shown the next eligible reset time.
-
----
-
-## ✅ Activation checklist
-
-If Pro won’t activate:
-- Paste the key exactly (no spaces before/after)
-- Confirm you’re online
-- Try again in 60 seconds (rate limit protection)
-- If you see **device_limit**, do **Reset devices**
-- If you see **invalid_token**, follow the steps in Troubleshooting
-
----
-
-## 🧰 Troubleshooting
-
-### I get `409 (Conflict)` from `/verify-license`
-That usually means **device_limit** (you’re trying to activate a 3rd device).
-
-**Fix:**
-1. Use **Reset devices** (Options → Pro / License)
-2. Activate again with your key
-
----
-
-### I get `401 Invalid JWT` / `{ ok:false, reason:"invalid_token" }`
-This means the request is sending a token that your server can’t validate.
-
-**Most common causes:**
-- `H2C_JWT_SECRET` changed (tokens minted with the old secret won’t validate)
-- Token is missing / not being passed as `Authorization: Bearer <token>`
-- Token expired (check `h2c_pro_token_exp`)
-
-**Fix (fast):**
-1. In extension Options → **Log out / Reset Pro**
-2. Re-activate with your license key (this mints a fresh token)
-
----
-
-### Floating buttons / shortcut not working
-- Make sure the extension is enabled
-- Reload the page
-- Confirm you’re selecting enough text (minimum selection setting)
-- Some pages are blocked (`chrome://`, extension pages, etc.)
-
----
-
-## 📨 Contact support / Open an issue
-
-Best support channel: **GitHub Issues**.
-
-➡️ Open a new issue:  
-- https://github.com/YOUR_USERNAME/YOUR_REPO/issues/new
-
-**Please include:**
-- What you expected to happen
-- What actually happened
-- Browser + OS (example: Chrome 122 / macOS 14)
-- The exact error message
-- Screenshot (optional)
-- Redacted license key (optional): `ABCD-****-****-WXYZ`
-
----
-
-## 🧾 Issue template (copy/paste)
-
-```text
+        <div class="panel">
+          <h2>Copy/paste issue template</h2>
+          <div class="note">
+            <div class="mono" style="white-space:pre-wrap;">
 **What happened?**
 …
 
@@ -343,14 +379,31 @@ Best support channel: **GitHub Issues**.
 3)
 
 **Browser / OS**
-Chrome version:
+Chrome:
 OS:
 
-**Error message**
-(paste here)
+**Error**
+…
 
 **License key (redacted)**
 ABCD-****-****-WXYZ
+            </div>
+          </div>
+        </div>
+      </div>
 
-**Anything else**
-…
+      <div class="footer">
+        <span>© <span id="y"></span> Highlight → Ask ChatGPT Pro</span>
+        <span>
+          <a class="smallLink" href="https://github.com/YOUR_USERNAME/YOUR_REPO/issues" target="_blank" rel="noreferrer">Issues</a>
+          ·
+          <a class="smallLink" href="https://github.com/YOUR_USERNAME/YOUR_REPO" target="_blank" rel="noreferrer">Repo</a>
+        </span>
+      </div>
+    </div>
+
+    <script>
+      document.getElementById("y").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
