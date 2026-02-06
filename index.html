@@ -4,28 +4,32 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-    <title>Courier Web | Highlight Actions Professional</title>
+    <title>Courier Web — Ultimate Media Highlighter</title>
     <meta
       name="description"
-      content="Highlight text or capture images anywhere. Send to your AI tools instantly. No copy-paste friction."
+      content="Highlight text or capture images anywhere. Send to AI instantly — no copy-paste friction."
     />
 
     <style>
       :root{
         --bg:#070715;
-        --card:#0c0c22cc;
         --text:#f5f7ff;
         --muted:#b8bce6;
-        --line:#1c1c3f;
+
+        --line: rgba(255,255,255,.10);
+        --line2: rgba(255,255,255,.08);
 
         --pink:#ff4fd8;
         --cyan:#37f3ff;
         --purple:#8a5cff;
-        --green:#37ff9a;
 
         --shadow: 0 18px 60px rgba(0,0,0,.45);
         --radius: 18px;
+
+        --card: rgba(12,12,34,.65);
+        --card2: rgba(255,255,255,.04);
       }
+
       *{box-sizing:border-box}
       html,body{height:100%}
       body{
@@ -33,17 +37,30 @@
         font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
         color:var(--text);
         background:
-          radial-gradient(1200px 700px at 10% 15%, rgba(255,79,216,.25), transparent 60%),
-          radial-gradient(900px 600px at 90% 20%, rgba(55,243,255,.18), transparent 55%),
-          radial-gradient(900px 600px at 50% 85%, rgba(138,92,255,.20), transparent 60%),
-          linear-gradient(180deg, #050510, #070715 35%, #050510);
+          radial-gradient(1200px 700px at 12% 14%, rgba(255,79,216,.18), transparent 62%),
+          radial-gradient(1000px 700px at 88% 18%, rgba(55,243,255,.14), transparent 60%),
+          radial-gradient(900px 700px at 50% 92%, rgba(138,92,255,.14), transparent 62%),
+          linear-gradient(180deg, #050510, #070715 40%, #050510);
+        background-attachment: fixed;
         min-height:100vh;
       }
+
+      /* subtle noise overlay to avoid "banding" */
+      body::before{
+        content:"";
+        position:fixed;
+        inset:0;
+        pointer-events:none;
+        opacity:.06;
+        background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+        mix-blend-mode: overlay;
+      }
+
       a{color:inherit}
       .wrap{
-        max-width: 1040px;
+        max-width: 1120px;
         margin: 0 auto;
-        padding: 22px 18px 44px;
+        padding: 18px 18px 60px;
       }
 
       /* topbar */
@@ -52,19 +69,20 @@
         align-items:center;
         justify-content:space-between;
         gap:14px;
-        padding: 8px 0 18px;
+        padding: 10px 0 18px;
       }
       .brand{
         display:flex;
         align-items:center;
-        gap:10px;
+        gap:12px;
         font-weight:900;
         letter-spacing:.2px;
+        text-decoration:none;
       }
       .brand .name{
         display:flex;
         flex-direction:column;
-        line-height:1.1;
+        line-height:1.08;
       }
       .brand .name strong{font-size:14px}
       .brand .name span{
@@ -74,20 +92,15 @@
         letter-spacing:.2px;
       }
 
-      .logo {
-        width: 36px;
-        height: 36px;
+      .logo{
+        width:40px;
+        height:40px;
         border-radius: 14px;
         object-fit: contain;
-        box-shadow: 0 10px 30px rgba(138, 92, 255, 0.35);
-        background: rgba(255, 255, 255, 0.04);
-        padding: 4px;
-      }
-      .logo:hover {
-        box-shadow:
-          0 0 20px rgba(255, 79, 216, 0.55),
-          0 0 40px rgba(55, 243, 255, 0.35);
-        transition: box-shadow 0.25s ease;
+        background: rgba(255,255,255,.05);
+        padding: 6px;
+        border: 1px solid rgba(255,255,255,.10);
+        box-shadow: 0 10px 34px rgba(138, 92, 255, 0.22);
       }
 
       .nav{
@@ -129,27 +142,28 @@
         content:"";
         position:absolute;
         inset:-2px;
-        background: linear-gradient(120deg, rgba(55,243,255,.18), rgba(255,79,216,.18), rgba(138,92,255,.18));
+        background: linear-gradient(120deg, rgba(55,243,255,.16), rgba(255,79,216,.16), rgba(138,92,255,.16));
         filter: blur(18px);
-        opacity:.45;
+        opacity:.38;
         pointer-events:none;
       }
       .heroInner{
         position:relative;
-        padding: 26px 22px;
+        padding: 28px 22px;
         display:grid;
         grid-template-columns: 1.15fr .85fr;
-        gap: 16px;
+        gap: 18px;
       }
-      @media (max-width:900px){
+      @media (max-width:960px){
         .heroInner{grid-template-columns:1fr}
         .nav{justify-content:flex-start}
       }
+
       h1{
         margin: 0 0 10px;
-        font-size: 36px;
-        line-height: 1.10;
-        letter-spacing: -.35px;
+        font-size: 40px;
+        line-height: 1.08;
+        letter-spacing: -.45px;
       }
       .grad{
         background: linear-gradient(90deg, var(--cyan), #c6f8ff, var(--pink));
@@ -160,43 +174,52 @@
       .sub{
         margin: 0 0 16px;
         color: var(--muted);
-        line-height: 1.5;
+        line-height: 1.55;
+        font-size: 14px;
       }
+
       .ctaRow{
         display:flex;
         flex-wrap:wrap;
         gap:10px;
-        margin-top: 10px;
+        margin-top: 12px;
+        align-items:center;
       }
       .btn{
         display:inline-flex;
         align-items:center;
         justify-content:center;
         gap:10px;
-        padding: 11px 14px;
+        padding: 12px 14px;
         border-radius: 14px;
         border: 1px solid rgba(255,255,255,.12);
         text-decoration:none;
         font-weight:900;
         box-shadow: 0 16px 50px rgba(0,0,0,.35);
         transform: translateY(0);
-        transition: transform .14s ease, filter .14s ease, box-shadow .14s ease;
+        transition: transform .14s ease, filter .14s ease, box-shadow .14s ease, border-color .14s ease;
       }
       .btn:hover{
         transform: translateY(-1px);
         filter: brightness(1.05) saturate(1.05);
         box-shadow: 0 22px 70px rgba(0,0,0,.45);
+        border-color: rgba(255,255,255,.18);
       }
       .btnPrimary{
         background: linear-gradient(135deg, #595CFF, #C6F8FF);
         color: #08101a;
-        border-color: rgba(255,255,255,.0);
+        border-color: transparent;
       }
-      .btnSecondary{
+      .btnGhost{
         background: rgba(255,255,255,.05);
         color: var(--text);
       }
-      .tagRow{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px}
+      .btnPro{
+        background: linear-gradient(135deg, rgba(255,79,216,.18), rgba(55,243,255,.14));
+        color: var(--text);
+      }
+
+      .tagRow{display:flex; flex-wrap:wrap; gap:8px; margin-top:12px}
       .tag{
         font-size:12px;
         color: var(--muted);
@@ -217,10 +240,10 @@
 
       /* right hero card */
       .card{
-        padding: 14px 14px 12px;
+        padding: 16px 16px 14px;
         border-radius: 16px;
         border: 1px solid rgba(255,255,255,.10);
-        background: rgba(12,12,34,.65);
+        background: var(--card);
         position:relative;
         overflow:hidden;
       }
@@ -228,8 +251,9 @@
         content:"";
         position:absolute;
         inset:-40% -40%;
-        background: radial-gradient(circle at 30% 30%, rgba(55,243,255,.12), transparent 55%),
-                    radial-gradient(circle at 70% 40%, rgba(255,79,216,.10), transparent 55%);
+        background:
+          radial-gradient(circle at 30% 30%, rgba(55,243,255,.10), transparent 55%),
+          radial-gradient(circle at 70% 40%, rgba(255,79,216,.08), transparent 55%);
         transform: rotate(12deg);
         pointer-events:none;
       }
@@ -242,7 +266,7 @@
       .card p{
         margin:0;
         color: var(--muted);
-        line-height: 1.4;
+        line-height: 1.45;
         font-size: 13px;
       }
       .codeRow code{
@@ -254,45 +278,96 @@
         color: var(--text);
         font-size: 12px;
         margin-right: 6px;
-      }
-
-      /* feature grid */
-      .grid{
-        display:grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 12px;
-        padding: 16px;
-        border-top: 1px solid rgba(255,255,255,.08);
-        background: rgba(0,0,0,.12);
-      }
-      @media (max-width:900px){
-        .grid{grid-template-columns:1fr}
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       }
 
       /* sections */
       .section{
-        margin-top: 14px;
-        display:grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 12px;
-      }
-      @media (max-width:900px){
-        .section{grid-template-columns:1fr}
-      }
-      .panel{
-        border-radius: var(--radius);
+        margin-top: 18px;
         border: 1px solid rgba(255,255,255,.10);
-        background: rgba(255,255,255,.04);
+        border-radius: var(--radius);
+        background: rgba(255,255,255,.03);
         box-shadow: var(--shadow);
-        padding: 16px;
+        overflow:hidden;
       }
-      .panel h2{
-        margin:0 0 10px;
+      .sectionHead{
+        padding: 14px 16px;
+        border-bottom: 1px solid rgba(255,255,255,.08);
+        display:flex;
+        justify-content:space-between;
+        align-items:flex-end;
+        gap:10px;
+        flex-wrap:wrap;
+      }
+      .sectionHead h2{
+        margin:0;
         font-size: 15px;
         letter-spacing:.2px;
       }
+      .sectionHead p{
+        margin:0;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.4;
+      }
+
+      .grid3{
+        display:grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        padding: 16px;
+        background: rgba(0,0,0,.10);
+      }
+      @media (max-width:960px){
+        .grid3{grid-template-columns:1fr}
+      }
+      .feature{
+        border: 1px solid rgba(255,255,255,.10);
+        border-radius: 16px;
+        background: rgba(12,12,34,.55);
+        padding: 14px;
+      }
+      .feature .icon{
+        width:34px;height:34px;border-radius:12px;
+        display:flex;align-items:center;justify-content:center;
+        border: 1px solid rgba(255,255,255,.10);
+        background: rgba(255,255,255,.04);
+        margin-bottom:10px;
+      }
+      .feature h3{
+        margin:0 0 6px;
+        font-size: 14px;
+        letter-spacing:.2px;
+      }
+      .feature p{
+        margin:0;
+        color: var(--muted);
+        line-height: 1.45;
+        font-size: 13px;
+      }
+
+      .twoCol{
+        display:grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        padding: 16px;
+        background: rgba(0,0,0,.10);
+      }
+      @media (max-width:960px){ .twoCol{grid-template-columns:1fr} }
+
+      .panel{
+        border-radius: 16px;
+        border: 1px solid rgba(255,255,255,.10);
+        background: rgba(255,255,255,.04);
+        padding: 16px;
+      }
+      .panel h3{
+        margin:0 0 8px;
+        font-size: 14px;
+        letter-spacing:.2px;
+      }
       .bullets{
-        margin: 0;
+        margin:0;
         padding-left: 18px;
         color: var(--muted);
         line-height: 1.55;
@@ -312,23 +387,29 @@
       }
       .smallLink{color:var(--muted); text-decoration:none}
       .smallLink:hover{color:var(--text)}
+
+      /* nicer anchor scrolling for sections */
+      html{scroll-behavior:smooth}
+      :target{scroll-margin-top: 88px}
     </style>
   </head>
 
   <body>
     <div class="wrap">
       <div class="topbar">
-        <div class="brand">
-          <img src="./logo.png" alt="Courier Web logo" class="logo"/>
+        <a class="brand" href="./index.html">
+          <img src="./logo.png" alt="Courier Web logo" class="logo" onerror="this.style.display='none'"/>
           <div class="name">
             <strong>Courier Web</strong>
             <span>Ultimate Media Highlighter</span>
           </div>
-        </div>
+        </a>
 
         <div class="nav">
           <a class="pill" href="#features">Features</a>
-          <a class="pill" href="./privacy.html"><strong>Privacy</strong></a>
+          <a class="pill" href="#how">How it works</a>
+          <a class="pill" href="#pro">Pro</a>
+          <a class="pill" href="./privacy.html">Privacy</a>
           <a class="pill" href="./support.html">Support</a>
         </div>
       </div>
@@ -338,31 +419,37 @@
           <div>
             <h1>
               Highlight text or capture images —
-              <span class="grad">send to AI in one click.</span>
+              <span class="grad">send to AI instantly.</span>
             </h1>
             <p class="sub">
-              Courier Web is a productivity extension for fast research, learning, and analysis.
-              Send <strong>highlights</strong>, <strong>images</strong>, or a <strong>screen region</strong> to your AI tools instantly —
-              without breaking flow.
+              Courier Web turns highlights, screenshots, and images into ready-to-use prompts in seconds.
+              No copy-paste friction. No workflow break.
             </p>
 
             <div class="ctaRow">
               <!-- replace with your real links -->
-              <a class="btn btnPrimary" href="#" target="_blank" rel="noreferrer">Install Extension</a>
-              <a class="btn btnSecondary" href="#" target="_blank" rel="noreferrer">Unlock Pro</a>
-              <a class="btn btnSecondary" href="./support.html">Support</a>
+              <a class="btn btnPrimary" href="CHROME_WEB_STORE_URL_HERE" target="_blank" rel="noreferrer">
+                Install Extension
+              </a>
+              <a class="btn btnPro" href="GUMROAD_URL_HERE" target="_blank" rel="noreferrer">
+                Get Pro (one-time)
+              </a>
+              <a class="btn btnGhost" href="#features">
+                See features
+              </a>
             </div>
 
             <div class="tagRow" aria-label="keywords">
               <span class="tag">highlights → prompt</span>
               <span class="tag">image analysis</span>
               <span class="tag">region capture</span>
-              <span class="tag">templates & favorites</span>
-              <span class="tag">no ads · no trackers</span>
+              <span class="tag">templates</span>
+              <span class="tag">privacy-first</span>
             </div>
 
             <p class="sub" style="margin-top:12px">
-              Shortcut: <span class="kbd">Ctrl/Cmd</span> + <span class="kbd">Shift</span> + <span class="kbd">Y</span> (configurable)
+              Shortcut: <span class="kbd">Ctrl/Cmd</span> + <span class="kbd">Shift</span> + <span class="kbd">Y</span>
+              <span style="opacity:.65">· configurable in Options</span>
             </p>
           </div>
 
@@ -377,9 +464,9 @@
 
               <div style="height:12px"></div>
 
-              <h3>Pro unlock includes</h3>
+              <h3>Built for speed</h3>
               <p>
-                Custom templates · Favorites · Bigger history · Advanced quick actions · Visual themes
+                Keep your flow: select → action → your AI opens with everything ready.
               </p>
 
               <div style="height:12px"></div>
@@ -402,50 +489,155 @@
             </div>
           </div>
         </div>
+      </div>
 
-        <div class="grid" id="features">
-          <div class="card">
-            <h3>Text highlights → instant prompts</h3>
-            <p>One click to open your AI tool with text prefilled.</p>
+      <!-- FEATURES -->
+      <div class="section" id="features">
+        <div class="sectionHead">
+          <div>
+            <h2>Features</h2>
+            <p>Everything you need to move faster with text + images.</p>
           </div>
-          <div class="card">
-            <h3>Analyze images & charts</h3>
-            <p>Right-click images to send visuals for explanation and insights.</p>
+        </div>
+
+        <div class="grid3">
+          <div class="feature">
+            <div class="icon">🔹</div>
+            <h3>Highlight → Ask</h3>
+            <p>Select text anywhere, then right-click, use a button, or hit a shortcut to send it instantly.</p>
           </div>
-          <div class="card">
-            <h3>Capture a screen region</h3>
-            <p>Select any area, copy it automatically, and paste to analyze.</p>
+
+          <div class="feature">
+            <div class="icon">🖼️</div>
+            <h3>Analyze Images</h3>
+            <p>Right-click charts, diagrams, or screenshots and send the image for quick explanation.</p>
+          </div>
+
+          <div class="feature">
+            <div class="icon">✂️</div>
+            <h3>Capture Screen Region</h3>
+            <p>Select any area of your screen, auto-copy the capture, then paste into your AI tool.</p>
+          </div>
+
+          <div class="feature">
+            <div class="icon">🧠</div>
+            <h3>Smart Prompts</h3>
+            <p>Summarize, rewrite, explain, and convert — ready from the menu.</p>
+          </div>
+
+          <div class="feature">
+            <div class="icon">⭐</div>
+            <h3>Custom Templates</h3>
+            <p>Save reusable prompts with variables like <code>{{text}}</code> and <code>{{url}}</code>.</p>
+          </div>
+
+          <div class="feature">
+            <div class="icon">🎛️</div>
+            <h3>Quick Actions UI</h3>
+            <p>Fast pop-up buttons and polished menus designed for speed and clarity.</p>
           </div>
         </div>
       </div>
 
-      <div class="section">
-        <div class="panel">
-          <h2>Privacy-first</h2>
-          <ul class="bullets">
-            <li>No ads, no trackers, no analytics.</li>
-            <li>Templates and history are stored locally in your browser.</li>
-            <li>Content is sent only when you trigger an action.</li>
-          </ul>
+      <!-- HOW IT WORKS -->
+      <div class="section" id="how">
+        <div class="sectionHead">
+          <div>
+            <h2>How it works</h2>
+            <p>Three steps. No friction.</p>
+          </div>
         </div>
 
-        <div class="panel">
-          <h2>Notices</h2>
-          <ul class="bullets">
-            <li>Requires an AI tool account (e.g., ChatGPT) to generate responses.</li>
-            <li>Not affiliated with or endorsed by OpenAI or Google.</li>
-            <li>Some menus refresh when reopened (Chrome behavior).</li>
-          </ul>
+        <div class="twoCol">
+          <div class="panel">
+            <h3>1) Select something</h3>
+            <ul class="bullets">
+              <li>Highlight text on any page</li>
+              <li>Right-click an image</li>
+              <li>Or capture a screen region</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h3>2) Choose an action</h3>
+            <ul class="bullets">
+              <li>Ask / Summarize / Rewrite / Explain</li>
+              <li>Analyze Image</li>
+              <li>Run a saved template</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h3>3) Your AI opens ready</h3>
+            <ul class="bullets">
+              <li>Prompt is pre-filled</li>
+              <li>Your context is included</li>
+              <li>Stay in flow — keep moving</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h3>Privacy-first</h3>
+            <ul class="bullets">
+              <li>No tracking, no ads</li>
+              <li>No background scraping</li>
+              <li>Only runs when you click</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRO -->
+      <div class="section" id="pro">
+        <div class="sectionHead">
+          <div>
+            <h2>Courier Web Pro</h2>
+            <p>Upgrade once. Keep forever.</p>
+          </div>
+        </div>
+
+        <div class="twoCol">
+          <div class="panel">
+            <h3>What Pro adds</h3>
+            <ul class="bullets">
+              <li>Custom prompt templates + favorites</li>
+              <li>More history storage (local)</li>
+              <li>Advanced quick actions</li>
+              <li>Extra UI themes / visual polish</li>
+              <li>All future Pro features</li>
+            </ul>
+          </div>
+
+          <div class="panel">
+            <h3>Get Pro</h3>
+            <p class="sub" style="margin:0 0 12px">
+              One-time purchase. No subscriptions.
+            </p>
+            <div class="ctaRow">
+              <a class="btn btnPro" href="GUMROAD_URL_HERE" target="_blank" rel="noreferrer">
+                Get Pro (one-time)
+              </a>
+              <a class="btn btnGhost" href="./support.html">
+                Need help?
+              </a>
+            </div>
+            <div class="tagRow" style="margin-top:10px">
+              <span class="tag">2 devices / license</span>
+              <span class="tag">reset every 30 days</span>
+              <span class="tag">privacy-first</span>
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="footer">
-        <div>© 2026 Courier Web</div>
+        <div>© <span id="y"></span> Courier Web</div>
         <div>
           <a class="smallLink" href="./privacy.html">Privacy</a> ·
           <a class="smallLink" href="./support.html">Support</a>
         </div>
       </div>
     </div>
+
+    <script>
+      document.getElementById("y").textContent = new Date().getFullYear();
+    </script>
   </body>
 </html>
