@@ -3,351 +3,335 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-
-    <title>Courier Web — Privacy Policy</title>
+    <title>Privacy — Courier Web</title>
     <meta
       name="description"
-      content="Privacy Policy for Courier Web (Chrome extension). Privacy-first: no tracking, no ads, no background scraping."
+      content="Courier Web privacy policy. Local-first, no ads, no trackers. We only process content when you trigger an action."
     />
 
     <style>
       :root{
-        --bg:#070715;
-        --card:#0c0c22cc;
-        --text:#f5f7ff;
-        --muted:#b8bce6;
-        --line:#1c1c3f;
+        --bg0:#05060a;
+        --bg1:#070815;
+        --panel: rgba(255,255,255,.06);
+        --panel2: rgba(255,255,255,.04);
+        --line: rgba(255,255,255,.10);
+        --line2: rgba(255,255,255,.08);
 
-        --pink:#ff4fd8;
-        --cyan:#37f3ff;
-        --purple:#8a5cff;
-        --green:#37ff9a;
+        --text:#f6f7ff;
+        --muted:rgba(246,247,255,.68);
 
-        --shadow: 0 18px 60px rgba(0,0,0,.45);
+        --accent:#7c5cff;
+        --accent2:#37f3ff;
+
+        --shadow: 0 24px 70px rgba(0,0,0,.55);
         --radius: 18px;
+        --radius2: 22px;
       }
+
       *{box-sizing:border-box}
       html,body{height:100%}
+      html{scroll-behavior:smooth}
+      :target{scroll-margin-top: 96px}
+
       body{
         margin:0;
         font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
         color:var(--text);
         background:
-          radial-gradient(1200px 700px at 10% 15%, rgba(255,79,216,.22), transparent 60%),
-          radial-gradient(900px 600px at 90% 20%, rgba(55,243,255,.16), transparent 55%),
-          radial-gradient(900px 600px at 50% 85%, rgba(138,92,255,.18), transparent 60%),
-          linear-gradient(180deg, #050510, #070715 35%, #050510);
+          radial-gradient(900px 700px at 15% 0%, rgba(124,92,255,.18), transparent 60%),
+          radial-gradient(900px 700px at 85% 10%, rgba(55,243,255,.10), transparent 55%),
+          linear-gradient(180deg, var(--bg0), var(--bg1) 45%, var(--bg0));
+        background-attachment: fixed;
         min-height:100vh;
       }
-      a{color:inherit}
-      .wrap{
-        max-width: 1040px;
-        margin: 0 auto;
-        padding: 22px 18px 44px;
+
+      body::before{
+        content:"";
+        position:fixed;
+        inset:0;
+        pointer-events:none;
+        opacity:.05;
+        background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
+        mix-blend-mode: overlay;
       }
 
-      /* topbar */
+      a{color:inherit; text-decoration:none}
+      .wrap{max-width:980px; margin:0 auto; padding: 18px 18px 70px;}
+
       .topbar{
+        position:sticky;
+        top:0;
+        z-index:50;
+        padding: 14px 0;
+        backdrop-filter: blur(10px);
+        background: linear-gradient(180deg, rgba(5,6,10,.78), rgba(5,6,10,.40));
+        border-bottom: 1px solid rgba(255,255,255,.06);
+      }
+      .topInner{
+        max-width:1120px;
+        margin:0 auto;
+        padding: 0 18px;
         display:flex;
         align-items:center;
         justify-content:space-between;
         gap:14px;
-        padding: 8px 0 18px;
       }
       .brand{
-        display:flex;
-        align-items:center;
-        gap:10px;
-        font-weight:900;
-        letter-spacing:.2px;
-        text-decoration:none;
-      }
-      .brand .name{
-        display:flex;
-        flex-direction:column;
-        line-height:1.1;
-      }
-      .brand .name strong{font-size:14px}
-      .brand .name span{
-        font-size:12px;
-        color:var(--muted);
-        font-weight:700;
+        display:flex; align-items:center; gap:12px;
+        font-weight:800;
         letter-spacing:.2px;
       }
       .logo{
-        width:36px;height:36px;border-radius:14px;object-fit:contain;
-        box-shadow:0 10px 30px rgba(138, 92, 255, 0.35);
-        background:rgba(255,255,255,.04);padding:4px;
-      }
-      .logo:hover{
-        box-shadow:
-          0 0 20px rgba(255, 79, 216, 0.55),
-          0 0 40px rgba(55, 243, 255, 0.35);
-        transition: box-shadow 0.25s ease;
-      }
-      .nav{
-        display:flex; gap:10px; flex-wrap:wrap;
-        justify-content:flex-end; align-items:center;
-      }
-      .pill{
-        display:inline-flex; align-items:center; gap:8px;
-        padding: 8px 12px;
+        width:40px;height:40px;border-radius: 14px;
+        object-fit:contain;
+        background: rgba(255,255,255,.06);
         border: 1px solid rgba(255,255,255,.10);
-        border-radius: 999px;
-        background: rgba(255,255,255,.04);
-        color: var(--muted);
-        font-size: 12px;
-        text-decoration:none;
-        white-space:nowrap;
+        padding:6px;
       }
-      .pill:hover{
-        border-color: rgba(255,255,255,.18);
-        color: var(--text);
-      }
-      .pill strong{color:var(--text)}
+      .brandText{display:flex; flex-direction:column; line-height:1.05;}
+      .brandText strong{font-size:13px}
+      .brandText span{font-size:12px; color:var(--muted); font-weight:650}
 
-      /* card container */
-      .card{
+      .nav{
+        display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+        justify-content:flex-end;
+      }
+      .nav a{
+        font-size:12px;
+        color: rgba(246,247,255,.74);
+        padding: 8px 10px;
+        border-radius: 999px;
+        border: 1px solid transparent;
+        transition: border-color .15s ease, background .15s ease, color .15s ease;
+      }
+      .nav a:hover{
+        color: var(--text);
+        border-color: rgba(255,255,255,.10);
+        background: rgba(255,255,255,.04);
+      }
+
+      .section{
+        margin-top: 18px;
         border: 1px solid rgba(255,255,255,.10);
-        border-radius: var(--radius);
-        background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-        box-shadow: var(--shadow);
-        padding: 18px 18px 16px;
-        position:relative;
+        border-radius: var(--radius2);
+        background: rgba(255,255,255,.03);
+        box-shadow: 0 20px 55px rgba(0,0,0,.35);
         overflow:hidden;
       }
-      .card::before{
-        content:"";
-        position:absolute;
-        inset:-2px;
-        background: linear-gradient(120deg, rgba(55,243,255,.14), rgba(255,79,216,.14), rgba(138,92,255,.14));
-        filter: blur(18px);
-        opacity:.35;
-        pointer-events:none;
+      .sectionHead{
+        padding: 16px 16px;
+        border-bottom: 1px solid rgba(255,255,255,.08);
+        display:flex;
+        justify-content:space-between;
+        align-items:flex-end;
+        flex-wrap:wrap;
+        gap:10px;
       }
-      .card > *{position:relative}
-
       h1{
-        margin: 6px 0 8px;
-        font-size: 26px;
-        letter-spacing: -.2px;
+        margin:0;
+        font-size: 22px;
+        letter-spacing:-.2px;
       }
       .meta{
-        color: var(--muted);
-        font-size: 12px;
-        margin-bottom: 12px;
+        margin-top:6px;
+        font-size:12px;
+        color: rgba(246,247,255,.62);
       }
+
+      .content{
+        padding: 16px;
+        background: rgba(0,0,0,.14);
+      }
+
       h2{
-        margin: 18px 0 8px;
-        font-size: 15px;
-        letter-spacing: .2px;
+        margin: 16px 0 8px;
+        font-size: 14px;
+        letter-spacing:.2px;
       }
-      h3{
-        margin: 14px 0 6px;
-        font-size: 13px;
-        letter-spacing: .2px;
-      }
-      p{
-        margin: 8px 0;
-        color: var(--muted);
-        line-height: 1.6;
-        font-size: 13px;
-      }
-      ul{
-        margin: 8px 0 8px 18px;
-        color: var(--muted);
+      p,li{
+        color: rgba(246,247,255,.74);
         line-height: 1.65;
         font-size: 13px;
       }
-      li{margin: 4px 0}
-      .rule{
-        height:1px;
-        background: rgba(255,255,255,.08);
-        margin: 14px 0;
-      }
+      ul{margin:8px 0 0; padding-left: 18px}
       .callout{
-        margin-top: 12px;
-        padding: 12px 12px;
-        border-radius: 16px;
         border: 1px solid rgba(255,255,255,.10);
-        background: rgba(12,12,34,.55);
-        color: var(--muted);
-        font-size: 13px;
-        line-height: 1.5;
+        background: rgba(255,255,255,.04);
+        border-radius: 18px;
+        padding: 14px;
+        margin-top: 12px;
+      }
+      .callout strong{font-size:13px}
+      .small{
+        font-size:12px;
+        color: rgba(246,247,255,.62);
       }
       code{
-        background: rgba(0,0,0,.22);
-        border: 1px solid rgba(255,255,255,.10);
-        padding: 2px 6px;
-        border-radius: 8px;
-        color: var(--text);
         font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
         font-size: 12px;
+        padding: 2px 6px;
+        border-radius: 10px;
+        border: 1px solid rgba(255,255,255,.10);
+        background: rgba(0,0,0,.22);
+        color: rgba(246,247,255,.86);
       }
+
       .footer{
-        margin-top: 16px;
+        margin-top: 18px;
+        color: rgba(246,247,255,.55);
+        font-size: 12px;
         display:flex;
         justify-content:space-between;
         gap:12px;
         flex-wrap:wrap;
-        color: var(--muted);
-        font-size: 12px;
-        padding-top: 6px;
+        padding: 10px 2px 0;
       }
-      .smallLink{color:var(--muted); text-decoration:none}
-      .smallLink:hover{color:var(--text)}
-
-      @media (max-width:900px){
-        .nav{justify-content:flex-start}
-      }
+      .smallLink{color: rgba(246,247,255,.62)}
+      .smallLink:hover{color: var(--text)}
     </style>
   </head>
 
   <body>
-    <div class="wrap">
-      <div class="topbar">
+    <header class="topbar">
+      <div class="topInner">
         <a class="brand" href="./index.html">
-          <img src="./logo.png" alt="Courier Web logo" class="logo"/>
-          <div class="name">
+          <img src="./logo.png" alt="Courier Web logo" class="logo" onerror="this.style.display='none'"/>
+          <div class="brandText">
             <strong>Courier Web</strong>
-            <span>Privacy Policy</span>
+            <span>Premium AI capture</span>
           </div>
         </a>
 
-        <div class="nav">
-          <a class="pill" href="./index.html">Home</a>
-          <a class="pill" href="./support.html">Support</a>
-          <a class="pill" href="#contact"><strong>Contact</strong></a>
-        </div>
+        <nav class="nav" aria-label="Primary">
+          <a href="./index.html#features">Features</a>
+          <a href="./index.html#pro">Pro</a>
+          <a href="./privacy.html">Privacy</a>
+          <a href="./support.html">Support</a>
+        </nav>
       </div>
+    </header>
 
-      <div class="card">
-        <h1>Privacy Policy — Courier Web</h1>
-        <div class="meta"><strong>Last updated:</strong> February 1, 2026</div>
-
-        <p>
-          Courier Web (“the extension”) helps you highlight text, analyze images, and capture screen regions,
-          then send that content to your AI tools when <strong>you</strong> choose to.
-          Courier Web is designed to be privacy-first: it does not track you, it does not scrape pages in the background,
-          and it only acts when you trigger it.
-        </p>
-
-        <div class="callout">
-          <strong>Simple summary:</strong> We don’t run analytics. We don’t sell data. We don’t collect browsing history.
-          Content is only sent to a third party (like <code>chatgpt.com</code>) when you trigger an action.
-        </div>
-
-        <div class="rule"></div>
-
-        <h2>What data Courier Web processes</h2>
-
-        <h3>1) Content you choose to send (user-initiated)</h3>
-        <p><strong>Examples:</strong></p>
-        <ul>
-          <li>Highlighted text you select</li>
-          <li>Images you right-click to analyze (e.g., charts, diagrams)</li>
-          <li>Captured screen regions (if you use region capture)</li>
-          <li>Optional context like page <strong>URL</strong> and <strong>title</strong> (when enabled / used in templates)</li>
-        </ul>
-        <p>
-          This content is processed only when you trigger the extension (context menu, keyboard shortcut, or buttons).
-        </p>
-
-        <div class="rule"></div>
-
-        <h3>2) Local storage (saved on your device)</h3>
-        <p><strong>Stored locally to power features like history and templates:</strong></p>
-        <ul>
-          <li>Template text you create (including variables like <code>{{text}}</code>, <code>{{url}}</code>, <code>{{title}}</code>)</li>
-          <li>Favorites / preferences</li>
-          <li>Optional local history entries (selected content + URL/title + timestamps)</li>
-          <li>UI/settings (menus, themes, shortcuts, toggles)</li>
-        </ul>
-        <p>
-          This data stays inside your browser using Chrome extension storage APIs.
-          It is <strong>not</strong> sent to the developer.
-        </p>
-
-        <div class="rule"></div>
-
-        <h3>3) Pro license verification (optional)</h3>
-        <p>
-          If you unlock Pro, you may enter a license key.
-          The key is used only to verify eligibility for Pro features.
-        </p>
-        <ul>
-          <li><strong>Sent:</strong> the license key (and minimal verification metadata)</li>
-          <li><strong>Not sent:</strong> your browsing history, highlighted text, images, or captured regions</li>
-        </ul>
-
-        <div class="rule"></div>
-
-        <h2>Where data may be sent</h2>
-        <p>Courier Web only shares data in these cases:</p>
-        <ul>
-          <li>
-            <strong>Your AI tool / website (e.g., <code>chatgpt.com</code>)</strong> — only when you trigger an action to send text/images.
-            That site’s privacy policy applies.
-          </li>
-          <li>
-            <strong>License verification service</strong> — only when you activate Pro (license key verification only).
-          </li>
-        </ul>
-
-        <div class="rule"></div>
-
-        <h2>What we do NOT collect</h2>
-        <ul>
-          <li>No ads, no trackers, no analytics SDKs</li>
-          <li>No keystroke logging</li>
-          <li>No background scraping / automated browsing</li>
-          <li>No sale of personal data</li>
-          <li>No passwords, payment info, health data, or precise location data</li>
-        </ul>
-
-        <div class="rule"></div>
-
-        <h2>Remote code & tracking</h2>
-        <ul>
-          <li>The extension does not execute remote code.</li>
-          <li>No tracking scripts, analytics tools, or advertising SDKs are used.</li>
-        </ul>
-
-        <div class="rule"></div>
-
-        <h2>Your control</h2>
-        <ul>
-          <li>All processing is initiated by you.</li>
-          <li>You can remove local data by uninstalling the extension or clearing extension storage.</li>
-        </ul>
-
-        <div class="rule"></div>
-
-        <h2>Changes to this policy</h2>
-        <p>
-          This policy may be updated if features change or requirements change. Updates will be posted on this page with a new “Last updated” date.
-        </p>
-
-        <div class="rule"></div>
-
-        <h2 id="contact">Contact</h2>
-        <p>Questions about privacy or data handling?</p>
-        <div class="callout">
-          <strong>Support Email:</strong> <a class="smallLink" href="mailto:rajual@protonmail.com">rajual@protonmail.com</a>
-        </div>
-
-        <div class="footer">
-          <div>© <span id="y"></span> Courier Web</div>
+    <main class="wrap">
+      <section class="section">
+        <div class="sectionHead">
           <div>
-            <a class="smallLink" href="./index.html">Home</a> ·
-            <a class="smallLink" href="./support.html">Support</a>
+            <h1>Privacy Policy</h1>
+            <div class="meta">Last updated: <span id="d"></span></div>
           </div>
         </div>
-      </div>
-    </div>
+
+        <div class="content">
+          <div class="callout">
+            <strong>Plain English:</strong>
+            <p style="margin:8px 0 0">
+              Courier Web does not sell your data, does not run ads, and does not track your browsing.
+              The extension only processes content when <em>you</em> trigger an action (highlight, right-click, or capture).
+            </p>
+          </div>
+
+          <h2>What the extension does</h2>
+          <p>
+            Courier Web helps you capture context (selected text, image, or a screen region) and open your AI tool with a prepared prompt.
+            It is designed to be “on-demand” — it runs when you click, not in the background.
+          </p>
+
+          <h2>What data we collect</h2>
+          <p><strong>We do not collect personal information by default.</strong></p>
+          <ul>
+            <li><strong>No analytics</strong> and <strong>no trackers</strong>.</li>
+            <li><strong>No background browsing collection</strong>.</li>
+            <li><strong>No sale of data</strong>.</li>
+          </ul>
+
+          <h2>What data is stored on your device</h2>
+          <p>
+            To make the extension work, Courier Web may store some information locally in your browser storage:
+          </p>
+          <ul>
+            <li><strong>Settings</strong> (shortcuts, UI preferences, enabled tools).</li>
+            <li><strong>Templates</strong> and <strong>favorites</strong> (Pro feature), saved locally.</li>
+            <li><strong>Optional local history</strong> of your own prompts/captures (if your build includes history).</li>
+          </ul>
+          <p class="small">
+            This local data stays on your device unless you choose to export/share it, or unless your browser syncs extension data via your own browser account.
+          </p>
+
+          <h2>When data leaves your device</h2>
+          <p>
+            Courier Web sends data off your device only in these cases:
+          </p>
+          <ul>
+            <li>
+              <strong>Opening your AI tool:</strong> When you trigger an action, we may include the captured content in the URL or prompt you paste into the AI tool.
+              What happens next depends on the AI provider you use.
+            </li>
+            <li>
+              <strong>Pro license verification (if you activate Pro):</strong> If you enter a license key, the extension may send your key to a verification endpoint
+              to confirm validity and device activation.
+            </li>
+          </ul>
+
+          <div class="callout">
+            <strong>Pro verification details</strong>
+            <p style="margin:8px 0 0">
+              If Pro is enabled, we may transmit: <code>license_key</code>, a timestamp, and a minimal device identifier used for activation limits.
+              We do <strong>not</strong> ask for your browsing history, passwords, or payment details inside the extension.
+            </p>
+          </div>
+
+          <h2>Permissions</h2>
+          <p>
+            Courier Web requests minimal permissions to provide its features:
+          </p>
+          <ul>
+            <li><strong>Context menu / scripting / active tab</strong> — to run when you click and capture the selection or image.</li>
+            <li><strong>Storage</strong> — to save your settings and (optionally) your local templates/history.</li>
+          </ul>
+          <p class="small">
+            We do not use permissions to track you. The extension is designed for on-demand use.
+          </p>
+
+          <h2>Third-party services</h2>
+          <p>
+            Courier Web may link to third-party services (for example: Chrome Web Store, Gumroad, or your chosen AI tool).
+            Their privacy practices are governed by their own policies.
+          </p>
+
+          <h2>Data deletion</h2>
+          <p>
+            You can remove local data at any time by uninstalling the extension, or by clearing the extension’s storage in your browser.
+            If your build includes a “Reset / Clear data” option, you can use that as well.
+          </p>
+
+          <h2>Contact</h2>
+          <p>
+            For privacy questions, contact: <span class="small">(add your support email here)</span>
+          </p>
+
+          <p class="small">
+            This policy may change as features evolve. The “Last updated” date will reflect any updates.
+          </p>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <div>© <span id="y"></span> Courier Web</div>
+        <div>
+          <a class="smallLink" href="./index.html">Home</a> ·
+          <a class="smallLink" href="./support.html">Support</a>
+        </div>
+      </footer>
+    </main>
 
     <script>
       document.getElementById("y").textContent = new Date().getFullYear();
+      // keep it simple + reviewer-friendly
+      document.getElementById("d").textContent = new Date().toLocaleDateString(undefined, {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
     </script>
   </body>
 </html>
