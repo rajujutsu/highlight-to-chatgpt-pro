@@ -3,311 +3,282 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-
-    <title>Courier Web — Support</title>
+    <title>Support — Courier Web</title>
     <meta
       name="description"
-      content="Support for Courier Web: license key recovery, device resets, and troubleshooting for highlights, image analysis, and region capture."
+      content="Courier Web support: setup, shortcuts, Pro licensing, troubleshooting, and contact."
     />
 
     <style>
       :root{
-        --bg:#070715;
-        --card:#0c0c22cc;
-        --text:#f5f7ff;
-        --muted:#b8bce6;
-        --line:#1c1c3f;
+        --bg0:#05060a;
+        --bg1:#070815;
+        --panel: rgba(255,255,255,.06);
+        --panel2: rgba(255,255,255,.04);
+        --line: rgba(255,255,255,.10);
+        --line2: rgba(255,255,255,.08);
 
-        --pink:#ff4fd8;
-        --cyan:#37f3ff;
-        --purple:#8a5cff;
-        --green:#37ff9a;
+        --text:#f6f7ff;
+        --muted:rgba(246,247,255,.68);
 
-        --shadow: 0 18px 60px rgba(0,0,0,.45);
+        --accent:#7c5cff;
+        --accent2:#37f3ff;
+
+        --shadow: 0 24px 70px rgba(0,0,0,.55);
         --radius: 18px;
+        --radius2: 22px;
       }
+
       *{box-sizing:border-box}
       html,body{height:100%}
+      html{scroll-behavior:smooth}
+      :target{scroll-margin-top: 96px}
+
       body{
         margin:0;
         font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
         color:var(--text);
         background:
-          radial-gradient(1200px 700px at 10% 15%, rgba(255,79,216,.25), transparent 60%),
-          radial-gradient(900px 600px at 90% 20%, rgba(55,243,255,.18), transparent 55%),
-          radial-gradient(900px 600px at 50% 85%, rgba(138,92,255,.20), transparent 60%),
-          linear-gradient(180deg, #050510, #070715 35%, #050510);
+          radial-gradient(900px 700px at 15% 0%, rgba(124,92,255,.18), transparent 60%),
+          radial-gradient(900px 700px at 85% 10%, rgba(55,243,255,.10), transparent 55%),
+          linear-gradient(180deg, var(--bg0), var(--bg1) 45%, var(--bg0));
+        background-attachment: fixed;
         min-height:100vh;
       }
-      a{color:inherit}
-      .wrap{
-        max-width: 1040px;
-        margin: 0 auto;
-        padding: 22px 18px 44px;
+
+      body::before{
+        content:"";
+        position:fixed;
+        inset:0;
+        pointer-events:none;
+        opacity:.05;
+        background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
+        mix-blend-mode: overlay;
       }
 
-      /* topbar */
+      a{color:inherit; text-decoration:none}
+      .wrap{max-width:980px; margin:0 auto; padding: 18px 18px 70px;}
+
       .topbar{
+        position:sticky;
+        top:0;
+        z-index:50;
+        padding: 14px 0;
+        backdrop-filter: blur(10px);
+        background: linear-gradient(180deg, rgba(5,6,10,.78), rgba(5,6,10,.40));
+        border-bottom: 1px solid rgba(255,255,255,.06);
+      }
+      .topInner{
+        max-width:1120px;
+        margin:0 auto;
+        padding: 0 18px;
         display:flex;
         align-items:center;
         justify-content:space-between;
         gap:14px;
-        padding: 8px 0 18px;
       }
       .brand{
-        display:flex;
-        align-items:center;
-        gap:10px;
-        font-weight:900;
-        letter-spacing:.2px;
-        text-decoration:none;
-      }
-      .brand .name{
-        display:flex;
-        flex-direction:column;
-        line-height:1.1;
-      }
-      .brand .name strong{font-size:14px}
-      .brand .name span{
-        font-size:12px;
-        color:var(--muted);
-        font-weight:700;
+        display:flex; align-items:center; gap:12px;
+        font-weight:800;
         letter-spacing:.2px;
       }
-
-      .logo {
-        width: 36px;
-        height: 36px;
-        border-radius: 14px;
-        object-fit: contain;
-        box-shadow: 0 10px 30px rgba(138, 92, 255, 0.35);
-        background: rgba(255, 255, 255, 0.04);
-        padding: 4px;
+      .logo{
+        width:40px;height:40px;border-radius: 14px;
+        object-fit:contain;
+        background: rgba(255,255,255,.06);
+        border: 1px solid rgba(255,255,255,.10);
+        padding:6px;
       }
-      .logo:hover {
-        box-shadow:
-          0 0 20px rgba(255, 79, 216, 0.55),
-          0 0 40px rgba(55, 243, 255, 0.35);
-        transition: box-shadow 0.25s ease;
-      }
+      .brandText{display:flex; flex-direction:column; line-height:1.05;}
+      .brandText strong{font-size:13px}
+      .brandText span{font-size:12px; color:var(--muted); font-weight:650}
 
       .nav{
-        display:flex;
-        gap:10px;
-        flex-wrap:wrap;
+        display:flex; align-items:center; gap:10px; flex-wrap:wrap;
         justify-content:flex-end;
-        align-items:center;
       }
-      .pill{
-        display:inline-flex;
-        align-items:center;
-        gap:8px;
-        padding: 8px 12px;
-        border: 1px solid rgba(255,255,255,.10);
+      .nav a{
+        font-size:12px;
+        color: rgba(246,247,255,.74);
+        padding: 8px 10px;
         border-radius: 999px;
-        background: rgba(255,255,255,.04);
-        color: var(--muted);
-        font-size: 12px;
-        text-decoration:none;
-        white-space:nowrap;
+        border: 1px solid transparent;
+        transition: border-color .15s ease, background .15s ease, color .15s ease;
       }
-      .pill:hover{
-        border-color: rgba(255,255,255,.18);
+      .nav a:hover{
         color: var(--text);
+        border-color: rgba(255,255,255,.10);
+        background: rgba(255,255,255,.04);
       }
-      .pill strong{color:var(--text)}
 
-      /* hero */
-      .hero{
+      .section{
+        margin-top: 18px;
         border: 1px solid rgba(255,255,255,.10);
-        border-radius: var(--radius);
-        background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-        box-shadow: var(--shadow);
+        border-radius: var(--radius2);
+        background: rgba(255,255,255,.03);
+        box-shadow: 0 20px 55px rgba(0,0,0,.35);
         overflow:hidden;
-        position:relative;
       }
-      .hero::before{
-        content:"";
-        position:absolute;
-        inset:-2px;
-        background: linear-gradient(120deg, rgba(55,243,255,.18), rgba(255,79,216,.18), rgba(138,92,255,.18));
-        filter: blur(18px);
-        opacity:.45;
-        pointer-events:none;
-      }
-      .heroInner{
-        position:relative;
-        padding: 26px 22px;
-        display:grid;
-        grid-template-columns: 1.15fr .85fr;
-        gap: 16px;
-      }
-      @media (max-width:900px){
-        .heroInner{grid-template-columns:1fr}
-        .nav{justify-content:flex-start}
+      .sectionHead{
+        padding: 16px 16px;
+        border-bottom: 1px solid rgba(255,255,255,.08);
+        display:flex;
+        justify-content:space-between;
+        align-items:flex-end;
+        flex-wrap:wrap;
+        gap:10px;
       }
 
       h1{
-        margin: 0 0 8px;
-        font-size: 34px;
-        line-height: 1.10;
-        letter-spacing: -.35px;
+        margin:0;
+        font-size: 22px;
+        letter-spacing:-.2px;
       }
-      .sub{
-        margin: 0 0 16px;
-        color: var(--muted);
-        line-height: 1.5;
+      .meta{
+        margin-top:6px;
+        font-size:12px;
+        color: rgba(246,247,255,.62);
       }
 
-      .ctaRow{
-        display:flex;
-        flex-wrap:wrap;
+      .content{
+        padding: 16px;
+        background: rgba(0,0,0,.14);
+      }
+
+      .kicker{
+        display:inline-flex;
+        align-items:center;
         gap:10px;
+        padding: 8px 12px;
+        border-radius: 999px;
+        border: 1px solid rgba(255,255,255,.10);
+        background: rgba(255,255,255,.03);
+        color: rgba(246,247,255,.76);
+        font-size: 12px;
+        font-weight:750;
+      }
+      .dot{
+        width:8px;height:8px;border-radius:999px;
+        background: linear-gradient(135deg, var(--accent2), var(--accent));
+        box-shadow: 0 0 0 3px rgba(124,92,255,.16);
+      }
+
+      .grid2{
+        margin-top: 12px;
+        display:grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      @media (max-width:960px){ .grid2{grid-template-columns:1fr} }
+
+      .panel{
+        border: 1px solid rgba(255,255,255,.10);
+        background: rgba(255,255,255,.04);
+        border-radius: 18px;
+        padding: 16px;
+      }
+      .panel h2{
+        margin:0 0 8px;
+        font-size:14px;
+        letter-spacing:.2px;
+      }
+      p,li{
+        color: rgba(246,247,255,.74);
+        line-height: 1.65;
+        font-size: 13px;
+      }
+      ul{margin:8px 0 0; padding-left: 18px}
+
+      code{
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        font-size: 12px;
+        padding: 2px 6px;
+        border-radius: 10px;
+        border: 1px solid rgba(255,255,255,.10);
+        background: rgba(0,0,0,.22);
+        color: rgba(246,247,255,.86);
+      }
+
+      .btnRow{
         margin-top: 10px;
+        display:flex;
+        gap:10px;
+        flex-wrap:wrap;
       }
       .btn{
         display:inline-flex;
         align-items:center;
         justify-content:center;
         gap:10px;
-        padding: 11px 14px;
-        border-radius: 14px;
+        padding: 10px 12px;
+        border-radius: 12px;
         border: 1px solid rgba(255,255,255,.12);
-        text-decoration:none;
-        font-weight:900;
-        box-shadow: 0 16px 50px rgba(0,0,0,.35);
-        transform: translateY(0);
-        transition: transform .14s ease, filter .14s ease, box-shadow .14s ease;
-      }
-      .btn:hover{
-        transform: translateY(-1px);
-        filter: brightness(1.05) saturate(1.05);
-        box-shadow: 0 22px 70px rgba(0,0,0,.45);
-      }
-      .btnPrimary{
-        background: linear-gradient(135deg, #595CFF, #C6F8FF);
-        color: #08101a;
-        border-color: rgba(255,255,255,.0);
-      }
-      .btnSecondary{
-        background: rgba(255,255,255,.05);
-        color: var(--text);
-      }
-
-      .tagRow{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px}
-      .tag{
+        font-weight:800;
         font-size:12px;
-        color: var(--muted);
-        border: 1px solid rgba(255,255,255,.10);
-        background: rgba(0,0,0,.14);
-        padding: 6px 10px;
-        border-radius: 999px;
+        transition: transform .12s ease, filter .12s ease, background .12s ease, border-color .12s ease;
+        box-shadow: 0 16px 40px rgba(0,0,0,.35);
+      }
+      .btn:hover{transform: translateY(-1px); filter: brightness(1.05)}
+      .btnPrimary{
+        border-color: transparent;
+        color:#0a0b14;
+        background: linear-gradient(135deg, rgba(55,243,255,1), rgba(124,92,255,1));
+      }
+      .btnGhost{
+        background: rgba(255,255,255,.04);
+        color: rgba(246,247,255,.86);
       }
 
-      /* cards */
-      .card{
-        padding: 14px 14px 12px;
-        border-radius: 16px;
-        border: 1px solid rgba(255,255,255,.10);
-        background: rgba(12,12,34,.65);
-        position:relative;
-        overflow:hidden;
-      }
-      .card::after{
-        content:"";
-        position:absolute;
-        inset:-40% -40%;
-        background:
-          radial-gradient(circle at 30% 30%, rgba(55,243,255,.10), transparent 55%),
-          radial-gradient(circle at 70% 40%, rgba(255,79,216,.08), transparent 55%);
-        transform: rotate(12deg);
-        pointer-events:none;
-      }
-      .card > *{position:relative}
-      .card h3{
-        margin:0 0 6px;
-        font-size: 14px;
-        letter-spacing:.2px;
-      }
-      .card p{
-        margin:0;
-        color: var(--muted);
-        line-height: 1.4;
-        font-size: 13px;
-      }
-      .hr{height:1px;background:rgba(255,255,255,.08);margin:14px 0}
-
-      /* grid strip */
-      .grid{
-        display:grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 12px;
-        padding: 16px;
-        border-top: 1px solid rgba(255,255,255,.08);
-        background: rgba(0,0,0,.12);
-      }
-      @media (max-width:900px){
-        .grid{grid-template-columns:1fr}
-      }
-
-      /* sections */
-      .section{
-        margin-top: 14px;
-        display:grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 12px;
-      }
-      @media (max-width:900px){
-        .section{grid-template-columns:1fr}
-      }
-      .panel{
-        border-radius: var(--radius);
+      details{
         border: 1px solid rgba(255,255,255,.10);
         background: rgba(255,255,255,.04);
-        box-shadow: var(--shadow);
-        padding: 16px;
+        border-radius: 18px;
+        padding: 12px 14px;
+        margin-top: 10px;
       }
-      .panel h2{
-        margin:0 0 10px;
-        font-size: 15px;
-        letter-spacing:.2px;
-      }
-      .bullets{
-        margin: 0;
-        padding-left: 18px;
-        color: var(--muted);
-        line-height: 1.55;
-        font-size: 13px;
-      }
-
-      /* misc */
-      code, .mono{
-        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      }
-      .note{
-        padding:10px 12px;
-        border-radius:14px;
-        border:1px solid rgba(255,255,255,.10);
-        background:rgba(0,0,0,.18);
-        color:var(--muted);
+      details summary{
+        cursor:pointer;
+        list-style:none;
+        font-weight:850;
         font-size:13px;
-        line-height:1.45
+        color: rgba(246,247,255,.86);
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:12px;
       }
-      .note strong{color:var(--text)}
-      .kbd{
-        display:inline-block;
-        padding: 2px 6px;
-        border-radius: 8px;
-        border: 1px solid rgba(255,255,255,.12);
-        background: rgba(0,0,0,.2);
-        font-size: 12px;
-        color: var(--text);
+      details summary::-webkit-details-marker{display:none}
+      details p{
+        margin: 10px 0 0;
+        color: rgba(246,247,255,.70);
+        font-size:13px;
+        line-height:1.55;
+      }
+      .chev{
+        width:10px;height:10px;
+        border-right:2px solid rgba(246,247,255,.65);
+        border-bottom:2px solid rgba(246,247,255,.65);
+        transform: rotate(45deg);
+        transition: transform .15s ease;
+        flex: 0 0 auto;
+        opacity:.8;
+      }
+      details[open] .chev{transform: rotate(225deg)}
+
+      .note{
+        margin-top: 10px;
+        border: 1px solid rgba(255,255,255,.10);
+        background: rgba(0,0,0,.18);
+        border-radius: 18px;
+        padding: 14px;
+        color: rgba(246,247,255,.70);
+        font-size: 13px;
+        line-height: 1.55;
       }
 
-      /* footer */
       .footer{
         margin-top: 18px;
-        color: var(--muted);
+        color: rgba(246,247,255,.55);
         font-size: 12px;
         display:flex;
         justify-content:space-between;
@@ -315,210 +286,198 @@
         flex-wrap:wrap;
         padding: 10px 2px 0;
       }
-      .smallLink{color:var(--muted); text-decoration:none}
-      .smallLink:hover{color:var(--text)}
-      .supportEmail{
-        color: var(--muted);
-        font-size: 12px;
-        font-weight: 700;
-        letter-spacing: .2px;
-        margin-top: 4px;
-      }
+      .smallLink{color: rgba(246,247,255,.62)}
+      .smallLink:hover{color: var(--text)}
     </style>
   </head>
 
   <body>
-    <div class="wrap">
-      <!-- top nav -->
-      <div class="topbar">
+    <header class="topbar">
+      <div class="topInner">
         <a class="brand" href="./index.html">
-          <img src="./logo.png" alt="Courier Web logo" class="logo"/>
-          <div class="name">
+          <img src="./logo.png" alt="Courier Web logo" class="logo" onerror="this.style.display='none'"/>
+          <div class="brandText">
             <strong>Courier Web</strong>
-            <span>Support</span>
+            <span>Premium AI capture</span>
           </div>
         </a>
 
-        <div class="nav">
-          <a class="pill" href="./index.html">Home</a>
-          <a class="pill" href="./privacy.html"><strong>Privacy</strong></a>
-          <a class="pill" href="#ticket">Support ticket</a>
-        </div>
+        <nav class="nav" aria-label="Primary">
+          <a href="./index.html#features">Features</a>
+          <a href="./index.html#pro">Pro</a>
+          <a href="./privacy.html">Privacy</a>
+          <a href="./support.html">Support</a>
+        </nav>
       </div>
+    </header>
 
-      <!-- hero -->
-      <div class="hero">
-        <div class="heroInner">
+    <main class="wrap">
+      <section class="section">
+        <div class="sectionHead">
           <div>
+            <div class="kicker"><span class="dot"></span> Help, fixes, and Pro licensing</div>
             <h1>Support</h1>
-            <p class="sub">
-              License key recovery, device resets, and troubleshooting for text highlights, image analysis, and region capture.
-              Most issues are solved in under 2 minutes.
-            </p>
-
-            <div class="note">
-              <strong>Privacy tip:</strong> Never post your full license key publicly.
-              Redact it like <span class="mono">ABCD-****-****-WXYZ</span>.
-            </div>
-
-            <div class="ctaRow" id="ticket">
-              <a class="btn btnPrimary" href="GITHUB_ISSUES_URL_HERE" target="_blank" rel="noreferrer">
-                Open a support ticket
-              </a>
-              <a class="btn btnSecondary" href="#reset">Reset devices</a>
-              <a class="btn btnSecondary" href="#troubleshoot">Troubleshoot</a>
-            </div>
-
-            <div class="tagRow" aria-label="support tags">
-              <span class="tag">2 devices / license</span>
-              <span class="tag">Reset cooldown: 30 days</span>
-              <span class="tag">No license sharing</span>
-              <span class="tag">Fast replies</span>
-            </div>
-
-            <div class="supportEmail">Email: rajual@protonmail.com</div>
+            <div class="meta">Last updated: <span id="d"></span></div>
           </div>
+          <div class="btnRow">
+            <a class="btn btnGhost" href="./privacy.html">Privacy</a>
+            <a class="btn btnPrimary" href="GUMROAD_URL_HERE" target="_blank" rel="noreferrer">Get Pro</a>
+          </div>
+        </div>
 
-          <div>
-            <div class="card">
-              <h3>Quick fixes</h3>
-              <p>Device limit reached? → Reset devices.</p>
-              <p>Invalid token / Pro not active? → Reset Pro → Activate again.</p>
-              <p>Lost key? → Find your Gumroad receipt email.</p>
-              <p>Region capture not starting? → Check shortcut conflicts in Chrome.</p>
+        <div class="content">
+          <div class="grid2">
+            <div class="panel">
+              <h2>Quick start</h2>
+              <ul>
+                <li><strong>Highlight text</strong> on any page.</li>
+                <li><strong>Right-click</strong> → choose a Courier Web action.</li>
+                <li>Or use your <strong>keyboard shortcut</strong> (recommended).</li>
+              </ul>
+              <div class="note">
+                Tip: If a page blocks selection, try selecting a smaller portion, or use the capture/region tool (if enabled).
+              </div>
             </div>
 
-            <div class="hr"></div>
-
-            <div class="card">
-              <h3>Keyboard shortcuts</h3>
-              <p><span class="kbd">Ctrl/⌘</span> <span class="kbd">Shift</span> <span class="kbd">Y</span> Ask about selection</p>
-              <p><span class="kbd">Ctrl/⌘</span> <span class="kbd">Shift</span> <span class="kbd">U</span> Capture region (Pro)</p>
-            </div>
-
-            <div class="hr"></div>
-
-            <div class="card">
-              <h3>Install / unlock links</h3>
+            <div class="panel">
+              <h2>Set / change keyboard shortcuts</h2>
               <p>
-                <a class="smallLink" href="CHROME_WEB_STORE_URL_HERE" target="_blank" rel="noreferrer">Chrome Web Store</a>
-                ·
-                <a class="smallLink" href="GUMROAD_URL_HERE" target="_blank" rel="noreferrer">Unlock Pro (Gumroad)</a>
+                In Chrome, open <code>chrome://extensions/shortcuts</code> and find <strong>Courier Web</strong>.
+                Assign a shortcut for your favorite action.
               </p>
+              <ul>
+                <li>Shortcuts only run when Chrome allows it (some pages may restrict shortcuts).</li>
+                <li>If your shortcut conflicts, choose a different combo.</li>
+              </ul>
             </div>
           </div>
-        </div>
 
-        <!-- grid strip -->
-        <div class="grid">
-          <div class="card" id="key">
-            <h3>🔑 Key recovery</h3>
-            <p>Search your email for <strong>Gumroad</strong> or “Courier Web Pro”. Check Spam/Promotions.</p>
+          <div class="grid2">
+            <div class="panel">
+              <h2>Pro activation</h2>
+              <p>
+                If you purchased Pro, enter your license key in the extension’s Pro/Unlock screen.
+                After activation, Pro features (templates, favorites, advanced workflows) unlock on this device.
+              </p>
+              <ul>
+                <li>Make sure you copied the entire key (no extra spaces).</li>
+                <li>Use the same key you received from Gumroad.</li>
+              </ul>
+            </div>
+
+            <div class="panel">
+              <h2>Device limits & “Limit reached”</h2>
+              <p>
+                Pro licenses support a limited number of device activations to prevent sharing.
+                If you reinstall Chrome, switch computers, or load the extension in multiple Chrome profiles,
+                you may hit the activation limit.
+              </p>
+              <div class="note">
+                <strong>Common cause:</strong> uninstalling/reloading the extension during development can look like a “new device” activation.
+                If you’re testing locally a lot, you may reach the limit faster than a normal customer would.
+              </div>
+            </div>
           </div>
-          <div class="card" id="devices">
-            <h3>💻 Device limit</h3>
-            <p>Each license allows <strong>2 devices</strong>. Reinstalls/new Chrome profiles can consume slots.</p>
+
+          <details>
+            <summary>How do I fix “Pro: limit reached”?<span class="chev" aria-hidden="true"></span></summary>
+            <p>
+              First, confirm you’re using the same Chrome profile and not a second profile/browser.
+              Then try these steps:
+            </p>
+            <ul>
+              <li>Disable and re-enable the extension (keeps local storage).</li>
+              <li>Avoid uninstalling/reinstalling repeatedly during testing.</li>
+              <li>If you recently changed computers or reset your browser, request an activation reset (see below).</li>
+            </ul>
+            <p class="note">
+              <strong>Activation reset:</strong> Email support with your license key and a short note (e.g., “new laptop” / “Chrome reset”).
+              We’ll reset your activations when appropriate.
+            </p>
+          </details>
+
+          <details>
+            <summary>Templates/favorites are missing or reset<span class="chev" aria-hidden="true"></span></summary>
+            <p>
+              Templates and favorites are stored locally in your browser. They can be lost if:
+            </p>
+            <ul>
+              <li>You uninstall the extension (Chrome may remove its local storage).</li>
+              <li>You switch Chrome profiles.</li>
+              <li>Your browser clears site/extension data.</li>
+            </ul>
+            <p class="note">
+              Tip: Keep one main Chrome profile for Pro, and avoid frequent uninstall/reinstall cycles.
+            </p>
+          </details>
+
+          <details>
+            <summary>Right-click menu doesn’t show Courier Web<span class="chev" aria-hidden="true"></span></summary>
+            <p>Try:</p>
+            <ul>
+              <li>Open <code>chrome://extensions</code> and confirm the extension is enabled.</li>
+              <li>Refresh the webpage and try again.</li>
+              <li>Some special pages (Chrome Web Store, internal pages) do not allow extensions to run.</li>
+            </ul>
+          </details>
+
+          <details>
+            <summary>Shortcuts don’t work on some sites<span class="chev" aria-hidden="true"></span></summary>
+            <p>
+              Some sites and special pages restrict extension shortcuts. Test on a normal webpage first.
+              You can always use right-click as a fallback.
+            </p>
+          </details>
+
+          <details>
+            <summary>Image analysis / capture region not working<span class="chev" aria-hidden="true"></span></summary>
+            <p>
+              If a site blocks capture or the image is protected, try:
+            </p>
+            <ul>
+              <li>Use the region capture tool (if enabled) instead of right-click image.</li>
+              <li>Zoom in and capture only the relevant area.</li>
+              <li>Refresh the page and retry.</li>
+            </ul>
+          </details>
+
+          <div class="panel" style="margin-top:12px">
+            <h2>Contact support</h2>
+            <p>
+              Email: <strong>SUPPORT_EMAIL_HERE</strong>
+              <span style="display:block; margin-top:6px; color: rgba(246,247,255,.62); font-size:12px">
+                Include your license key (if Pro) and what happened. Screenshots help.
+              </span>
+            </p>
+            <ul>
+              <li><strong>Pro issues:</strong> include your Gumroad email (optional) + license key + “limit reached” screenshot.</li>
+              <li><strong>Bug reports:</strong> include your Chrome version + extension version.</li>
+            </ul>
           </div>
-          <div class="card" id="reset">
-            <h3>🔄 Reset devices</h3>
-            <p>Clears your device list. Allowed <strong>once every 30 days</strong>.</p>
-          </div>
-        </div>
-      </div>
 
-      <!-- sections -->
-      <div class="section">
-        <div class="panel">
-          <h2>🔑 Lost your license key?</h2>
-          <ul class="bullets">
-            <li>Search your inbox for <strong>Gumroad</strong></li>
-            <li>Search for <strong>Courier Web Pro</strong> (or your old product name)</li>
-            <li>Check <strong>Spam</strong> and <strong>Promotions</strong></li>
-            <li>Make sure you’re checking the email used at checkout</li>
-          </ul>
-        </div>
-
-        <div class="panel">
-          <h2>🔄 Reset devices (30-day cooldown)</h2>
-          <ul class="bullets">
-            <li>Open extension <strong>Options</strong></li>
-            <li>Go to <strong>Pro / License</strong></li>
-            <li>Click <strong>Reset devices</strong></li>
-            <li>If you’re on cooldown, you’ll see the next reset time</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="section" id="troubleshoot">
-        <div class="panel">
-          <h2>🧰 `409 (Conflict)` from verify-license</h2>
-          <ul class="bullets">
-            <li>Usually means <strong>device_limit</strong> (3rd device attempt)</li>
-            <li>Fix: Reset devices → Activate again</li>
-            <li>If you just reinstalled Chrome: you may have consumed a new slot</li>
-          </ul>
-        </div>
-
-        <div class="panel">
-          <h2>🧰 `401 Invalid JWT` / `invalid_token`</h2>
-          <ul class="bullets">
-            <li>Common causes: expired token, device storage cleared, or token mismatch</li>
-            <li>Fix: Options → <strong>Reset Pro</strong> → Activate again</li>
-            <li>If it keeps happening, open a ticket and include the exact error text</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="section">
-        <div class="panel">
-          <h2>🧾 When opening an issue, include:</h2>
-          <ul class="bullets">
-            <li>Expected vs actual behavior</li>
-            <li>Browser + OS</li>
-            <li>Exact error message (copy/paste)</li>
-            <li>Optional screenshot</li>
-            <li>Optional redacted key: <span class="mono">ABCD-****-****-WXYZ</span></li>
-          </ul>
-        </div>
-
-        <div class="panel">
-          <h2>Copy/paste issue template</h2>
           <div class="note">
-            <div class="mono" style="white-space:pre-wrap;">
-**What happened?**
-…
-
-**Steps to reproduce**
-1)
-2)
-3)
-
-**Browser / OS**
-Chrome:
-OS:
-
-**Error**
-…
-
-**License key (redacted)**
-ABCD-****-****-WXYZ
-            </div>
+            <strong>Privacy note:</strong> Courier Web does not track browsing. Any content you capture is processed only when you trigger an action.
+            See the <a class="smallLink" href="./privacy.html">Privacy Policy</a>.
           </div>
         </div>
-      </div>
+      </section>
 
-      <div class="footer">
+      <footer class="footer">
         <div>© <span id="y"></span> Courier Web</div>
         <div>
-          <a class="smallLink" href="GITHUB_ISSUES_URL_HERE" target="_blank" rel="noreferrer">Issues</a>
-          ·
-          <a class="smallLink" href="GITHUB_REPO_URL_HERE" target="_blank" rel="noreferrer">Repo</a>
+          <a class="smallLink" href="./index.html">Home</a> ·
+          <a class="smallLink" href="./privacy.html">Privacy</a>
         </div>
-      </div>
-    </div>
+      </footer>
+    </main>
 
     <script>
       document.getElementById("y").textContent = new Date().getFullYear();
+      document.getElementById("d").textContent = new Date().toLocaleDateString(undefined, {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
     </script>
   </body>
 </html>
