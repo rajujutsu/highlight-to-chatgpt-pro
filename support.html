@@ -3,8 +3,12 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Highlight → Ask ChatGPT Pro — Support</title>
-    <meta name="description" content="License key recovery, device reset, and troubleshooting for Highlight → Ask ChatGPT Pro." />
+
+    <title>Courier Web — Support</title>
+    <meta
+      name="description"
+      content="Support for Courier Web: license key recovery, device resets, and troubleshooting for highlights, image analysis, and region capture."
+    />
 
     <style>
       :root{
@@ -13,14 +17,17 @@
         --text:#f5f7ff;
         --muted:#b8bce6;
         --line:#1c1c3f;
+
         --pink:#ff4fd8;
         --cyan:#37f3ff;
         --purple:#8a5cff;
         --green:#37ff9a;
+
         --shadow: 0 18px 60px rgba(0,0,0,.45);
         --radius: 18px;
       }
       *{box-sizing:border-box}
+      html,body{height:100%}
       body{
         margin:0;
         font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
@@ -33,144 +40,384 @@
         min-height:100vh;
       }
       a{color:inherit}
-      .wrap{max-width:980px;margin:0 auto;padding:26px 18px 44px}
-      .topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:10px 0 18px}
-      .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.2px}
+      .wrap{
+        max-width: 1040px;
+        margin: 0 auto;
+        padding: 22px 18px 44px;
+      }
+
+      /* topbar */
+      .topbar{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:14px;
+        padding: 8px 0 18px;
+      }
+      .brand{
+        display:flex;
+        align-items:center;
+        gap:10px;
+        font-weight:900;
+        letter-spacing:.2px;
+        text-decoration:none;
+      }
+      .brand .name{
+        display:flex;
+        flex-direction:column;
+        line-height:1.1;
+      }
+      .brand .name strong{font-size:14px}
+      .brand .name span{
+        font-size:12px;
+        color:var(--muted);
+        font-weight:700;
+        letter-spacing:.2px;
+      }
+
+      .logo {
+        width: 36px;
+        height: 36px;
+        border-radius: 14px;
+        object-fit: contain;
+        box-shadow: 0 10px 30px rgba(138, 92, 255, 0.35);
+        background: rgba(255, 255, 255, 0.04);
+        padding: 4px;
+      }
+      .logo:hover {
+        box-shadow:
+          0 0 20px rgba(255, 79, 216, 0.55),
+          0 0 40px rgba(55, 243, 255, 0.35);
+        transition: box-shadow 0.25s ease;
+      }
+
+      .nav{
+        display:flex;
+        gap:10px;
+        flex-wrap:wrap;
+        justify-content:flex-end;
+        align-items:center;
+      }
       .pill{
-        display:inline-flex;align-items:center;gap:8px;
-        padding:8px 12px;border:1px solid rgba(255,255,255,.10);
-        border-radius:999px;background:rgba(255,255,255,.04);
-        color:var(--muted);font-size:12px;text-decoration:none;white-space:nowrap
+        display:inline-flex;
+        align-items:center;
+        gap:8px;
+        padding: 8px 12px;
+        border: 1px solid rgba(255,255,255,.10);
+        border-radius: 999px;
+        background: rgba(255,255,255,.04);
+        color: var(--muted);
+        font-size: 12px;
+        text-decoration:none;
+        white-space:nowrap;
+      }
+      .pill:hover{
+        border-color: rgba(255,255,255,.18);
+        color: var(--text);
       }
       .pill strong{color:var(--text)}
+
+      /* hero */
       .hero{
-        border:1px solid rgba(255,255,255,.10);
-        border-radius:var(--radius);
-        background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-        box-shadow:var(--shadow);
+        border: 1px solid rgba(255,255,255,.10);
+        border-radius: var(--radius);
+        background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+        box-shadow: var(--shadow);
         overflow:hidden;
+        position:relative;
+      }
+      .hero::before{
+        content:"";
+        position:absolute;
+        inset:-2px;
+        background: linear-gradient(120deg, rgba(55,243,255,.18), rgba(255,79,216,.18), rgba(138,92,255,.18));
+        filter: blur(18px);
+        opacity:.45;
+        pointer-events:none;
       }
       .heroInner{
-        padding:26px 22px;
+        position:relative;
+        padding: 26px 22px;
         display:grid;
-        grid-template-columns:1.2fr .8fr;
-        gap:18px;
+        grid-template-columns: 1.15fr .85fr;
+        gap: 16px;
       }
-      @media (max-width:860px){.heroInner{grid-template-columns:1fr}}
-      h1{margin:0 0 10px;font-size:34px;line-height:1.12;letter-spacing:-.3px}
-      .sub{margin:0 0 16px;color:var(--muted);line-height:1.45}
-      .ctaRow{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+      @media (max-width:900px){
+        .heroInner{grid-template-columns:1fr}
+        .nav{justify-content:flex-start}
+      }
+
+      h1{
+        margin: 0 0 8px;
+        font-size: 34px;
+        line-height: 1.10;
+        letter-spacing: -.35px;
+      }
+      .sub{
+        margin: 0 0 16px;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      .ctaRow{
+        display:flex;
+        flex-wrap:wrap;
+        gap:10px;
+        margin-top: 10px;
+      }
       .btn{
-        display:inline-flex;align-items:center;justify-content:center;gap:10px;
-        padding:11px 14px;border-radius:14px;border:1px solid rgba(255,255,255,.12);
-        text-decoration:none;font-weight:800;box-shadow:0 16px 50px rgba(0,0,0,.35)
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
+        gap:10px;
+        padding: 11px 14px;
+        border-radius: 14px;
+        border: 1px solid rgba(255,255,255,.12);
+        text-decoration:none;
+        font-weight:900;
+        box-shadow: 0 16px 50px rgba(0,0,0,.35);
+        transform: translateY(0);
+        transition: transform .14s ease, filter .14s ease, box-shadow .14s ease;
       }
-      .btnPrimary{background:linear-gradient(135deg, #595CFF, #C6F8FF);color:#08101a;border-color:transparent}
-      .btnSecondary{background:rgba(255,255,255,.04);color:var(--text)}
-      .grid{
-        display:grid;grid-template-columns:repeat(3, 1fr);
-        gap:12px;padding:16px;border-top:1px solid rgba(255,255,255,.08);
-        background:rgba(0,0,0,.12);
+      .btn:hover{
+        transform: translateY(-1px);
+        filter: brightness(1.05) saturate(1.05);
+        box-shadow: 0 22px 70px rgba(0,0,0,.45);
       }
-      @media (max-width:860px){.grid{grid-template-columns:1fr}}
+      .btnPrimary{
+        background: linear-gradient(135deg, #595CFF, #C6F8FF);
+        color: #08101a;
+        border-color: rgba(255,255,255,.0);
+      }
+      .btnSecondary{
+        background: rgba(255,255,255,.05);
+        color: var(--text);
+      }
+
+      .tagRow{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px}
+      .tag{
+        font-size:12px;
+        color: var(--muted);
+        border: 1px solid rgba(255,255,255,.10);
+        background: rgba(0,0,0,.14);
+        padding: 6px 10px;
+        border-radius: 999px;
+      }
+
+      /* cards */
       .card{
-        padding:14px 14px 12px;border-radius:16px;
-        border:1px solid rgba(255,255,255,.10);
-        background:rgba(12,12,34,.65);
+        padding: 14px 14px 12px;
+        border-radius: 16px;
+        border: 1px solid rgba(255,255,255,.10);
+        background: rgba(12,12,34,.65);
+        position:relative;
+        overflow:hidden;
       }
-      .card h3{margin:0 0 6px;font-size:14px;letter-spacing:.2px}
-      .card p{margin:0;color:var(--muted);line-height:1.35;font-size:13px}
-      .section{margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
-      @media (max-width:860px){.section{grid-template-columns:1fr}}
-      .panel{
-        border-radius:var(--radius);
-        border:1px solid rgba(255,255,255,.10);
-        background:rgba(255,255,255,.04);
-        box-shadow:var(--shadow);
-        padding:16px;
+      .card::after{
+        content:"";
+        position:absolute;
+        inset:-40% -40%;
+        background:
+          radial-gradient(circle at 30% 30%, rgba(55,243,255,.10), transparent 55%),
+          radial-gradient(circle at 70% 40%, rgba(255,79,216,.08), transparent 55%);
+        transform: rotate(12deg);
+        pointer-events:none;
       }
-      .panel h2{margin:0 0 10px;font-size:15px;letter-spacing:.2px}
-      .bullets{margin:0;padding-left:18px;color:var(--muted);line-height:1.55;font-size:13px}
-      .tagRow{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-      .tag{font-size:12px;color:var(--muted);border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.14);padding:6px 10px;border-radius:999px}
-      .footer{
-        margin-top:18px;color:var(--muted);font-size:12px;
-        display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
+      .card > *{position:relative}
+      .card h3{
+        margin:0 0 6px;
+        font-size: 14px;
+        letter-spacing:.2px;
       }
-      .smallLink{color:var(--muted);text-decoration:none}
-      .smallLink:hover{color:var(--text)}
-      .kbd{display:inline-block;padding:2px 6px;border-radius:8px;border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.2);font-size:12px;color:var(--text)}
-      code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace}
-      .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace}
-      .note{padding:10px 12px;border-radius:14px;border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.18);color:var(--muted);font-size:13px;line-height:1.45}
-      .note strong{color:var(--text)}
+      .card p{
+        margin:0;
+        color: var(--muted);
+        line-height: 1.4;
+        font-size: 13px;
+      }
       .hr{height:1px;background:rgba(255,255,255,.08);margin:14px 0}
+
+      /* grid strip */
+      .grid{
+        display:grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        padding: 16px;
+        border-top: 1px solid rgba(255,255,255,.08);
+        background: rgba(0,0,0,.12);
+      }
+      @media (max-width:900px){
+        .grid{grid-template-columns:1fr}
+      }
+
+      /* sections */
+      .section{
+        margin-top: 14px;
+        display:grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      @media (max-width:900px){
+        .section{grid-template-columns:1fr}
+      }
+      .panel{
+        border-radius: var(--radius);
+        border: 1px solid rgba(255,255,255,.10);
+        background: rgba(255,255,255,.04);
+        box-shadow: var(--shadow);
+        padding: 16px;
+      }
+      .panel h2{
+        margin:0 0 10px;
+        font-size: 15px;
+        letter-spacing:.2px;
+      }
+      .bullets{
+        margin: 0;
+        padding-left: 18px;
+        color: var(--muted);
+        line-height: 1.55;
+        font-size: 13px;
+      }
+
+      /* misc */
+      code, .mono{
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      }
+      .note{
+        padding:10px 12px;
+        border-radius:14px;
+        border:1px solid rgba(255,255,255,.10);
+        background:rgba(0,0,0,.18);
+        color:var(--muted);
+        font-size:13px;
+        line-height:1.45
+      }
+      .note strong{color:var(--text)}
+      .kbd{
+        display:inline-block;
+        padding: 2px 6px;
+        border-radius: 8px;
+        border: 1px solid rgba(255,255,255,.12);
+        background: rgba(0,0,0,.2);
+        font-size: 12px;
+        color: var(--text);
+      }
+
+      /* footer */
+      .footer{
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 12px;
+        display:flex;
+        justify-content:space-between;
+        gap:12px;
+        flex-wrap:wrap;
+        padding: 10px 2px 0;
+      }
+      .smallLink{color:var(--muted); text-decoration:none}
+      .smallLink:hover{color:var(--text)}
+      .supportEmail{
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: .2px;
+        margin-top: 4px;
+      }
     </style>
   </head>
 
   <body>
     <div class="wrap">
+      <!-- top nav -->
       <div class="topbar">
-        <div class="brand">
-          <span>Highlight → Ask ChatGPT Pro</span>
-          <a class="pill" href="./index.html" title="Back to docs">Home</a>
+        <a class="brand" href="./index.html">
+          <img src="./jellyfish.png" alt="Courier Web logo" class="logo"/>
+          <div class="name">
+            <strong>Courier Web</strong>
+            <span>Support</span>
+          </div>
+        </a>
+
+        <div class="nav">
+          <a class="pill" href="./index.html">Home</a>
+          <a class="pill" href="./privacy.html"><strong>Privacy</strong></a>
+          <a class="pill" href="#ticket">Support ticket</a>
         </div>
-        <h6>support: rajual@protonmail.com</h6>
       </div>
 
+      <!-- hero -->
       <div class="hero">
         <div class="heroInner">
           <div>
             <h1>Support</h1>
             <p class="sub">
-              License key recovery, device resets, and troubleshooting.
-              Most problems are solved in under 2 minutes.
+              License key recovery, device resets, and troubleshooting for text highlights, image analysis, and region capture.
+              Most issues are solved in under 2 minutes.
             </p>
 
             <div class="note">
-              <strong>Privacy:</strong> Never post your full license key publicly.
+              <strong>Privacy tip:</strong> Never post your full license key publicly.
               Redact it like <span class="mono">ABCD-****-****-WXYZ</span>.
             </div>
 
-            <div class="ctaRow">
-              <a class="btn btnPrimary" href="https://github.com/rajujutsu/highlight-to-chatgpt-pro/issues/new" target="_blank" rel="noreferrer">
+            <div class="ctaRow" id="ticket">
+              <a class="btn btnPrimary" href="GITHUB_ISSUES_URL_HERE" target="_blank" rel="noreferrer">
                 Open a support ticket
               </a>
               <a class="btn btnSecondary" href="#reset">Reset devices</a>
               <a class="btn btnSecondary" href="#troubleshoot">Troubleshoot</a>
             </div>
 
-            <div class="tagRow">
+            <div class="tagRow" aria-label="support tags">
               <span class="tag">2 devices / license</span>
               <span class="tag">Reset cooldown: 30 days</span>
+              <span class="tag">No license sharing</span>
               <span class="tag">Fast replies</span>
             </div>
+
+            <div class="supportEmail">Email: rajual@protonmail.com</div>
           </div>
 
           <div>
             <div class="card">
               <h3>Quick fixes</h3>
-              <p>Device limit? → Reset devices.</p>
-              <p>Invalid JWT? → Reset Pro → Activate again.</p>
+              <p>Device limit reached? → Reset devices.</p>
+              <p>Invalid token / Pro not active? → Reset Pro → Activate again.</p>
               <p>Lost key? → Find your Gumroad receipt email.</p>
+              <p>Region capture not starting? → Check shortcut conflicts in Chrome.</p>
             </div>
+
             <div class="hr"></div>
+
             <div class="card">
               <h3>Keyboard shortcuts</h3>
               <p><span class="kbd">Ctrl/⌘</span> <span class="kbd">Shift</span> <span class="kbd">Y</span> Ask about selection</p>
               <p><span class="kbd">Ctrl/⌘</span> <span class="kbd">Shift</span> <span class="kbd">U</span> Capture region (Pro)</p>
             </div>
+
+            <div class="hr"></div>
+
+            <div class="card">
+              <h3>Install / unlock links</h3>
+              <p>
+                <a class="smallLink" href="CHROME_WEB_STORE_URL_HERE" target="_blank" rel="noreferrer">Chrome Web Store</a>
+                ·
+                <a class="smallLink" href="GUMROAD_URL_HERE" target="_blank" rel="noreferrer">Unlock Pro (Gumroad)</a>
+              </p>
+            </div>
           </div>
         </div>
 
+        <!-- grid strip -->
         <div class="grid">
           <div class="card" id="key">
             <h3>🔑 Key recovery</h3>
-            <p>Search your email for <strong>Gumroad</strong> or the product name. Check Spam/Promotions.</p>
+            <p>Search your email for <strong>Gumroad</strong> or “Courier Web Pro”. Check Spam/Promotions.</p>
           </div>
           <div class="card" id="devices">
             <h3>💻 Device limit</h3>
-            <p>Each license allows <strong>2 devices</strong>. Reinstalls/new profiles can consume slots.</p>
+            <p>Each license allows <strong>2 devices</strong>. Reinstalls/new Chrome profiles can consume slots.</p>
           </div>
           <div class="card" id="reset">
             <h3>🔄 Reset devices</h3>
@@ -179,12 +426,13 @@
         </div>
       </div>
 
+      <!-- sections -->
       <div class="section">
         <div class="panel">
           <h2>🔑 Lost your license key?</h2>
           <ul class="bullets">
             <li>Search your inbox for <strong>Gumroad</strong></li>
-            <li>Search for <strong>Highlight → Ask ChatGPT Pro</strong></li>
+            <li>Search for <strong>Courier Web Pro</strong> (or your old product name)</li>
             <li>Check <strong>Spam</strong> and <strong>Promotions</strong></li>
             <li>Make sure you’re checking the email used at checkout</li>
           </ul>
@@ -207,14 +455,16 @@
           <ul class="bullets">
             <li>Usually means <strong>device_limit</strong> (3rd device attempt)</li>
             <li>Fix: Reset devices → Activate again</li>
+            <li>If you just reinstalled Chrome: you may have consumed a new slot</li>
           </ul>
         </div>
 
         <div class="panel">
           <h2>🧰 `401 Invalid JWT` / `invalid_token`</h2>
           <ul class="bullets">
-            <li>Common causes: server secret changed, expired token, missing Bearer token</li>
+            <li>Common causes: expired token, device storage cleared, or token mismatch</li>
             <li>Fix: Options → <strong>Reset Pro</strong> → Activate again</li>
+            <li>If it keeps happening, open a ticket and include the exact error text</li>
           </ul>
         </div>
       </div>
@@ -225,7 +475,7 @@
           <ul class="bullets">
             <li>Expected vs actual behavior</li>
             <li>Browser + OS</li>
-            <li>Exact error message</li>
+            <li>Exact error message (copy/paste)</li>
             <li>Optional screenshot</li>
             <li>Optional redacted key: <span class="mono">ABCD-****-****-WXYZ</span></li>
           </ul>
@@ -258,12 +508,12 @@ ABCD-****-****-WXYZ
       </div>
 
       <div class="footer">
-        <span>© <span id="y"></span> Highlight → Ask ChatGPT Pro</span>
-        <span>
-          <a class="smallLink" href="https://github.com/YOUR_USERNAME/YOUR_REPO/issues" target="_blank" rel="noreferrer">Issues</a>
+        <div>© <span id="y"></span> Courier Web</div>
+        <div>
+          <a class="smallLink" href="GITHUB_ISSUES_URL_HERE" target="_blank" rel="noreferrer">Issues</a>
           ·
-          <a class="smallLink" href="https://github.com/YOUR_USERNAME/YOUR_REPO" target="_blank" rel="noreferrer">Repo</a>
-        </span>
+          <a class="smallLink" href="GITHUB_REPO_URL_HERE" target="_blank" rel="noreferrer">Repo</a>
+        </div>
       </div>
     </div>
 
