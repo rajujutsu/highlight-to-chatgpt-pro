@@ -3,8 +3,12 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Highlight to ChatGPT Pro</title>
-    <meta name="description" content="Highlight text on any webpage and send it to ChatGPT with one click. Templates, favorites, and fast prompts." />
+
+    <title>Courier Web — Ultimate Media Highlighter</title>
+    <meta
+      name="description"
+      content="Highlight text or capture images anywhere. Send to your AI tools instantly. No copy-paste friction."
+    />
 
     <style>
       :root{
@@ -13,14 +17,17 @@
         --text:#f5f7ff;
         --muted:#b8bce6;
         --line:#1c1c3f;
+
         --pink:#ff4fd8;
         --cyan:#37f3ff;
         --purple:#8a5cff;
         --green:#37ff9a;
+
         --shadow: 0 18px 60px rgba(0,0,0,.45);
         --radius: 18px;
       }
       *{box-sizing:border-box}
+      html,body{height:100%}
       body{
         margin:0;
         font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
@@ -34,25 +41,43 @@
       }
       a{color:inherit}
       .wrap{
-        max-width: 980px;
+        max-width: 1040px;
         margin: 0 auto;
-        padding: 26px 18px 44px;
+        padding: 22px 18px 44px;
       }
+
+      /* topbar */
       .topbar{
         display:flex;
         align-items:center;
         justify-content:space-between;
         gap:14px;
-        padding: 10px 0 18px;
+        padding: 8px 0 18px;
       }
       .brand{
-        display:flex; align-items:center; gap:10px;
-        font-weight:800; letter-spacing:.2px;
+        display:flex;
+        align-items:center;
+        gap:10px;
+        font-weight:900;
+        letter-spacing:.2px;
       }
+      .brand .name{
+        display:flex;
+        flex-direction:column;
+        line-height:1.1;
+      }
+      .brand .name strong{font-size:14px}
+      .brand .name span{
+        font-size:12px;
+        color:var(--muted);
+        font-weight:700;
+        letter-spacing:.2px;
+      }
+
       .logo {
-        width: 34px;
-        height: 34px;
-        border-radius: 12px;
+        width: 36px;
+        height: 36px;
+        border-radius: 14px;
         object-fit: contain;
         box-shadow: 0 10px 30px rgba(138, 92, 255, 0.35);
         background: rgba(255, 255, 255, 0.04);
@@ -60,12 +85,22 @@
       }
       .logo:hover {
         box-shadow:
-        0 0 20px rgba(255, 79, 216, 0.55),
-        0 0 40px rgba(55, 243, 255, 0.35);
+          0 0 20px rgba(255, 79, 216, 0.55),
+          0 0 40px rgba(55, 243, 255, 0.35);
         transition: box-shadow 0.25s ease;
       }
+
+      .nav{
+        display:flex;
+        gap:10px;
+        flex-wrap:wrap;
+        justify-content:flex-end;
+        align-items:center;
+      }
       .pill{
-        display:inline-flex; align-items:center; gap:8px;
+        display:inline-flex;
+        align-items:center;
+        gap:8px;
         padding: 8px 12px;
         border: 1px solid rgba(255,255,255,.10);
         border-radius: 999px;
@@ -75,33 +110,57 @@
         text-decoration:none;
         white-space:nowrap;
       }
+      .pill:hover{
+        border-color: rgba(255,255,255,.18);
+        color: var(--text);
+      }
       .pill strong{color:var(--text)}
+
+      /* hero */
       .hero{
         border: 1px solid rgba(255,255,255,.10);
         border-radius: var(--radius);
         background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
         box-shadow: var(--shadow);
         overflow:hidden;
+        position:relative;
+      }
+      .hero::before{
+        content:"";
+        position:absolute;
+        inset:-2px;
+        background: linear-gradient(120deg, rgba(55,243,255,.18), rgba(255,79,216,.18), rgba(138,92,255,.18));
+        filter: blur(18px);
+        opacity:.45;
+        pointer-events:none;
       }
       .heroInner{
+        position:relative;
         padding: 26px 22px;
         display:grid;
-        grid-template-columns: 1.2fr .8fr;
-        gap: 18px;
+        grid-template-columns: 1.15fr .85fr;
+        gap: 16px;
       }
-      @media (max-width:860px){
+      @media (max-width:900px){
         .heroInner{grid-template-columns:1fr}
+        .nav{justify-content:flex-start}
       }
       h1{
         margin: 0 0 10px;
-        font-size: 34px;
-        line-height: 1.12;
-        letter-spacing: -.3px;
+        font-size: 36px;
+        line-height: 1.10;
+        letter-spacing: -.35px;
+      }
+      .grad{
+        background: linear-gradient(90deg, var(--cyan), #c6f8ff, var(--pink));
+        -webkit-background-clip:text;
+        background-clip:text;
+        color:transparent;
       }
       .sub{
         margin: 0 0 16px;
         color: var(--muted);
-        line-height: 1.45;
+        line-height: 1.5;
       }
       .ctaRow{
         display:flex;
@@ -118,8 +177,15 @@
         border-radius: 14px;
         border: 1px solid rgba(255,255,255,.12);
         text-decoration:none;
-        font-weight:800;
+        font-weight:900;
         box-shadow: 0 16px 50px rgba(0,0,0,.35);
+        transform: translateY(0);
+        transition: transform .14s ease, filter .14s ease, box-shadow .14s ease;
+      }
+      .btn:hover{
+        transform: translateY(-1px);
+        filter: brightness(1.05) saturate(1.05);
+        box-shadow: 0 22px 70px rgba(0,0,0,.45);
       }
       .btnPrimary{
         background: linear-gradient(135deg, #595CFF, #C6F8FF);
@@ -127,26 +193,47 @@
         border-color: rgba(255,255,255,.0);
       }
       .btnSecondary{
-        background: rgba(255,255,255,.04);
+        background: rgba(255,255,255,.05);
         color: var(--text);
       }
-      .grid{
-        display:grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 12px;
-        padding: 16px;
-        border-top: 1px solid rgba(255,255,255,.08);
-        background: rgba(0,0,0,.12);
+      .tagRow{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px}
+      .tag{
+        font-size:12px;
+        color: var(--muted);
+        border: 1px solid rgba(255,255,255,.10);
+        background: rgba(0,0,0,.14);
+        padding: 6px 10px;
+        border-radius: 999px;
       }
-      @media (max-width:860px){
-        .grid{grid-template-columns:1fr}
+      .kbd{
+        display:inline-block;
+        padding: 2px 6px;
+        border-radius: 8px;
+        border: 1px solid rgba(255,255,255,.12);
+        background: rgba(0,0,0,.2);
+        font-size: 12px;
+        color: var(--text);
       }
+
+      /* right hero card */
       .card{
         padding: 14px 14px 12px;
         border-radius: 16px;
         border: 1px solid rgba(255,255,255,.10);
         background: rgba(12,12,34,.65);
+        position:relative;
+        overflow:hidden;
       }
+      .card::after{
+        content:"";
+        position:absolute;
+        inset:-40% -40%;
+        background: radial-gradient(circle at 30% 30%, rgba(55,243,255,.12), transparent 55%),
+                    radial-gradient(circle at 70% 40%, rgba(255,79,216,.10), transparent 55%);
+        transform: rotate(12deg);
+        pointer-events:none;
+      }
+      .card > *{position:relative}
       .card h3{
         margin:0 0 6px;
         font-size: 14px;
@@ -155,16 +242,41 @@
       .card p{
         margin:0;
         color: var(--muted);
-        line-height: 1.35;
+        line-height: 1.4;
         font-size: 13px;
       }
+      .codeRow code{
+        display:inline-block;
+        padding: 2px 7px;
+        border-radius: 10px;
+        border: 1px solid rgba(255,255,255,.10);
+        background: rgba(0,0,0,.22);
+        color: var(--text);
+        font-size: 12px;
+        margin-right: 6px;
+      }
+
+      /* feature grid */
+      .grid{
+        display:grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        padding: 16px;
+        border-top: 1px solid rgba(255,255,255,.08);
+        background: rgba(0,0,0,.12);
+      }
+      @media (max-width:900px){
+        .grid{grid-template-columns:1fr}
+      }
+
+      /* sections */
       .section{
-        margin-top: 18px;
+        margin-top: 14px;
         display:grid;
         grid-template-columns: 1fr 1fr;
         gap: 12px;
       }
-      @media (max-width:860px){
+      @media (max-width:900px){
         .section{grid-template-columns:1fr}
       }
       .panel{
@@ -186,15 +298,8 @@
         line-height: 1.55;
         font-size: 13px;
       }
-      .tagRow{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px}
-      .tag{
-        font-size:12px;
-        color: var(--muted);
-        border: 1px solid rgba(255,255,255,.10);
-        background: rgba(0,0,0,.14);
-        padding: 6px 10px;
-        border-radius: 999px;
-      }
+
+      /* footer */
       .footer{
         margin-top: 18px;
         color: var(--muted);
@@ -203,18 +308,10 @@
         justify-content:space-between;
         gap:12px;
         flex-wrap:wrap;
+        padding: 10px 2px 0;
       }
       .smallLink{color:var(--muted); text-decoration:none}
       .smallLink:hover{color:var(--text)}
-      .kbd{
-        display:inline-block;
-        padding: 2px 6px;
-        border-radius: 8px;
-        border: 1px solid rgba(255,255,255,.12);
-        background: rgba(0,0,0,.2);
-        font-size: 12px;
-        color: var(--text);
-      }
     </style>
   </head>
 
@@ -222,31 +319,44 @@
     <div class="wrap">
       <div class="topbar">
         <div class="brand">
-          <img src="./jellyfish.png" alt="Highlight to ChatGPT Pro logo" class="logo"/>
-          <div>Highlight to ChatGPT Pro</div>
+          <img src="./spider.png" alt="Courier Web logo" class="logo"/>
+          <div class="name">
+            <strong>Courier Web</strong>
+            <span>Ultimate Media Highlighter</span>
+          </div>
         </div>
-        <a class="pill" href="./privacy.html">
-          <strong>Privacy</strong>
-        </a>
+
+        <div class="nav">
+          <a class="pill" href="#features">Features</a>
+          <a class="pill" href="./privacy.html"><strong>Privacy</strong></a>
+          <a class="pill" href="./support.html">Support</a>
+        </div>
       </div>
 
       <div class="hero">
         <div class="heroInner">
           <div>
-            <h1>Highlight text → Send to ChatGPT in One Click.</h1>
+            <h1>
+              Highlight text or capture images —
+              <span class="grad">send to AI in one click.</span>
+            </h1>
             <p class="sub">
-              Select text on any webpage, Click ask or right-click for more options, and open ChatGPT with your prompt already inserted.
-              Pro adds custom templates, favorites, and a live preview—built for fast workflows.
+              Courier Web is a productivity extension for fast research, learning, and analysis.
+              Send <strong>highlights</strong>, <strong>images</strong>, or a <strong>screen region</strong> to your AI tools instantly —
+              without breaking flow.
             </p>
 
             <div class="ctaRow">
-              <a class="btn btnPrimary" href="#">Download</a>
+              <!-- replace with your real links -->
+              <a class="btn btnPrimary" href="#" target="_blank" rel="noreferrer">Install Extension</a>
+              <a class="btn btnSecondary" href="#" target="_blank" rel="noreferrer">Unlock Pro</a>
               <a class="btn btnSecondary" href="./support.html">Support</a>
             </div>
 
             <div class="tagRow" aria-label="keywords">
-              <span class="tag">ask or right-click to ChatGPT</span>
-              <span class="tag">highlight text</span>
+              <span class="tag">highlights → prompt</span>
+              <span class="tag">image analysis</span>
+              <span class="tag">region capture</span>
               <span class="tag">templates & favorites</span>
               <span class="tag">no ads · no trackers</span>
             </div>
@@ -258,43 +368,53 @@
 
           <div>
             <div class="card" style="height:100%">
-              <h3>How it works</h3>
+              <h3>What you can do</h3>
               <p>
-                1) Highlight text<br />
-                2) Ask or Right-click / Ask / tools / templates<br />
-                3) ChatGPT opens with your text inserted
+                • Highlight text → Ask / tools / templates<br />
+                • Right-click an image → Analyze<br />
+                • Capture a screen region → Paste instantly
               </p>
+
               <div style="height:12px"></div>
-              <h3>Pro features</h3>
+
+              <h3>Pro unlock includes</h3>
               <p>
-                Custom templates · Favorites · Live preview · Bigger history · Clean menu mode
+                Custom templates · Favorites · Bigger history · Advanced quick actions · Visual themes
               </p>
+
               <div style="height:12px"></div>
+
               <h3>Template variables</h3>
-              <p>
-                <code>{{text}}</code> <code>{{url}}</code> <code>{{title}}</code> <code>{{date}}</code> <code>{{lang}}</code>
+              <p class="codeRow">
+                <code>{{text}}</code>
+                <code>{{url}}</code>
+                <code>{{title}}</code>
+                <code>{{date}}</code>
+                <code>{{lang}}</code>
               </p>
+
               <div style="height:12px"></div>
-              <h3>Custom prompt idea</h3>
+
+              <h3>Example template</h3>
               <p>
-                Paraphrase and check for plagiarism for {{title}} {{url}} {{date}}
+                Summarize key points, then list action items for <strong>{{title}}</strong> — <strong>{{url}}</strong> ({{date}})
               </p>
             </div>
           </div>
         </div>
 
-        <div class="grid">
+        <div class="grid" id="features">
           <div class="card">
-            <h3>Summarize & extract key points</h3>
-            <p>Turn long pages into bullets or TL;DR instantly.</p>
+            <h3>Text highlights → instant prompts</h3>
+            <p>One click to open your AI tool with text prefilled.</p>
           </div>
           <div class="card">
-            <h3>Rewrite with better tone</h3>
-            <p>Clearer, shorter, more formal, or more readable.</p>
+            <h3>Analyze images & charts</h3>
+            <p>Right-click images to send visuals for explanation and insights.</p>
           </div>
           <div class="card">
-            <h3>Reusable templates</h3>
-            <p>Save your best prompts and run them from the menu.</p>
+            <h3>Capture a screen region</h3>
+            <p>Select any area, copy it automatically, and paste to analyze.</p>
           </div>
         </div>
       </div>
@@ -305,22 +425,22 @@
           <ul class="bullets">
             <li>No ads, no trackers, no analytics.</li>
             <li>Templates and history are stored locally in your browser.</li>
-            <li>Text is sent to ChatGPT only when you choose to run a prompt.</li>
+            <li>Content is sent only when you trigger an action.</li>
           </ul>
         </div>
 
         <div class="panel">
           <h2>Notices</h2>
           <ul class="bullets">
-            <li>Requires a ChatGPT account to generate responses.</li>
-            <li>Not affiliated with or endorsed by OpenAI.</li>
-            <li>Chrome context menus refresh when reopened.</li>
+            <li>Requires an AI tool account (e.g., ChatGPT) to generate responses.</li>
+            <li>Not affiliated with or endorsed by OpenAI or Google.</li>
+            <li>Some menus refresh when reopened (Chrome behavior).</li>
           </ul>
         </div>
       </div>
 
       <div class="footer">
-        <div>© 2026 Highlight to ChatGPT Pro</div>
+        <div>© 2026 Courier Web</div>
         <div>
           <a class="smallLink" href="./privacy.html">Privacy</a> ·
           <a class="smallLink" href="./support.html">Support</a>
