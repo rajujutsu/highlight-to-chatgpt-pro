@@ -3,291 +3,297 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-
-    <title>Courier Web — Ultimate Media Highlighter</title>
+    <title>Courier Web — Highlight to AI, instantly</title>
     <meta
       name="description"
-      content="Highlight text or capture images anywhere. Send to AI instantly — no copy-paste friction."
+      content="Courier Web is a premium Chrome extension for highlighting text and sending it to AI instantly — plus image analysis and region capture."
     />
 
     <style>
       :root{
-        --bg:#070715;
-        --text:#f5f7ff;
-        --muted:#b8bce6;
-
+        --bg0:#05060a;
+        --bg1:#070815;
+        --panel: rgba(255,255,255,.06);
+        --panel2: rgba(255,255,255,.04);
         --line: rgba(255,255,255,.10);
         --line2: rgba(255,255,255,.08);
 
-        --pink:#ff4fd8;
-        --cyan:#37f3ff;
-        --purple:#8a5cff;
+        --text:#f6f7ff;
+        --muted:rgba(246,247,255,.68);
 
-        --shadow: 0 18px 60px rgba(0,0,0,.45);
+        --accent:#7c5cff;
+        --accent2:#37f3ff;
+
+        --shadow: 0 24px 70px rgba(0,0,0,.55);
         --radius: 18px;
-
-        --card: rgba(12,12,34,.65);
-        --card2: rgba(255,255,255,.04);
+        --radius2: 22px;
       }
 
       *{box-sizing:border-box}
       html,body{height:100%}
+      html{scroll-behavior:smooth}
+      :target{scroll-margin-top: 96px}
+
       body{
         margin:0;
         font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
         color:var(--text);
         background:
-          radial-gradient(1200px 700px at 12% 14%, rgba(255,79,216,.18), transparent 62%),
-          radial-gradient(1000px 700px at 88% 18%, rgba(55,243,255,.14), transparent 60%),
-          radial-gradient(900px 700px at 50% 92%, rgba(138,92,255,.14), transparent 62%),
-          linear-gradient(180deg, #050510, #070715 40%, #050510);
+          radial-gradient(900px 700px at 15% 0%, rgba(124,92,255,.18), transparent 60%),
+          radial-gradient(900px 700px at 85% 10%, rgba(55,243,255,.10), transparent 55%),
+          linear-gradient(180deg, var(--bg0), var(--bg1) 45%, var(--bg0));
         background-attachment: fixed;
         min-height:100vh;
       }
 
-      /* subtle noise overlay to avoid "banding" */
+      /* fine grain to avoid banding, but subtle */
       body::before{
         content:"";
         position:fixed;
         inset:0;
         pointer-events:none;
-        opacity:.06;
-        background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+        opacity:.05;
+        background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
         mix-blend-mode: overlay;
       }
 
-      a{color:inherit}
-      .wrap{
-        max-width: 1120px;
-        margin: 0 auto;
-        padding: 18px 18px 60px;
-      }
+      a{color:inherit; text-decoration:none}
+      .wrap{max-width:1120px; margin:0 auto; padding: 18px 18px 70px;}
 
-      /* topbar */
+      /* top nav */
       .topbar{
+        position:sticky;
+        top:0;
+        z-index:50;
+        padding: 14px 0;
+        backdrop-filter: blur(10px);
+        background: linear-gradient(180deg, rgba(5,6,10,.78), rgba(5,6,10,.40));
+        border-bottom: 1px solid rgba(255,255,255,.06);
+      }
+      .topInner{
+        max-width:1120px;
+        margin:0 auto;
+        padding: 0 18px;
         display:flex;
         align-items:center;
         justify-content:space-between;
         gap:14px;
-        padding: 10px 0 18px;
       }
       .brand{
-        display:flex;
-        align-items:center;
-        gap:12px;
-        font-weight:900;
-        letter-spacing:.2px;
-        text-decoration:none;
-      }
-      .brand .name{
-        display:flex;
-        flex-direction:column;
-        line-height:1.08;
-      }
-      .brand .name strong{font-size:14px}
-      .brand .name span{
-        font-size:12px;
-        color:var(--muted);
-        font-weight:700;
+        display:flex; align-items:center; gap:12px;
+        font-weight:800;
         letter-spacing:.2px;
       }
-
       .logo{
-        width:40px;
-        height:40px;
-        border-radius: 14px;
-        object-fit: contain;
-        background: rgba(255,255,255,.05);
-        padding: 6px;
+        width:40px;height:40px;border-radius: 14px;
+        object-fit:contain;
+        background: rgba(255,255,255,.06);
         border: 1px solid rgba(255,255,255,.10);
-        box-shadow: 0 10px 34px rgba(138, 92, 255, 0.22);
+        padding:6px;
       }
+      .brandText{
+        display:flex; flex-direction:column; line-height:1.05;
+      }
+      .brandText strong{font-size:13px}
+      .brandText span{font-size:12px; color:var(--muted); font-weight:650}
 
       .nav{
-        display:flex;
-        gap:10px;
-        flex-wrap:wrap;
+        display:flex; align-items:center; gap:10px; flex-wrap:wrap;
         justify-content:flex-end;
-        align-items:center;
       }
-      .pill{
-        display:inline-flex;
-        align-items:center;
-        gap:8px;
-        padding: 8px 12px;
-        border: 1px solid rgba(255,255,255,.10);
+      .nav a{
+        font-size:12px;
+        color: rgba(246,247,255,.74);
+        padding: 8px 10px;
         border-radius: 999px;
-        background: rgba(255,255,255,.04);
-        color: var(--muted);
-        font-size: 12px;
-        text-decoration:none;
-        white-space:nowrap;
+        border: 1px solid transparent;
+        transition: border-color .15s ease, background .15s ease, color .15s ease;
       }
-      .pill:hover{
-        border-color: rgba(255,255,255,.18);
+      .nav a:hover{
         color: var(--text);
-      }
-      .pill strong{color:var(--text)}
-
-      /* hero */
-      .hero{
-        border: 1px solid rgba(255,255,255,.10);
-        border-radius: var(--radius);
-        background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-        box-shadow: var(--shadow);
-        overflow:hidden;
-        position:relative;
-      }
-      .hero::before{
-        content:"";
-        position:absolute;
-        inset:-2px;
-        background: linear-gradient(120deg, rgba(55,243,255,.16), rgba(255,79,216,.16), rgba(138,92,255,.16));
-        filter: blur(18px);
-        opacity:.38;
-        pointer-events:none;
-      }
-      .heroInner{
-        position:relative;
-        padding: 28px 22px;
-        display:grid;
-        grid-template-columns: 1.15fr .85fr;
-        gap: 18px;
-      }
-      @media (max-width:960px){
-        .heroInner{grid-template-columns:1fr}
-        .nav{justify-content:flex-start}
+        border-color: rgba(255,255,255,.10);
+        background: rgba(255,255,255,.04);
       }
 
-      h1{
-        margin: 0 0 10px;
-        font-size: 40px;
-        line-height: 1.08;
-        letter-spacing: -.45px;
-      }
-      .grad{
-        background: linear-gradient(90deg, var(--cyan), #c6f8ff, var(--pink));
-        -webkit-background-clip:text;
-        background-clip:text;
-        color:transparent;
-      }
-      .sub{
-        margin: 0 0 16px;
-        color: var(--muted);
-        line-height: 1.55;
-        font-size: 14px;
+      .cta{
+        display:flex; gap:10px; align-items:center; flex-wrap:wrap;
       }
 
-      .ctaRow{
-        display:flex;
-        flex-wrap:wrap;
-        gap:10px;
-        margin-top: 12px;
-        align-items:center;
-      }
       .btn{
         display:inline-flex;
         align-items:center;
         justify-content:center;
         gap:10px;
-        padding: 12px 14px;
-        border-radius: 14px;
+        padding: 10px 12px;
+        border-radius: 12px;
         border: 1px solid rgba(255,255,255,.12);
-        text-decoration:none;
-        font-weight:900;
-        box-shadow: 0 16px 50px rgba(0,0,0,.35);
-        transform: translateY(0);
-        transition: transform .14s ease, filter .14s ease, box-shadow .14s ease, border-color .14s ease;
+        font-weight:800;
+        font-size:12px;
+        transition: transform .12s ease, filter .12s ease, background .12s ease, border-color .12s ease;
+        box-shadow: 0 16px 40px rgba(0,0,0,.35);
       }
-      .btn:hover{
-        transform: translateY(-1px);
-        filter: brightness(1.05) saturate(1.05);
-        box-shadow: 0 22px 70px rgba(0,0,0,.45);
-        border-color: rgba(255,255,255,.18);
-      }
+      .btn:hover{transform: translateY(-1px); filter: brightness(1.05)}
       .btnPrimary{
-        background: linear-gradient(135deg, #595CFF, #C6F8FF);
-        color: #08101a;
         border-color: transparent;
+        color:#0a0b14;
+        background: linear-gradient(135deg, rgba(55,243,255,1), rgba(124,92,255,1));
       }
       .btnGhost{
-        background: rgba(255,255,255,.05);
-        color: var(--text);
-      }
-      .btnPro{
-        background: linear-gradient(135deg, rgba(255,79,216,.18), rgba(55,243,255,.14));
-        color: var(--text);
+        background: rgba(255,255,255,.04);
+        color: rgba(246,247,255,.86);
       }
 
-      .tagRow{display:flex; flex-wrap:wrap; gap:8px; margin-top:12px}
-      .tag{
-        font-size:12px;
-        color: var(--muted);
+      /* hero */
+      .hero{
+        padding: 44px 0 18px;
+      }
+      .heroGrid{
+        display:grid;
+        grid-template-columns: 1.05fr .95fr;
+        gap: 22px;
+        align-items:stretch;
+      }
+      @media (max-width:960px){
+        .heroGrid{grid-template-columns:1fr}
+      }
+
+      .kicker{
+        display:inline-flex;
+        align-items:center;
+        gap:10px;
+        padding: 8px 12px;
+        border-radius: 999px;
         border: 1px solid rgba(255,255,255,.10);
-        background: rgba(0,0,0,.14);
-        padding: 6px 10px;
+        background: rgba(255,255,255,.03);
+        color: rgba(246,247,255,.76);
+        font-size: 12px;
+        font-weight:750;
+      }
+      .dot{
+        width:8px;height:8px;border-radius:999px;
+        background: linear-gradient(135deg, var(--accent2), var(--accent));
+        box-shadow: 0 0 0 3px rgba(124,92,255,.16);
+      }
+
+      h1{
+        margin: 14px 0 12px;
+        font-size: 46px;
+        line-height: 1.06;
+        letter-spacing: -.55px;
+      }
+      @media (max-width:520px){ h1{font-size:38px} }
+
+      .lead{
+        margin:0 0 18px;
+        color: rgba(246,247,255,.76);
+        line-height: 1.6;
+        font-size: 14px;
+        max-width: 56ch;
+      }
+
+      .heroActions{
+        display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+        margin-top: 12px;
+      }
+
+      .micro{
+        margin-top: 14px;
+        display:flex;
+        gap:10px;
+        flex-wrap:wrap;
+        color: rgba(246,247,255,.62);
+        font-size:12px;
+      }
+      .chip{
+        border: 1px solid rgba(255,255,255,.10);
+        background: rgba(0,0,0,.18);
+        padding: 7px 10px;
         border-radius: 999px;
       }
-      .kbd{
-        display:inline-block;
-        padding: 2px 6px;
-        border-radius: 8px;
-        border: 1px solid rgba(255,255,255,.12);
-        background: rgba(0,0,0,.2);
-        font-size: 12px;
-        color: var(--text);
-      }
 
-      /* right hero card */
-      .card{
-        padding: 16px 16px 14px;
-        border-radius: 16px;
+      /* right: product frame */
+      .frame{
+        border-radius: var(--radius2);
         border: 1px solid rgba(255,255,255,.10);
-        background: var(--card);
-        position:relative;
+        background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+        box-shadow: var(--shadow);
         overflow:hidden;
+        position:relative;
+        min-height: 360px;
       }
-      .card::after{
+      .frame::before{
         content:"";
         position:absolute;
-        inset:-40% -40%;
-        background:
-          radial-gradient(circle at 30% 30%, rgba(55,243,255,.10), transparent 55%),
-          radial-gradient(circle at 70% 40%, rgba(255,79,216,.08), transparent 55%);
-        transform: rotate(12deg);
+        inset:-2px;
+        background: radial-gradient(circle at 25% 15%, rgba(55,243,255,.18), transparent 45%),
+                    radial-gradient(circle at 75% 20%, rgba(124,92,255,.18), transparent 50%);
+        filter: blur(18px);
+        opacity:.45;
         pointer-events:none;
       }
-      .card > *{position:relative}
-      .card h3{
+      .frameTop{
+        position:relative;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        padding: 12px 14px;
+        border-bottom: 1px solid rgba(255,255,255,.08);
+        background: rgba(0,0,0,.18);
+      }
+      .frameTitle{
+        font-size:12px;
+        color: rgba(246,247,255,.72);
+        font-weight:750;
+      }
+      .traffic{display:flex; gap:7px; align-items:center}
+      .t{
+        width:10px;height:10px;border-radius:999px;
+        background: rgba(255,255,255,.14);
+        border: 1px solid rgba(255,255,255,.10);
+      }
+
+      .mock{
+        position:relative;
+        padding: 16px;
+        display:grid;
+        gap: 12px;
+      }
+      .mockCard{
+        border: 1px solid rgba(255,255,255,.10);
+        background: rgba(12,12,34,.55);
+        border-radius: 16px;
+        padding: 14px;
+      }
+      .mockCard h3{
         margin:0 0 6px;
-        font-size: 14px;
+        font-size: 13px;
         letter-spacing:.2px;
       }
-      .card p{
+      .mockCard p{
         margin:0;
-        color: var(--muted);
-        line-height: 1.45;
+        color: rgba(246,247,255,.68);
         font-size: 13px;
+        line-height: 1.45;
       }
       .codeRow code{
         display:inline-block;
-        padding: 2px 7px;
+        margin-top: 10px;
+        padding: 4px 8px;
         border-radius: 10px;
         border: 1px solid rgba(255,255,255,.10);
         background: rgba(0,0,0,.22);
-        color: var(--text);
+        color: rgba(246,247,255,.85);
         font-size: 12px;
-        margin-right: 6px;
         font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       }
 
-      /* sections */
+      /* section blocks */
       .section{
         margin-top: 18px;
         border: 1px solid rgba(255,255,255,.10);
-        border-radius: var(--radius);
+        border-radius: var(--radius2);
         background: rgba(255,255,255,.03);
-        box-shadow: var(--shadow);
+        box-shadow: 0 20px 55px rgba(0,0,0,.35);
         overflow:hidden;
       }
       .sectionHead{
@@ -296,88 +302,126 @@
         display:flex;
         justify-content:space-between;
         align-items:flex-end;
-        gap:10px;
         flex-wrap:wrap;
+        gap:10px;
       }
       .sectionHead h2{
         margin:0;
-        font-size: 15px;
+        font-size: 14px;
         letter-spacing:.2px;
       }
       .sectionHead p{
         margin:0;
-        color: var(--muted);
+        color: rgba(246,247,255,.66);
         font-size: 13px;
-        line-height: 1.4;
       }
 
       .grid3{
+        padding: 16px;
+        background: rgba(0,0,0,.14);
         display:grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 12px;
-        padding: 16px;
-        background: rgba(0,0,0,.10);
       }
-      @media (max-width:960px){
-        .grid3{grid-template-columns:1fr}
-      }
-      .feature{
-        border: 1px solid rgba(255,255,255,.10);
-        border-radius: 16px;
-        background: rgba(12,12,34,.55);
-        padding: 14px;
-      }
-      .feature .icon{
-        width:34px;height:34px;border-radius:12px;
-        display:flex;align-items:center;justify-content:center;
+      @media (max-width:960px){ .grid3{grid-template-columns:1fr} }
+
+      .feat{
         border: 1px solid rgba(255,255,255,.10);
         background: rgba(255,255,255,.04);
-        margin-bottom:10px;
+        border-radius: 18px;
+        padding: 14px;
       }
-      .feature h3{
-        margin:0 0 6px;
+      .featTop{
+        display:flex; align-items:center; justify-content:space-between;
+        gap:10px;
+        margin-bottom: 8px;
+      }
+      .badge{
+        font-size: 11px;
+        font-weight: 850;
+        color: rgba(246,247,255,.80);
+        border: 1px solid rgba(255,255,255,.10);
+        background: rgba(0,0,0,.14);
+        padding: 6px 10px;
+        border-radius: 999px;
+      }
+      .feat h3{
+        margin: 8px 0 6px;
         font-size: 14px;
         letter-spacing:.2px;
       }
-      .feature p{
+      .feat p{
         margin:0;
-        color: var(--muted);
-        line-height: 1.45;
+        color: rgba(246,247,255,.70);
         font-size: 13px;
+        line-height: 1.5;
       }
 
       .twoCol{
+        padding: 16px;
+        background: rgba(0,0,0,.14);
         display:grid;
         grid-template-columns: 1fr 1fr;
         gap: 12px;
-        padding: 16px;
-        background: rgba(0,0,0,.10);
       }
       @media (max-width:960px){ .twoCol{grid-template-columns:1fr} }
 
       .panel{
-        border-radius: 16px;
         border: 1px solid rgba(255,255,255,.10);
         background: rgba(255,255,255,.04);
+        border-radius: 18px;
         padding: 16px;
       }
-      .panel h3{
-        margin:0 0 8px;
-        font-size: 14px;
-        letter-spacing:.2px;
-      }
+      .panel h3{margin:0 0 8px; font-size:14px; letter-spacing:.2px}
+      .panel p{margin:0; color: rgba(246,247,255,.70); font-size:13px; line-height:1.55}
       .bullets{
-        margin:0;
+        margin: 8px 0 0;
         padding-left: 18px;
-        color: var(--muted);
-        line-height: 1.55;
+        color: rgba(246,247,255,.70);
         font-size: 13px;
+        line-height: 1.55;
       }
+
+      /* FAQ */
+      details{
+        border: 1px solid rgba(255,255,255,.10);
+        background: rgba(255,255,255,.04);
+        border-radius: 18px;
+        padding: 12px 14px;
+      }
+      details summary{
+        cursor:pointer;
+        list-style:none;
+        font-weight:850;
+        font-size:13px;
+        color: rgba(246,247,255,.86);
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:12px;
+      }
+      details summary::-webkit-details-marker{display:none}
+      details p{
+        margin: 10px 0 0;
+        color: rgba(246,247,255,.70);
+        font-size:13px;
+        line-height:1.55;
+      }
+      .chev{
+        width:10px;height:10px;
+        border-right:2px solid rgba(246,247,255,.65);
+        border-bottom:2px solid rgba(246,247,255,.65);
+        transform: rotate(45deg);
+        transition: transform .15s ease;
+        flex: 0 0 auto;
+        opacity:.8;
+      }
+      details[open] .chev{transform: rotate(225deg)}
 
       /* footer */
       .footer{
         margin-top: 18px;
-        color: var(--muted);
+        color: rgba(246,247,255,.55);
         font-size: 12px;
         display:flex;
         justify-content:space-between;
@@ -385,207 +429,209 @@
         flex-wrap:wrap;
         padding: 10px 2px 0;
       }
-      .smallLink{color:var(--muted); text-decoration:none}
-      .smallLink:hover{color:var(--text)}
-
-      /* nicer anchor scrolling for sections */
-      html{scroll-behavior:smooth}
-      :target{scroll-margin-top: 88px}
+      .smallLink{color: rgba(246,247,255,.62)}
+      .smallLink:hover{color: var(--text)}
     </style>
   </head>
 
   <body>
-    <div class="wrap">
-      <div class="topbar">
+    <!-- sticky premium nav -->
+    <header class="topbar">
+      <div class="topInner">
         <a class="brand" href="./index.html">
           <img src="./logo.png" alt="Courier Web logo" class="logo" onerror="this.style.display='none'"/>
-          <div class="name">
+          <div class="brandText">
             <strong>Courier Web</strong>
-            <span>Ultimate Media Highlighter</span>
+            <span>Premium AI capture</span>
           </div>
         </a>
 
-        <div class="nav">
-          <a class="pill" href="#features">Features</a>
-          <a class="pill" href="#how">How it works</a>
-          <a class="pill" href="#pro">Pro</a>
-          <a class="pill" href="./privacy.html">Privacy</a>
-          <a class="pill" href="./support.html">Support</a>
+        <nav class="nav" aria-label="Primary">
+          <a href="#features">Features</a>
+          <a href="#workflow">Workflow</a>
+          <a href="#pro">Pro</a>
+          <a href="./privacy.html">Privacy</a>
+          <a href="./support.html">Support</a>
+        </nav>
+
+        <div class="cta">
+          <a class="btn btnGhost" href="CHROME_WEB_STORE_URL_HERE" target="_blank" rel="noreferrer">
+            Install
+          </a>
+          <a class="btn btnPrimary" href="GUMROAD_URL_HERE" target="_blank" rel="noreferrer">
+            Get Pro
+          </a>
         </div>
       </div>
+    </header>
 
-      <div class="hero">
-        <div class="heroInner">
+    <main class="wrap">
+      <!-- HERO -->
+      <section class="hero">
+        <div class="heroGrid">
           <div>
+            <div class="kicker"><span class="dot"></span> Built for speed, designed for privacy</div>
+
             <h1>
-              Highlight text or capture images —
-              <span class="grad">send to AI instantly.</span>
+              Capture context from the web.
+              <span style="color: rgba(246,247,255,.85);">Send to AI in one click.</span>
             </h1>
-            <p class="sub">
-              Courier Web turns highlights, screenshots, and images into ready-to-use prompts in seconds.
-              No copy-paste friction. No workflow break.
+
+            <p class="lead">
+              Courier Web is a premium Chrome extension for highlighting text, analyzing images, and capturing screen regions —
+              turning anything you see into a clean, ready-to-run prompt.
             </p>
 
-            <div class="ctaRow">
-              <!-- replace with your real links -->
+            <div class="heroActions">
               <a class="btn btnPrimary" href="CHROME_WEB_STORE_URL_HERE" target="_blank" rel="noreferrer">
-                Install Extension
-              </a>
-              <a class="btn btnPro" href="https://rajujutsu.gumroad.com/l/wjptpf" target="_blank" rel="noreferrer">
-                Get Pro (one-time)
+                Install from Chrome Web Store
               </a>
               <a class="btn btnGhost" href="#features">
-                See features
+                View features
               </a>
             </div>
 
-            <div class="tagRow" aria-label="keywords">
-              <span class="tag">highlights → prompt</span>
-              <span class="tag">image analysis</span>
-              <span class="tag">region capture</span>
-              <span class="tag">templates</span>
-              <span class="tag">privacy-first</span>
+            <div class="micro" aria-label="Highlights">
+              <span class="chip">No ads</span>
+              <span class="chip">No trackers</span>
+              <span class="chip">Runs only when you click</span>
+              <span class="chip">Templates + favorites (Pro)</span>
             </div>
-
-            <p class="sub" style="margin-top:12px">
-              Shortcut: <span class="kbd">Ctrl/Cmd</span> + <span class="kbd">Shift</span> + <span class="kbd">Y</span>
-              <span style="opacity:.65">· configurable in Options</span>
-            </p>
           </div>
 
-          <div>
-            <div class="card" style="height:100%">
-              <h3>What you can do</h3>
-              <p>
-                • Highlight text → Ask / tools / templates<br />
-                • Right-click an image → Analyze<br />
-                • Capture a screen region → Paste instantly
-              </p>
+          <div class="frame" aria-label="Product preview">
+            <div class="frameTop">
+              <div class="traffic" aria-hidden="true">
+                <span class="t"></span><span class="t"></span><span class="t"></span>
+              </div>
+              <div class="frameTitle">Courier Web • Live preview</div>
+              <div style="width:42px"></div>
+            </div>
 
-              <div style="height:12px"></div>
+            <div class="mock">
+              <div class="mockCard">
+                <h3>Highlight → Ask</h3>
+                <p>Select any text, then right-click or press your shortcut to open AI with context prefilled.</p>
+              </div>
 
-              <h3>Built for speed</h3>
-              <p>
-                Keep your flow: select → action → your AI opens with everything ready.
-              </p>
+              <div class="mockCard">
+                <h3>Image analysis</h3>
+                <p>Right-click charts, screenshots, or diagrams. Send visuals for explanation and insights.</p>
+              </div>
 
-              <div style="height:12px"></div>
-
-              <h3>Template variables</h3>
-              <p class="codeRow">
-                <code>{{text}}</code>
-                <code>{{url}}</code>
-                <code>{{title}}</code>
-                <code>{{date}}</code>
-                <code>{{lang}}</code>
-              </p>
-
-              <div style="height:12px"></div>
-
-              <h3>Example template</h3>
-              <p>
-                Summarize key points, then list action items for <strong>{{title}}</strong> — <strong>{{url}}</strong> ({{date}})
-              </p>
+              <div class="mockCard">
+                <h3>Template variables</h3>
+                <p>Build repeatable prompts that pull from the page automatically.</p>
+                <div class="codeRow">
+                  <code>{{text}}</code>
+                  <code>{{url}}</code>
+                  <code>{{title}}</code>
+                  <code>{{date}}</code>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
       <!-- FEATURES -->
-      <div class="section" id="features">
+      <section class="section" id="features">
         <div class="sectionHead">
           <div>
             <h2>Features</h2>
-            <p>Everything you need to move faster with text + images.</p>
+            <p>Everything you need — without bloat.</p>
           </div>
         </div>
 
         <div class="grid3">
-          <div class="feature">
-            <div class="icon">🔹</div>
-            <h3>Highlight → Ask</h3>
-            <p>Select text anywhere, then right-click, use a button, or hit a shortcut to send it instantly.</p>
+          <div class="feat">
+            <div class="featTop"><span class="badge">Text</span><span class="badge" style="opacity:.75">Instant</span></div>
+            <h3>Highlight → prompt</h3>
+            <p>Capture selected text and open your AI tool with a polished prompt — no copy/paste.</p>
           </div>
 
-          <div class="feature">
-            <div class="icon">🖼️</div>
-            <h3>Analyze Images</h3>
-            <p>Right-click charts, diagrams, or screenshots and send the image for quick explanation.</p>
+          <div class="feat">
+            <div class="featTop"><span class="badge">Images</span><span class="badge" style="opacity:.75">Right-click</span></div>
+            <h3>Analyze charts & visuals</h3>
+            <p>Send screenshots, diagrams, and charts for quick breakdowns and explanations.</p>
           </div>
 
-          <div class="feature">
-            <div class="icon">✂️</div>
-            <h3>Capture Screen Region</h3>
-            <p>Select any area of your screen, auto-copy the capture, then paste into your AI tool.</p>
+          <div class="feat">
+            <div class="featTop"><span class="badge">Region</span><span class="badge" style="opacity:.75">Fast</span></div>
+            <h3>Capture a screen area</h3>
+            <p>Select a region, copy automatically, then paste into your AI workflow instantly.</p>
           </div>
 
-          <div class="feature">
-            <div class="icon">🧠</div>
-            <h3>Smart Prompts</h3>
-            <p>Summarize, rewrite, explain, and convert — ready from the menu.</p>
+          <div class="feat">
+            <div class="featTop"><span class="badge">Templates</span><span class="badge" style="opacity:.75">Pro</span></div>
+            <h3>Reusable prompts</h3>
+            <p>Build templates using variables like <code style="font-family: ui-monospace, Menlo, monospace;">{{url}}</code> and <code style="font-family: ui-monospace, Menlo, monospace;">{{title}}</code>.</p>
           </div>
 
-          <div class="feature">
-            <div class="icon">⭐</div>
-            <h3>Custom Templates</h3>
-            <p>Save reusable prompts with variables like <code>{{text}}</code> and <code>{{url}}</code>.</p>
+          <div class="feat">
+            <div class="featTop"><span class="badge">Favorites</span><span class="badge" style="opacity:.75">Pro</span></div>
+            <h3>One-tap favorites</h3>
+            <p>Save your best workflows so the exact prompt is always one click away.</p>
           </div>
 
-          <div class="feature">
-            <div class="icon">🎛️</div>
-            <h3>Quick Actions UI</h3>
-            <p>Fast pop-up buttons and polished menus designed for speed and clarity.</p>
+          <div class="feat">
+            <div class="featTop"><span class="badge">Privacy</span><span class="badge" style="opacity:.75">Always</span></div>
+            <h3>Runs only when you act</h3>
+            <p>No background scraping. No analytics. Content is processed only when you trigger an action.</p>
           </div>
         </div>
-      </div>
+      </section>
 
-      <!-- HOW IT WORKS -->
-      <div class="section" id="how">
+      <!-- WORKFLOW -->
+      <section class="section" id="workflow">
         <div class="sectionHead">
           <div>
-            <h2>How it works</h2>
-            <p>Three steps. No friction.</p>
+            <h2>Workflow</h2>
+            <p>Three steps. Clean and fast.</p>
           </div>
         </div>
 
         <div class="twoCol">
           <div class="panel">
-            <h3>1) Select something</h3>
+            <h3>1) Capture</h3>
+            <p>Highlight text, right-click an image, or capture a screen region.</p>
             <ul class="bullets">
-              <li>Highlight text on any page</li>
-              <li>Right-click an image</li>
-              <li>Or capture a screen region</li>
+              <li>Selection-based (no tracking)</li>
+              <li>Context includes title + URL (optional)</li>
             </ul>
           </div>
+
           <div class="panel">
             <h3>2) Choose an action</h3>
+            <p>Ask, summarize, rewrite, explain, or run a template.</p>
             <ul class="bullets">
-              <li>Ask / Summarize / Rewrite / Explain</li>
-              <li>Analyze Image</li>
-              <li>Run a saved template</li>
+              <li>Menu + shortcuts</li>
+              <li>Quick actions UI</li>
             </ul>
           </div>
+
           <div class="panel">
-            <h3>3) Your AI opens ready</h3>
+            <h3>3) Generate</h3>
+            <p>Your AI tool opens with a ready prompt — and you keep moving.</p>
             <ul class="bullets">
-              <li>Prompt is pre-filled</li>
-              <li>Your context is included</li>
-              <li>Stay in flow — keep moving</li>
+              <li>No copy/paste</li>
+              <li>No workflow break</li>
             </ul>
           </div>
+
           <div class="panel">
-            <h3>Privacy-first</h3>
+            <h3>Professional by design</h3>
+            <p>Minimal permissions, on-demand behavior, and local-first storage.</p>
             <ul class="bullets">
-              <li>No tracking, no ads</li>
-              <li>No background scraping</li>
-              <li>Only runs when you click</li>
+              <li>Stores templates/history locally</li>
+              <li>Built for review-friendly compliance</li>
             </ul>
           </div>
         </div>
-      </div>
+      </section>
 
       <!-- PRO -->
-      <div class="section" id="pro">
+      <section class="section" id="pro">
         <div class="sectionHead">
           <div>
             <h2>Courier Web Pro</h2>
@@ -597,44 +643,67 @@
           <div class="panel">
             <h3>What Pro adds</h3>
             <ul class="bullets">
-              <li>Custom prompt templates + favorites</li>
+              <li>Custom templates + favorites</li>
               <li>More history storage (local)</li>
-              <li>Advanced quick actions</li>
-              <li>Extra UI themes / visual polish</li>
-              <li>All future Pro features</li>
+              <li>Advanced quick actions / themes</li>
+              <li>Priority support</li>
             </ul>
           </div>
 
           <div class="panel">
             <h3>Get Pro</h3>
-            <p class="sub" style="margin:0 0 12px">
-              One-time purchase. No subscriptions.
+            <p style="margin:0;color:rgba(246,247,255,.70);font-size:13px;line-height:1.55">
+              One-time purchase. No subscription. License supports multiple devices (see Support page for details).
             </p>
-            <div class="ctaRow">
-              <a class="btn btnPro" href="https://rajujutsu.gumroad.com/l/wjptpf" target="_blank" rel="noreferrer">
-                Get Pro (one-time)
-              </a>
-              <a class="btn btnGhost" href="./support.html">
-                Need help?
-              </a>
-            </div>
-            <div class="tagRow" style="margin-top:10px">
-              <span class="tag">2 devices / license</span>
-              <span class="tag">reset every 30 days</span>
-              <span class="tag">privacy-first</span>
+            <div style="height:12px"></div>
+            <div class="heroActions">
+              <a class="btn btnPrimary" href="GUMROAD_URL_HERE" target="_blank" rel="noreferrer">Get Pro</a>
+              <a class="btn btnGhost" href="./support.html">Support</a>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      <div class="footer">
+      <!-- FAQ -->
+      <section class="section" id="faq">
+        <div class="sectionHead">
+          <div>
+            <h2>FAQ</h2>
+            <p>Quick answers.</p>
+          </div>
+        </div>
+
+        <div class="twoCol">
+          <details>
+            <summary>Does it track my browsing?<span class="chev" aria-hidden="true"></span></summary>
+            <p>No. Courier Web does not run analytics or track browsing behavior. It only acts when you trigger it.</p>
+          </details>
+
+          <details>
+            <summary>What data is stored?<span class="chev" aria-hidden="true"></span></summary>
+            <p>Templates and history can be stored locally in your browser. See the Privacy page for specifics.</p>
+          </details>
+
+          <details>
+            <summary>Do I need ChatGPT?<span class="chev" aria-hidden="true"></span></summary>
+            <p>You need an AI tool account to generate responses. Courier Web helps you send context quickly.</p>
+          </details>
+
+          <details>
+            <summary>How does Pro licensing work?<span class="chev" aria-hidden="true"></span></summary>
+            <p>Pro unlocks advanced templates/favorites and more. Device limits and resets are explained on Support.</p>
+          </details>
+        </div>
+      </section>
+
+      <footer class="footer">
         <div>© <span id="y"></span> Courier Web</div>
         <div>
           <a class="smallLink" href="./privacy.html">Privacy</a> ·
           <a class="smallLink" href="./support.html">Support</a>
         </div>
-      </div>
-    </div>
+      </footer>
+    </main>
 
     <script>
       document.getElementById("y").textContent = new Date().getFullYear();
