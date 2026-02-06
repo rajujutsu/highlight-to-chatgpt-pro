@@ -3,11 +3,13 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Privacy Policy – Highlight to ChatGPT Pro</title>
+
+    <title>Courier Web — Privacy Policy</title>
     <meta
       name="description"
-      content="Privacy Policy for Highlight to ChatGPT Pro (Chrome extension)."
+      content="Privacy Policy for Courier Web (Chrome extension). Privacy-first: no tracking, no ads, no background scraping."
     />
+
     <style>
       :root{
         --bg:#070715;
@@ -15,72 +17,134 @@
         --text:#f5f7ff;
         --muted:#b8bce6;
         --line:#1c1c3f;
+
         --pink:#ff4fd8;
         --cyan:#37f3ff;
         --purple:#8a5cff;
+        --green:#37ff9a;
+
         --shadow: 0 18px 60px rgba(0,0,0,.45);
         --radius: 18px;
       }
       *{box-sizing:border-box}
+      html,body{height:100%}
       body{
         margin:0;
         font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
         color:var(--text);
         background:
-          radial-gradient(1200px 700px at 10% 15%, rgba(255,79,216,.20), transparent 60%),
-          radial-gradient(900px 600px at 90% 20%, rgba(55,243,255,.14), transparent 55%),
+          radial-gradient(1200px 700px at 10% 15%, rgba(255,79,216,.22), transparent 60%),
+          radial-gradient(900px 600px at 90% 20%, rgba(55,243,255,.16), transparent 55%),
           radial-gradient(900px 600px at 50% 85%, rgba(138,92,255,.18), transparent 60%),
           linear-gradient(180deg, #050510, #070715 35%, #050510);
         min-height:100vh;
       }
-      a{color:var(--cyan); text-decoration:none}
-      a:hover{color:#ffffff}
+      a{color:inherit}
       .wrap{
-        max-width: 980px;
+        max-width: 1040px;
         margin: 0 auto;
-        padding: 26px 18px 44px;
+        padding: 22px 18px 44px;
       }
-      .top{
+
+      /* topbar */
+      .topbar{
         display:flex;
         align-items:center;
         justify-content:space-between;
-        gap:12px;
-        flex-wrap:wrap;
-        margin-bottom: 14px;
+        gap:14px;
+        padding: 8px 0 18px;
       }
-      .pill{
-        display:inline-flex;
+      .brand{
+        display:flex;
         align-items:center;
         gap:10px;
-        padding: 10px 12px;
-        border-radius: 999px;
+        font-weight:900;
+        letter-spacing:.2px;
+        text-decoration:none;
+      }
+      .brand .name{
+        display:flex;
+        flex-direction:column;
+        line-height:1.1;
+      }
+      .brand .name strong{font-size:14px}
+      .brand .name span{
+        font-size:12px;
+        color:var(--muted);
+        font-weight:700;
+        letter-spacing:.2px;
+      }
+      .logo{
+        width:36px;height:36px;border-radius:14px;object-fit:contain;
+        box-shadow:0 10px 30px rgba(138, 92, 255, 0.35);
+        background:rgba(255,255,255,.04);padding:4px;
+      }
+      .logo:hover{
+        box-shadow:
+          0 0 20px rgba(255, 79, 216, 0.55),
+          0 0 40px rgba(55, 243, 255, 0.35);
+        transition: box-shadow 0.25s ease;
+      }
+      .nav{
+        display:flex; gap:10px; flex-wrap:wrap;
+        justify-content:flex-end; align-items:center;
+      }
+      .pill{
+        display:inline-flex; align-items:center; gap:8px;
+        padding: 8px 12px;
         border: 1px solid rgba(255,255,255,.10);
+        border-radius: 999px;
         background: rgba(255,255,255,.04);
         color: var(--muted);
         font-size: 12px;
-        white-space: nowrap;
+        text-decoration:none;
+        white-space:nowrap;
+      }
+      .pill:hover{
+        border-color: rgba(255,255,255,.18);
+        color: var(--text);
       }
       .pill strong{color:var(--text)}
+
+      /* card container */
       .card{
         border: 1px solid rgba(255,255,255,.10);
         border-radius: var(--radius);
         background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
         box-shadow: var(--shadow);
-        padding: 18px 18px 14px;
+        padding: 18px 18px 16px;
+        position:relative;
+        overflow:hidden;
       }
+      .card::before{
+        content:"";
+        position:absolute;
+        inset:-2px;
+        background: linear-gradient(120deg, rgba(55,243,255,.14), rgba(255,79,216,.14), rgba(138,92,255,.14));
+        filter: blur(18px);
+        opacity:.35;
+        pointer-events:none;
+      }
+      .card > *{position:relative}
+
       h1{
         margin: 6px 0 8px;
         font-size: 26px;
         letter-spacing: -.2px;
       }
+      .meta{
+        color: var(--muted);
+        font-size: 12px;
+        margin-bottom: 12px;
+      }
       h2{
         margin: 18px 0 8px;
-        font-size: 16px;
+        font-size: 15px;
         letter-spacing: .2px;
       }
       h3{
         margin: 14px 0 6px;
-        font-size: 14px;
+        font-size: 13px;
         letter-spacing: .2px;
       }
       p{
@@ -89,16 +153,6 @@
         line-height: 1.6;
         font-size: 13px;
       }
-      .meta{
-        color: var(--muted);
-        font-size: 12px;
-        margin-bottom: 10px;
-      }
-      .rule{
-        height:1px;
-        background: rgba(255,255,255,.08);
-        margin: 14px 0;
-      }
       ul{
         margin: 8px 0 8px 18px;
         color: var(--muted);
@@ -106,14 +160,29 @@
         font-size: 13px;
       }
       li{margin: 4px 0}
+      .rule{
+        height:1px;
+        background: rgba(255,255,255,.08);
+        margin: 14px 0;
+      }
       .callout{
-        margin-top: 14px;
+        margin-top: 12px;
         padding: 12px 12px;
         border-radius: 16px;
         border: 1px solid rgba(255,255,255,.10);
         background: rgba(12,12,34,.55);
         color: var(--muted);
         font-size: 13px;
+        line-height: 1.5;
+      }
+      code{
+        background: rgba(0,0,0,.22);
+        border: 1px solid rgba(255,255,255,.10);
+        padding: 2px 6px;
+        border-radius: 8px;
+        color: var(--text);
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        font-size: 12px;
       }
       .footer{
         margin-top: 16px;
@@ -123,212 +192,162 @@
         flex-wrap:wrap;
         color: var(--muted);
         font-size: 12px;
+        padding-top: 6px;
       }
-      code{
-        background: rgba(0,0,0,.22);
-        border: 1px solid rgba(255,255,255,.10);
-        padding: 2px 6px;
-        border-radius: 8px;
-        color: var(--text);
+      .smallLink{color:var(--muted); text-decoration:none}
+      .smallLink:hover{color:var(--text)}
+
+      @media (max-width:900px){
+        .nav{justify-content:flex-start}
       }
     </style>
   </head>
 
   <body>
     <div class="wrap">
-      <div class="top">
-        <div class="pill"><strong>Highlight to ChatGPT Pro</strong> · Privacy Policy</div>
-        <div class="pill">
-          <a href="./index.html">Home</a>
-          <span style="opacity:.5">·</span>
-          <a href="./support.html">Support</a>
+      <div class="topbar">
+        <a class="brand" href="./index.html">
+          <img src="./logo.png" alt="Courier Web logo" class="logo"/>
+          <div class="name">
+            <strong>Courier Web</strong>
+            <span>Privacy Policy</span>
+          </div>
+        </a>
+
+        <div class="nav">
+          <a class="pill" href="./index.html">Home</a>
+          <a class="pill" href="./support.html">Support</a>
+          <a class="pill" href="#contact"><strong>Contact</strong></a>
         </div>
       </div>
 
       <div class="card">
-        <h1>Privacy Policy – Highlight to ChatGPT Pro</h1>
+        <h1>Privacy Policy — Courier Web</h1>
         <div class="meta"><strong>Last updated:</strong> February 1, 2026</div>
 
         <p>
-          Highlight to ChatGPT Pro (“the Product”, “the extension”) is a browser extension that allows users to highlight
-          text on a webpage and send it to ChatGPT using a right-click menu, keyboard shortcut, or floating action button.
-          The extension is designed to be privacy-first and only processes data when the user explicitly initiates an action. 
-          The extension accesses only the selected text and sends it to ChatGPT only when an action is triggered.
+          Courier Web (“the extension”) helps you highlight text, analyze images, and capture screen regions,
+          then send that content to your AI tools when <strong>you</strong> choose to.
+          Courier Web is designed to be privacy-first: it does not track you, it does not scrape pages in the background,
+          and it only acts when you trigger it.
         </p>
 
-        <div class="rule"></div>
-
-        <h2>Data We Collect and Process</h2>
-
-        <h3>Website Content (User-Initiated)</h3>
-        <p><strong>What is collected</strong></p>
-        <ul>
-          <li>Text that the user highlights and chooses to send to ChatGPT</li>
-          <li>The page URL and page title associated with that highlighted text</li>
-        </ul>
-
-        <p><strong>How it is collected</strong></p>
-        <ul>
-          <li>Data is collected only when the user manually activates the extension (right-click menu, shortcut, or button)</li>
-        </ul>
-
-        <p><strong>How it is used</strong></p>
-        <ul>
-          <li>To construct prompts sent to ChatGPT</li>
-          <li>To support optional features such as templates and local history</li>
-        </ul>
-
-        <p><strong>How it is shared</strong></p>
-        <ul>
-          <li>Sent to ChatGPT (<code>chatgpt.com</code>) only when the user chooses to send it</li>
-        </ul>
-
-        <div class="rule"></div>
-
-        <h3>Local Storage and Settings</h3>
-        <p><strong>What is stored locally</strong></p>
-        <ul>
-          <li>Highlighted text</li>
-          <li>Page URL and page title</li>
-          <li>Timestamp of actions</li>
-          <li>User-created templates</li>
-          <li>Template favorites and preferences</li>
-          <li>Feature and menu settings</li>
-          <li>Pro activation status</li>
-        </ul>
-
-        <p><strong>How it is used</strong></p>
-        <ul>
-          <li>To display local history</li>
-          <li>To enable template previews and favorites</li>
-          <li>To preserve user preferences between sessions</li>
-        </ul>
-
-        <p><strong>How it is shared</strong></p>
-        <ul>
-          <li>This data is not transmitted to the developer</li>
-          <li>This data is not shared with third parties</li>
-          <li>All data remains stored locally using Chrome extension storage APIs</li>
-        </ul>
-
-        <div class="rule"></div>
-
-        <h3>License Verification (Optional)</h3>
-        <p><strong>What is collected</strong></p>
-        <ul>
-          <li>A license key entered by the user (optional)</li>
-        </ul>
-
-        <p><strong>How it is collected</strong></p>
-        <ul>
-          <li>The user manually enters a license key to unlock Pro features</li>
-        </ul>
-
-        <p><strong>How it is used</strong></p>
-        <ul>
-          <li>To verify eligibility for Pro features</li>
-        </ul>
-
-        <p><strong>How it is shared</strong></p>
-        <ul>
-          <li>The license key is sent to a license verification service</li>
-          <li>No browsing data, highlighted text, or personal information is included</li>
-        </ul>
-
-        <div class="rule"></div>
-
-        <h2>Data Sharing and Third Parties</h2>
-        <p>User data is shared only in the following cases:</p>
-        <ol style="margin:8px 0 8px 18px; color: var(--muted); line-height:1.65; font-size:13px;">
-          <li>
-            <strong>ChatGPT (OpenAI)</strong>
-            <ul>
-              <li>When the user chooses to send highlighted text to ChatGPT</li>
-              <li>Subject to OpenAI’s privacy policy</li>
-            </ul>
-          </li>
-          <li>
-            <strong>License Verification Service</strong>
-            <ul>
-              <li>Only the license key entered by the user is transmitted</li>
-              <li>Used solely to validate Pro access</li>
-            </ul>
-          </li>
-        </ol>
-
-        <p>
-          The extension does not sell, rent, or transfer user data to advertisers, analytics providers, or other third parties.
-        </p>
-
-        <div class="rule"></div>
-
-        <h2>Data We Do Not Collect</h2>
-        <p>The Product does not collect or process:</p>
-        <ul>
-          <li>Personally identifiable information (name, email, address)</li>
-          <li>Authentication credentials or passwords</li>
-          <li>Financial or payment information</li>
-          <li>Health data</li>
-          <li>Location data</li>
-          <li>Browsing behavior outside of user-initiated actions</li>
-          <li>Keystroke logging, mouse tracking, or analytics</li>
-        </ul>
-
-        <div class="rule"></div>
-
-        <h2>Remote Code and Tracking</h2>
-        <ul>
-          <li>The extension does not execute remote code</li>
-          <li>No tracking scripts, analytics tools, or advertising SDKs are used</li>
-        </ul>
-
-        <div class="rule"></div>
-
-        <h2>User Control</h2>
-        <ul>
-          <li>All data processing is initiated by the user</li>
-          <li>Users can remove all locally stored data by uninstalling the extension or clearing extension storage</li>
-        </ul>
-
-        <div class="rule"></div>
-
-        <h2>Policy Accessibility</h2>
-        <p>
-          This privacy policy is publicly available and linked from the Chrome Web Store listing in accordance with the
-          Chrome Web Store Developer Program Policies.
-        </p>
-
-        <div class="rule"></div>
-
-        <h2>Changes to This Policy</h2>
-        <p>
-          This policy may be updated to reflect changes in functionality or legal requirements. Any updates will be posted on this page.
-        </p>
-
-        <div class="rule"></div>
-
-        <h2>Contact</h2>
-        <p>For questions about this privacy policy or data handling practices:</p>
         <div class="callout">
-          <strong>Support Email:</strong> <a href="mailto:rajual@protonmail.com">rajual@protonmail.com</a>
+          <strong>Simple summary:</strong> We don’t run analytics. We don’t sell data. We don’t collect browsing history.
+          Content is only sent to a third party (like <code>chatgpt.com</code>) when you trigger an action.
         </div>
 
         <div class="rule"></div>
 
-        <h2>Compliance Statement</h2>
+        <h2>What data Courier Web processes</h2>
+
+        <h3>1) Content you choose to send (user-initiated)</h3>
+        <p><strong>Examples:</strong></p>
+        <ul>
+          <li>Highlighted text you select</li>
+          <li>Images you right-click to analyze (e.g., charts, diagrams)</li>
+          <li>Captured screen regions (if you use region capture)</li>
+          <li>Optional context like page <strong>URL</strong> and <strong>title</strong> (when enabled / used in templates)</li>
+        </ul>
         <p>
-          This privacy policy accurately reflects Highlight to ChatGPT Pro's data handling practices and complies with the
-          Chrome Web Store Developer Program Policies.
+          This content is processed only when you trigger the extension (context menu, keyboard shortcut, or buttons).
         </p>
 
+        <div class="rule"></div>
+
+        <h3>2) Local storage (saved on your device)</h3>
+        <p><strong>Stored locally to power features like history and templates:</strong></p>
+        <ul>
+          <li>Template text you create (including variables like <code>{{text}}</code>, <code>{{url}}</code>, <code>{{title}}</code>)</li>
+          <li>Favorites / preferences</li>
+          <li>Optional local history entries (selected content + URL/title + timestamps)</li>
+          <li>UI/settings (menus, themes, shortcuts, toggles)</li>
+        </ul>
+        <p>
+          This data stays inside your browser using Chrome extension storage APIs.
+          It is <strong>not</strong> sent to the developer.
+        </p>
+
+        <div class="rule"></div>
+
+        <h3>3) Pro license verification (optional)</h3>
+        <p>
+          If you unlock Pro, you may enter a license key.
+          The key is used only to verify eligibility for Pro features.
+        </p>
+        <ul>
+          <li><strong>Sent:</strong> the license key (and minimal verification metadata)</li>
+          <li><strong>Not sent:</strong> your browsing history, highlighted text, images, or captured regions</li>
+        </ul>
+
+        <div class="rule"></div>
+
+        <h2>Where data may be sent</h2>
+        <p>Courier Web only shares data in these cases:</p>
+        <ul>
+          <li>
+            <strong>Your AI tool / website (e.g., <code>chatgpt.com</code>)</strong> — only when you trigger an action to send text/images.
+            That site’s privacy policy applies.
+          </li>
+          <li>
+            <strong>License verification service</strong> — only when you activate Pro (license key verification only).
+          </li>
+        </ul>
+
+        <div class="rule"></div>
+
+        <h2>What we do NOT collect</h2>
+        <ul>
+          <li>No ads, no trackers, no analytics SDKs</li>
+          <li>No keystroke logging</li>
+          <li>No background scraping / automated browsing</li>
+          <li>No sale of personal data</li>
+          <li>No passwords, payment info, health data, or precise location data</li>
+        </ul>
+
+        <div class="rule"></div>
+
+        <h2>Remote code & tracking</h2>
+        <ul>
+          <li>The extension does not execute remote code.</li>
+          <li>No tracking scripts, analytics tools, or advertising SDKs are used.</li>
+        </ul>
+
+        <div class="rule"></div>
+
+        <h2>Your control</h2>
+        <ul>
+          <li>All processing is initiated by you.</li>
+          <li>You can remove local data by uninstalling the extension or clearing extension storage.</li>
+        </ul>
+
+        <div class="rule"></div>
+
+        <h2>Changes to this policy</h2>
+        <p>
+          This policy may be updated if features change or requirements change. Updates will be posted on this page with a new “Last updated” date.
+        </p>
+
+        <div class="rule"></div>
+
+        <h2 id="contact">Contact</h2>
+        <p>Questions about privacy or data handling?</p>
+        <div class="callout">
+          <strong>Support Email:</strong> <a class="smallLink" href="mailto:rajual@protonmail.com">rajual@protonmail.com</a>
+        </div>
+
         <div class="footer">
-          <div>© 2026 Highlight to ChatGPT Pro</div>
+          <div>© <span id="y"></span> Courier Web</div>
           <div>
-            <a href="./index.html">Home</a> ·
-            <a href="./support.html">Support</a>
+            <a class="smallLink" href="./index.html">Home</a> ·
+            <a class="smallLink" href="./support.html">Support</a>
           </div>
         </div>
       </div>
     </div>
+
+    <script>
+      document.getElementById("y").textContent = new Date().getFullYear();
+    </script>
   </body>
 </html>
