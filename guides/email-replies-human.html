@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Email Replies That Don’t Sound Like AI — Courier Web</title>
+    <meta
+      name="description"
+      content="Write professional, human-sounding email replies using a simple prompt structure: context, intent, constraints, and tone."
+    />
+    <meta name="theme-color" content="#070717" />
+    <meta
+      name="cw-store-link"
+      content="https://chromewebstore.google.com/detail/courier-web/mpnccpidfbpfdnognccmgknoefpakiea"
+    />
+
+    <style>
+      :root{ --bg0:#050512; --bg1:#070717; --text:#eef0ff; --muted: rgba(238,240,255,.72);
+        --violet:#8b5cf6; --cyan:#22d3ee; --pink:#fb7185; --shadow2: 0 18px 60px rgba(0,0,0,.45);
+        --r2: 26px; --max: 980px; --ease: cubic-bezier(.2,.9,.2,1); }
+      *{ box-sizing:border-box }
+      html{ scroll-behavior:smooth; -webkit-text-size-adjust:100% }
+      body{
+        margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+        color:var(--text);
+        background:
+          radial-gradient(1200px 800px at 15% 5%, rgba(139,92,246,.18), transparent 60%),
+          radial-gradient(1100px 800px at 85% 15%, rgba(34,211,238,.14), transparent 60%),
+          radial-gradient(1000px 800px at 75% 90%, rgba(251,113,133,.10), transparent 60%),
+          linear-gradient(180deg,var(--bg0),var(--bg1));
+        overflow-x:hidden;
+      }
+      a{ color:inherit; text-decoration:none }
+      .wrap{ max-width:var(--max); margin:0 auto; padding:0 20px }
+      main{ padding: 24px 0 90px }
+
+      .fx{ position:fixed; inset:0; pointer-events:none; z-index:-1; opacity:.9 }
+      .fx::before{
+        content:""; position:absolute; inset:-10%;
+        background:
+          radial-gradient(900px 520px at 10% 10%, rgba(34,211,238,.12), transparent 60%),
+          radial-gradient(900px 520px at 90% 20%, rgba(139,92,246,.14), transparent 60%),
+          radial-gradient(900px 520px at 70% 85%, rgba(251,113,133,.10), transparent 60%);
+        filter: blur(6px);
+        animation: drift 14s var(--ease) infinite alternate;
+      }
+      .fx::after{
+        content:""; position:absolute; inset:0;
+        background-image: radial-gradient(rgba(255,255,255,.10) 1px, transparent 1px);
+        background-size: 34px 34px; opacity:.05;
+        animation: gridFloat 18s linear infinite;
+      }
+      @keyframes drift{ from{ transform: translate3d(-1.5%, -1%, 0) scale(1.02) } to{ transform: translate3d(1.5%, 1%, 0) scale(1.04) } }
+      @keyframes gridFloat{ from{ transform: translateY(0) } to{ transform: translateY(40px) } }
+
+      .nav{ position:sticky; top:0; z-index:50; backdrop-filter: blur(14px); background: rgba(5,5,18,.55);
+        border-bottom: 1px solid rgba(255,255,255,.08); }
+      .nav-inner{ display:flex; align-items:center; justify-content:space-between; gap:14px; padding:14px 0; }
+      .brand{ display:flex; align-items:center; gap:12px; min-width:0 }
+      .brand img{ width:56px; height:56px; object-fit:contain; filter: drop-shadow(0 12px 34px rgba(0,0,0,.4)) }
+      .brand .txt{ display:flex; flex-direction:column; line-height:1.05 }
+      .brand .name{ font-weight:1000; font-size:18px; letter-spacing:.2px }
+      .brand .tag{ font-size:12px; font-weight:900; color: rgba(238,240,255,.68); margin-top:4px }
+      .grad{ background: linear-gradient(90deg,var(--cyan),var(--violet),var(--pink));
+        -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+
+      .nav-cta{ display:flex; gap:10px; align-items:center }
+      .btn{
+        position:relative;
+        display:inline-flex; align-items:center; justify-content:center; gap:10px;
+        padding:12px 14px; border-radius:16px;
+        border:1px solid rgba(255,255,255,.14);
+        background: rgba(255,255,255,.06);
+        color:var(--text); font-weight:950; cursor:pointer;
+        transition: transform .18s var(--ease), background .18s var(--ease), border-color .18s var(--ease), filter .18s var(--ease);
+        white-space:nowrap; user-select:none; overflow:hidden;
+      }
+      .btn::after{
+        content:""; position:absolute; top:-60%; left:-30%;
+        width:60%; height:220%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,.16), transparent);
+        transform: rotate(20deg) translateX(-120%); transition: transform .55s var(--ease);
+      }
+      .btn:hover::after{ transform: rotate(20deg) translateX(260%) }
+      .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.09) }
+      .btn-primary{
+        border:1px solid rgba(34,211,238,.45);
+        background:
+          radial-gradient(120% 180% at 20% 0%, rgba(34,211,238,.28), transparent 55%),
+          radial-gradient(140% 220% at 70% 20%, rgba(139,92,246,.22), transparent 55%),
+          linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
+        box-shadow: 0 18px 55px rgba(0,0,0,.45);
+      }
+
+      .pill{ display:inline-flex; align-items:center; gap:10px; padding:8px 12px; border-radius:999px;
+        border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.05);
+        color: rgba(238,240,255,.78); font-weight:900; font-size:13px; }
+      .spark{ width:9px; height:9px; border-radius:99px; background: linear-gradient(180deg,var(--cyan),var(--violet));
+        box-shadow: 0 0 18px rgba(34,211,238,.55); }
+
+      h1{ margin: 18px 0 10px; font-size: clamp(30px, 4.6vw, 46px); letter-spacing:-.8px; line-height:1.05; }
+      .lead{ margin:0 0 14px; color: var(--muted); font-size: 16px; line-height: 1.7; }
+
+      .crumbs{ display:flex; gap:10px; flex-wrap:wrap; color: rgba(238,240,255,.62); font-weight: 900; font-size: 13px; margin-top: 18px; }
+      .crumbs a{ text-decoration: underline; text-decoration-color: rgba(238,240,255,.22) }
+
+      .card{ border-radius: var(--r2); border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.05);
+        box-shadow: var(--shadow2); padding: 16px; }
+      .content{ margin-top: 14px; display:grid; gap: 14px }
+      .callout{ border-radius: 18px; border: 1px solid rgba(34,211,238,.30); background: rgba(34,211,238,.08); padding: 14px; }
+      .code{
+        border-radius: 18px; border: 1px solid rgba(255,255,255,.12); background: rgba(5,5,18,.35);
+        padding: 14px; overflow:auto;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+        font-size: 13px; line-height: 1.6; color: rgba(238,240,255,.90); white-space: pre;
+      }
+      h2{ margin:0 0 8px; font-size: 22px; letter-spacing:-.4px }
+      p{ margin:0; color: rgba(238,240,255,.78); line-height:1.75 }
+      .two{ display:grid; grid-template-columns: 1fr 1fr; gap: 14px }
+
+      .footer{ margin-top: 18px; padding: 22px 0 42px; color: rgba(238,240,255,.55); font-size: 13px; }
+      .footer-row{ display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; border-top: 1px solid rgba(255,255,255,.10); padding-top: 16px; }
+      .footer a{ color: rgba(238,240,255,.72); text-decoration: underline; text-decoration-color: rgba(238,240,255,.24); }
+      @media (max-width: 860px){ .two{ grid-template-columns: 1fr } }
+      @media (prefers-reduced-motion: reduce){ *{ animation:none !important; transition:none !important; scroll-behavior:auto !important } }
+    </style>
+  </head>
+
+  <body>
+    <div class="fx" aria-hidden="true"></div>
+
+    <header class="nav">
+      <div class="wrap">
+        <div class="nav-inner">
+          <a class="brand" href="../index.html#top" aria-label="Courier Web home">
+            <img src="../assets/logo.png" alt="Courier Web logo" />
+            <div class="txt">
+              <div class="name">Courier <span class="grad">Web</span></div>
+              <div class="tag">Capture → Connect</div>
+            </div>
+          </a>
+          <div class="nav-cta">
+            <a class="btn" href="../prompt-engineering.html">All guides</a>
+            <a class="btn btn-primary" id="topInstall" href="#">Add to Chrome →</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="wrap">
+        <div class="crumbs">
+          <a href="../prompt-engineering.html">Prompt Engineering</a>
+          <span>→</span>
+          <span>Email Replies (Human)</span>
+        </div>
+
+        <h1>Email replies that don’t sound like AI</h1>
+        <p class="lead">
+          The secret is not “more polite.” It’s <b>clear intent</b>, <b>tone rules</b>, and <b>realistic structure</b>.
+          This template turns highlights into usable replies.
+        </p>
+
+        <div class="card content">
+          <div class="callout">
+            <div class="pill"><span class="spark"></span> Use this when</div>
+            <p style="margin-top:10px">
+              You highlight an email or message and want a reply that feels calm, professional, and human.
+            </p>
+          </div>
+
+          <div>
+            <h2>Copy-ready reply template (paste as a button)</h2>
+            <div class="code">ROLE: You are a professional communicator.
+
+TASK: Write a reply to the highlighted message.
+
+INTENT:
+- Goal: (what we want to happen next)
+- Boundary: (what we cannot/will not do)
+
+TONE:
+- Respectful, warm, concise
+- No buzzwords, no "As an AI"
+- No excessive exclamation points
+
+CONSTRAINTS:
+- If info is missing, ask up to 2 clarifying questions at the end.
+- Keep the reply under 170 words unless necessary.
+
+OUTPUT FORMAT:
+Subject: (optional)
+Reply:
+- Greeting
+- 2–5 short paragraphs
+- Clear next step
+- Sign-off
+
+HIGHLIGHT:
+{HIGHLIGHT}</div>
+          </div>
+
+          <div class="two">
+            <div class="card">
+              <h2>Variant: customer support</h2>
+              <div class="code">INTENT:
+- Goal: acknowledge issue + give next step
+- Boundary: don’t promise dates you can’t guarantee
+
+Add to CONSTRAINTS:
+- Apologize once. Then move to action.
+- Include 1 concrete next step.</div>
+            </div>
+
+            <div class="card">
+              <h2>Variant: sales / partnership</h2>
+              <div class="code">INTENT:
+- Goal: book a call or move to a clear next action
+- Boundary: stay concise
+
+Add to OUTPUT FORMAT:
+- 2 bullet options for next steps
+- 2 time windows for scheduling</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2>Pro tip: “sound like me” line</h2>
+            <p style="margin-bottom:10px">
+              This line is gold when you want consistency:
+            </p>
+            <div class="code">Write in my voice: calm, direct, helpful.
+Short sentences. No fluff. Avoid corporate words.</div>
+          </div>
+
+          <div class="card" style="display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap; align-items:center">
+            <div>
+              <h2 style="margin:0 0 8px">Back to the guide library</h2>
+              <p style="margin:0">Pick your next template and build your stack.</p>
+            </div>
+            <a class="btn btn-primary" href="../prompt-engineering.html">All guides →</a>
+          </div>
+        </div>
+
+        <div class="footer">
+          <div class="footer-row">
+            <div>© <span id="year"></span> Courier Web</div>
+            <div>
+              <a href="../index.html#top">Home</a> ·
+              <a href="../prompt-engineering.html">Guides</a> ·
+              <a href="../privacy.html">Privacy</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+      const meta = document.querySelector('meta[name="cw-store-link"]');
+      const STORE_LINK = meta ? meta.content.trim() : "";
+      const btn = document.getElementById("topInstall");
+      if (btn && STORE_LINK) { btn.href = STORE_LINK; btn.target = "_blank"; btn.rel = "noopener"; }
+    </script>
+  </body>
+</html>

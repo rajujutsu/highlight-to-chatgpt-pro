@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Contact — Courier Web</title>
+    <meta
+      name="description"
+      content="Contact Courier Web for support, Pro licensing, or privacy questions."
+    />
+    <meta name="theme-color" content="#070717" />
+
+    <style>
+      :root {
+        --bg0: #050512;
+        --bg1: #070717;
+        --text: #eef0ff;
+        --muted: #b7b9da;
+
+        --violet: #8b5cf6;
+        --cyan: #22d3ee;
+        --pink: #fb7185;
+
+        --shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
+        --r: 18px;
+        --r2: 26px;
+        --max: 980px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+          Helvetica, Arial;
+        color: var(--text);
+        background: radial-gradient(
+            1200px 700px at 10% 10%,
+            rgba(139, 92, 246, 0.22),
+            transparent 60%
+          ),
+          radial-gradient(
+            1100px 700px at 90% 20%,
+            rgba(34, 211, 238, 0.16),
+            transparent 58%
+          ),
+          radial-gradient(
+            900px 600px at 70% 85%,
+            rgba(251, 113, 133, 0.12),
+            transparent 60%
+          ),
+          linear-gradient(180deg, var(--bg0), var(--bg1));
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      .wrap {
+        max-width: var(--max);
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .grad {
+        background: linear-gradient(
+          90deg,
+          var(--cyan),
+          var(--violet),
+          var(--pink)
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        backdrop-filter: blur(14px);
+        background: rgba(5, 5, 18, 0.55);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .nav-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 0;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .brand img {
+        width: 48px;
+        height: 48px;
+        object-fit: contain;
+      }
+      .brand .txt {
+        display: flex;
+        flex-direction: column;
+        line-height: 1.05;
+      }
+      .brand .name {
+        font-weight: 1000;
+        font-size: 18px;
+      }
+      .brand .tag {
+        font-size: 12px;
+        color: rgba(238, 240, 255, 0.6);
+        font-weight: 800;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 10px 14px;
+        border-radius: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(255, 255, 255, 0.06);
+        font-weight: 850;
+        transition: 0.18s ease;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+      .btn:hover {
+        background: rgba(255, 255, 255, 0.09);
+        transform: translateY(-1px);
+      }
+      .btn:active {
+        transform: translateY(0px);
+      }
+
+      .btn-primary {
+        border: 1px solid rgba(34, 211, 238, 0.42);
+        background: radial-gradient(
+            120% 180% at 20% 0%,
+            rgba(34, 211, 238, 0.28),
+            transparent 45%
+          ),
+          radial-gradient(
+            140% 220% at 70% 20%,
+            rgba(139, 92, 246, 0.22),
+            transparent 45%
+          ),
+          linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.1),
+            rgba(255, 255, 255, 0.04)
+          );
+      }
+
+      main {
+        padding: 34px 0 22px;
+      }
+
+      .shell {
+        border-radius: var(--r2);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.04);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+      .hero {
+        padding: 22px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      h1 {
+        margin: 0 0 8px;
+        font-size: clamp(26px, 3.2vw, 40px);
+      }
+      .sub {
+        margin: 0;
+        color: rgba(238, 240, 255, 0.72);
+        line-height: 1.65;
+        max-width: 70ch;
+        font-size: 14.5px;
+      }
+      .meta {
+        margin-top: 10px;
+        color: rgba(238, 240, 255, 0.55);
+        font-size: 12.5px;
+      }
+
+      .content {
+        padding: 22px;
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 18px;
+      }
+
+      .panel {
+        border-radius: var(--r);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(5, 5, 18, 0.38);
+        padding: 16px;
+      }
+      .panel h2 {
+        margin: 0 0 10px;
+        font-size: 15px;
+      }
+      .panel.primary {
+        border-color: rgba(34, 211, 238, 0.35);
+        background: radial-gradient(
+            120% 160% at 10% 0%,
+            rgba(34, 211, 238, 0.12),
+            transparent 60%
+          ),
+          rgba(5, 5, 18, 0.42);
+      }
+      .row {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 12px 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .row:first-of-type {
+        border-top: none;
+        padding-top: 0;
+      }
+      .k {
+        color: rgba(238, 240, 255, 0.7);
+        font-weight: 850;
+        font-size: 13px;
+        min-width: 140px;
+      }
+      .v {
+        text-align: right;
+      }
+
+      .email-link {
+        display: inline-block;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        color: rgba(34, 211, 238, 0.95);
+        font-weight: 950;
+      }
+      .email-link:hover {
+        filter: brightness(1.1);
+      }
+
+      .hint {
+        margin-top: 6px;
+        color: rgba(238, 240, 255, 0.58);
+        font-size: 12.5px;
+      }
+
+      .actions {
+        margin-top: 10px;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+
+      .list {
+        margin: 0;
+        padding-left: 18px;
+        color: rgba(238, 240, 255, 0.82);
+        line-height: 1.75;
+        font-size: 14px;
+      }
+
+      .footer {
+        padding: 18px 0 38px;
+        color: rgba(238, 240, 255, 0.55);
+        font-size: 13px;
+      }
+      .footer-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        flex-wrap: wrap;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 14px;
+      }
+
+      @media (max-width: 860px) {
+        .content {
+          grid-template-columns: 1fr;
+        }
+        .v {
+          text-align: left;
+        }
+        .actions {
+          justify-content: flex-start;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="nav">
+      <div class="wrap">
+        <div class="nav-inner">
+          <a class="brand" href="index.html">
+            <img src="assets/logo.png" alt="Courier Web logo" />
+            <div class="txt">
+              <div class="name">Courier <span class="grad">Web</span></div>
+              <div class="tag">Contact</div>
+            </div>
+          </a>
+          <a class="btn" href="index.html">← Home</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="wrap">
+        <div class="shell">
+          <div class="hero">
+            <h1>Contact</h1>
+            <p class="sub">
+              Use the options below for support, Pro licensing questions, or
+              privacy inquiries.
+            </p>
+            <div class="meta">Last updated: February 11, 2026</div>
+          </div>
+
+          <div class="content">
+            <div class="panel primary">
+              <h2>Contact options</h2>
+              <p class="hint" style="margin-bottom: 10px">
+                Choose the category that best fits your request.
+              </p>
+
+              <ul class="list" style="margin-bottom: 14px">
+                <li><strong>Support:</strong> bugs, issues, or questions</li>
+                <li><strong>Licensing:</strong> Pro, Founders, or billing</li>
+                <li><strong>Privacy:</strong> data or policy questions</li>
+              </ul>
+              <div class="row">
+                <div class="k">Email</div>
+                <div class="v">
+                  <a
+                    class="email-link"
+                    id="mailtoLink"
+                    href="mailto:contact@courierweb.net?subject=Courier%20Web%20Support&body=Hey%20Courier%20Web%2C%0A%0A"
+                  >
+                    contact@courierweb.net
+                  </a>
+
+                  <div class="actions">
+                    <!-- 1) mailto -->
+                    <a
+                      class="btn"
+                      id="emailSupportBtn"
+                      href="mailto:contact@courierweb.net?subject=Courier%20Web%20Support&body=Hey%20Courier%20Web%2C%0A%0A"
+                    >
+                      Email (app)
+                    </a>
+
+                    <!-- 2) open gmail compose -->
+                    <a
+                      class="btn btn-primary"
+                      id="gmailComposeBtn"
+                      target="_blank"
+                      rel="noopener"
+                      href="https://mail.google.com/mail/?view=cm&fs=1&to=contact@courierweb.net&su=Courier%20Web%20Support&body=Hey%20Courier%20Web%2C%0A%0A"
+                    >
+                      Open Gmail
+                    </a>
+
+                    <!-- 3) copy -->
+                    <button class="btn" id="copyEmailBtn" type="button">
+                      Copy email
+                    </button>
+                  </div>
+
+                  <div class="hint">Support · Pro licensing · Privacy</div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="k">Typical reply</div>
+                <div class="v">
+                  <div>1–2 business days</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel">
+              <h2>Quick help</h2>
+              <ul class="list">
+                <li>Extension not opening? Try reloading the page.</li>
+                <li>Pro not unlocked? Check your license email.</li>
+                <li>Buttons missing? Open extension options and enable templates.</li>
+                <li>Still stuck? Email us and include a screenshot.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer">
+          <div class="footer-row">
+            <div>© <span id="year"></span> Courier Web</div>
+            <div>
+              <a href="index.html">Home</a> ·
+              <a href="privacy.html">Privacy</a> ·
+              <a href="support.html">Support</a> ·
+              <a href="contact.html">Contact</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      const SUPPORT_EMAIL = "contact@courierweb.net";
+
+      // Copy email (always works)
+      const copyBtn = document.getElementById("copyEmailBtn");
+      if (copyBtn) {
+        copyBtn.addEventListener("click", async () => {
+          try {
+            await navigator.clipboard.writeText(SUPPORT_EMAIL);
+            const prev = copyBtn.textContent;
+            copyBtn.textContent = "Copied!";
+            setTimeout(() => (copyBtn.textContent = prev), 1200);
+          } catch (e) {
+            window.prompt("Copy this email:", SUPPORT_EMAIL);
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

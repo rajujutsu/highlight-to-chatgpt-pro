@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Support — Courier Web</title>
+    <meta
+      name="description"
+      content="Courier Web support: help, fixes, and Pro licensing."
+    />
+    <meta name="theme-color" content="#070717" />
+
+    <style>
+      :root {
+        --bg0: #050512;
+        --bg1: #070717;
+
+        --text: #eef0ff;
+        --muted: #b7b9da;
+        --line: rgba(255, 255, 255, 0.12);
+
+        --violet: #8b5cf6;
+        --cyan: #22d3ee;
+        --pink: #fb7185;
+
+        --shadow: 0 26px 80px rgba(0, 0, 0, 0.55);
+        --r: 18px;
+        --r2: 26px;
+        --max: 980px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+          Helvetica, Arial;
+        color: var(--text);
+        background-color: var(--bg1);
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-image: radial-gradient(
+            1200px 700px at 10% 10%,
+            rgba(139, 92, 246, 0.22),
+            transparent 60%
+          ),
+          radial-gradient(
+            1100px 700px at 90% 20%,
+            rgba(34, 211, 238, 0.16),
+            transparent 58%
+          ),
+          radial-gradient(
+            900px 600px at 70% 85%,
+            rgba(251, 113, 133, 0.12),
+            transparent 60%
+          ),
+          linear-gradient(180deg, var(--bg0), var(--bg1));
+        overflow-x: hidden;
+      }
+
+      /* subtle noise */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
+        mix-blend-mode: soft-light;
+        opacity: 0.1;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      .wrap {
+        max-width: var(--max);
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      summary:focus-visible {
+        outline: 2px solid rgba(34, 211, 238, 0.45);
+        outline-offset: 2px;
+        border-radius: 14px;
+      }
+
+      .grad {
+        background: linear-gradient(
+          90deg,
+          var(--cyan),
+          var(--violet),
+          var(--pink)
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      /* Top nav (matches Privacy) */
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        backdrop-filter: blur(14px);
+        background: rgba(5, 5, 18, 0.55);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .nav-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        padding: 14px 0;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 950;
+        letter-spacing: 0.2px;
+        min-width: 240px;
+      }
+      .mark {
+        width: 38px;
+        height: 38px;
+        border-radius: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: radial-gradient(
+            circle at 30% 30%,
+            rgba(34, 211, 238, 0.6),
+            transparent 55%
+          ),
+          radial-gradient(
+            circle at 70% 70%,
+            rgba(139, 92, 246, 0.7),
+            transparent 55%
+          ),
+          linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.1),
+            rgba(255, 255, 255, 0.02)
+          );
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+      }
+      .brand .txt {
+        display: flex;
+        flex-direction: column;
+        line-height: 1.05;
+      }
+      .brand .name {
+        font-size: 14px;
+      }
+      .brand .tag {
+        font-size: 12px;
+        color: rgba(238, 240, 255, 0.62);
+        font-weight: 800;
+        margin-top: 2px;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 10px 14px;
+        border-radius: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(255, 255, 255, 0.06);
+        font-weight: 900;
+        cursor: pointer;
+        transition: 0.18s ease;
+        white-space: nowrap;
+      }
+      .btn:hover {
+        background: rgba(255, 255, 255, 0.09);
+        transform: translateY(-1px);
+      }
+      .btn:active {
+        transform: translateY(0px);
+      }
+
+      .btn-primary {
+        border: 1px solid rgba(34, 211, 238, 0.42);
+        background: radial-gradient(
+            120% 180% at 20% 0%,
+            rgba(34, 211, 238, 0.28),
+            transparent 45%
+          ),
+          radial-gradient(
+            140% 220% at 70% 20%,
+            rgba(139, 92, 246, 0.22),
+            transparent 45%
+          ),
+          linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.1),
+            rgba(255, 255, 255, 0.04)
+          );
+        box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+      }
+      .btn-primary:hover {
+        border-color: rgba(34, 211, 238, 0.62);
+        filter: brightness(1.05);
+      }
+
+      main {
+        padding: 34px 0 22px;
+      }
+
+      /* Shell */
+      .shell {
+        border-radius: var(--r2);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.04);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+      .hero {
+        padding: 22px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        background: radial-gradient(
+            900px 420px at 20% 0%,
+            rgba(34, 211, 238, 0.12),
+            transparent 55%
+          ),
+          radial-gradient(
+            900px 420px at 80% 10%,
+            rgba(139, 92, 246, 0.12),
+            transparent 55%
+          ),
+          linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.06),
+            rgba(255, 255, 255, 0.02)
+          );
+      }
+      h1 {
+        margin: 0 0 8px;
+        font-size: clamp(26px, 3.2vw, 40px);
+        letter-spacing: -0.6px;
+        line-height: 1.12;
+      }
+      .sub {
+        margin: 0;
+        color: rgba(238, 240, 255, 0.72);
+        line-height: 1.7;
+        max-width: 80ch;
+        font-size: 14.5px;
+      }
+      .meta {
+        margin-top: 10px;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+        color: rgba(238, 240, 255, 0.6);
+        font-size: 12.5px;
+        font-weight: 850;
+      }
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.05);
+      }
+      .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: linear-gradient(180deg, var(--cyan), var(--violet));
+        box-shadow: 0 0 18px rgba(34, 211, 238, 0.45);
+      }
+
+      .content {
+        padding: 22px;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+
+      /* Dropdown sections */
+      details.acc {
+        border-radius: var(--r);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(5, 5, 18, 0.38);
+        overflow: hidden;
+      }
+      details.acc[open] {
+        border-color: rgba(34, 211, 238, 0.22);
+      }
+      summary {
+        list-style: none;
+        cursor: pointer;
+        padding: 14px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        user-select: none;
+      }
+      summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .sum-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 0;
+      }
+      .badge {
+        flex: 0 0 auto;
+        font-size: 12px;
+        font-weight: 950;
+        padding: 6px 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.05);
+        color: rgba(238, 240, 255, 0.86);
+      }
+      .title {
+        font-weight: 950;
+        letter-spacing: -0.2px;
+        font-size: 14.5px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .chev {
+        width: 32px;
+        height: 32px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.05);
+        display: grid;
+        place-items: center;
+        flex: 0 0 auto;
+        transition: 0.18s ease;
+      }
+      details[open] summary .chev {
+        transform: rotate(180deg);
+        border-color: rgba(34, 211, 238, 0.25);
+      }
+      .body {
+        padding: 0 16px 16px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .body p,
+      .body li {
+        color: rgba(238, 240, 255, 0.82);
+        line-height: 1.75;
+        font-size: 14.5px;
+      }
+      .body p {
+        margin: 12px 0 0;
+      }
+      .body ul {
+        margin: 10px 0 0 18px;
+        padding: 0;
+      }
+      .body li {
+        margin: 8px 0;
+      }
+
+      .hint {
+        margin-top: 10px;
+        padding: 12px 14px;
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.04);
+        color: rgba(238, 240, 255, 0.78);
+        font-size: 13.5px;
+        line-height: 1.7;
+      }
+
+      .callout {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 12px 14px;
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.04);
+        flex-wrap: wrap;
+      }
+      .callout strong {
+        font-weight: 950;
+        letter-spacing: -0.2px;
+      }
+      .callout a {
+        text-decoration: underline;
+        text-decoration-color: rgba(238, 240, 255, 0.25);
+      }
+      .callout a:hover {
+        color: rgba(238, 240, 255, 0.95);
+      }
+
+      /* NEW: action buttons row */
+      .actions {
+        margin-top: 10px;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+
+      code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+          "Liberation Mono", "Courier New", monospace;
+        font-size: 12.5px;
+        padding: 2px 6px;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.05);
+        color: rgba(238, 240, 255, 0.92);
+      }
+
+      /* Footer */
+      .footer {
+        padding: 18px 0 38px;
+        color: rgba(238, 240, 255, 0.55);
+        font-size: 13px;
+      }
+      .footer-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        flex-wrap: wrap;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 14px;
+      }
+      .footer a {
+        color: rgba(238, 240, 255, 0.7);
+        text-decoration: underline;
+        text-decoration-color: rgba(238, 240, 255, 0.25);
+      }
+      .footer a:hover {
+        color: rgba(238, 240, 255, 0.92);
+      }
+
+      .logo {
+        width: 64px;
+        height: 64px;
+        object-fit: contain;
+        filter: drop-shadow(0 10px 26px rgba(0, 0, 0, 0.35));
+      }
+
+      @media (max-width: 560px) {
+        .brand {
+          min-width: 0;
+        }
+        .nav-inner {
+          flex-wrap: wrap;
+        }
+        .callout {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+        .actions {
+          justify-content: flex-start;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="nav">
+      <div class="wrap">
+        <div class="nav-inner">
+          <a class="brand" href="index.html" aria-label="Courier Web home">
+            <img
+              class="logo"
+              src="assets/logo.png"
+              alt="Courier Web logo"
+              width="34"
+              height="34"
+            />
+            <div class="txt">
+              <div class="name">Courier <span class="grad">Web</span></div>
+              <div class="tag">Help • Fixes • Pro licensing</div>
+            </div>
+          </a>
+
+          <div style="display: flex; gap: 10px; align-items: center">
+            <a class="btn" href="index.html">← Back</a>
+            <a class="btn btn-primary" href="privacy.html">Privacy</a>
+            <a class="btn" href="contact.html">Contact</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="wrap">
+        <div class="shell">
+          <div class="hero">
+            <h1>Support</h1>
+            <p class="sub">
+              Help, fixes, and Pro licensing. If you’re reporting a bug, include
+              the details we list below so we can fix it quickly.
+            </p>
+            <div class="meta">
+              <span class="pill"><span class="dot"></span> Support</span>
+              <span class="pill"
+                >Last updated: <strong>February 11, 2026</strong></span
+              >
+            </div>
+          </div>
+
+          <div class="content">
+            <!-- QUICK START -->
+            <details class="acc" open>
+              <summary>
+                <div class="sum-left">
+                  <span class="badge">Quick start</span>
+                  <div class="title">Get running in under a minute</div>
+                </div>
+                <div class="chev" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M6 9l6 6 6-6"
+                      stroke="rgba(238,240,255,.85)"
+                      stroke-width="1.7"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
+              </summary>
+              <div class="body">
+                <ul>
+                  <li>Highlight text on any page.</li>
+                  <li>Right-click → choose a Courier Web action.</li>
+                  <li>Or use your keyboard shortcut (recommended).</li>
+                </ul>
+                <div class="hint">
+                  Tip: If a page blocks selection, try selecting a smaller
+                  portion, or use the capture/region tool (if enabled).
+                </div>
+              </div>
+            </details>
+
+            <!-- SHORTCUTS -->
+            <details class="acc">
+              <summary>
+                <div class="sum-left">
+                  <span class="badge">Shortcuts</span>
+                  <div class="title">Set / change keyboard shortcuts</div>
+                </div>
+                <div class="chev" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M6 9l6 6 6-6"
+                      stroke="rgba(238,240,255,.85)"
+                      stroke-width="1.7"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
+              </summary>
+              <div class="body">
+                <p>
+                  In Chrome, open <code>chrome://extensions/shortcuts</code> and
+                  find Courier Web. Assign a shortcut for your favorite action.
+                </p>
+                <ul>
+                  <li>
+                    Shortcuts only run when Chrome allows it (some pages may
+                    restrict shortcuts).
+                  </li>
+                  <li>If your shortcut conflicts, choose a different combo.</li>
+                  <li>You can always use right-click as a fallback.</li>
+                </ul>
+              </div>
+            </details>
+
+            <!-- PRO ACTIVATION -->
+            <details class="acc">
+              <summary>
+                <div class="sum-left">
+                  <span class="badge">Pro</span>
+                  <div class="title">Activation + device limits</div>
+                </div>
+                <div class="chev" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M6 9l6 6 6-6"
+                      stroke="rgba(238,240,255,.85)"
+                      stroke-width="1.7"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
+              </summary>
+              <div class="body">
+                <p>
+                  If you purchased Pro, enter your license key in the
+                  extension’s Pro/Unlock screen. After activation, Pro features
+                  (templates, favorites, advanced workflows) unlock on this
+                  device.
+                </p>
+                <ul>
+                  <li>
+                    Make sure you copied the entire key (no extra spaces).
+                  </li>
+                  <li>Use the same key you received from Gumroad.</li>
+                </ul>
+
+                <p>
+                  Pro licenses support a limited number of device activations to
+                  prevent sharing. If you reinstall Chrome, switch computers, or
+                  load the extension in multiple Chrome profiles, you may hit
+                  the activation limit.
+                </p>
+
+                <div class="hint">
+                  Common cause: uninstalling/reloading the extension during
+                  development can look like a “new device” activation. If you’re
+                  testing locally a lot, you may reach the limit faster than a
+                  normal customer would.
+                </div>
+              </div>
+            </details>
+
+            <!-- LIMIT REACHED -->
+            <details class="acc">
+              <summary>
+                <div class="sum-left">
+                  <span class="badge">Fix</span>
+                  <div class="title">“Pro: limit reached” — what to do</div>
+                </div>
+                <div class="chev" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M6 9l6 6 6-6"
+                      stroke="rgba(238,240,255,.85)"
+                      stroke-width="1.7"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
+              </summary>
+              <div class="body">
+                <p>
+                  First, confirm you’re using the same Chrome profile and not a
+                  second profile/browser. Then try:
+                </p>
+                <ul>
+                  <li>
+                    Disable and re-enable the extension (keeps local storage).
+                  </li>
+                  <li>
+                    Avoid uninstalling/reinstalling repeatedly during testing.
+                  </li>
+                  <li>
+                    If you recently changed computers or reset your browser,
+                    request an activation reset.
+                  </li>
+                </ul>
+                <p>
+                  <strong>Activation reset:</strong> Email support with your
+                  license key and a short note (e.g., “new laptop” / “Chrome
+                  reset”). We’ll reset your activations when appropriate.
+                </p>
+              </div>
+            </details>
+
+            <!-- TEMPLATES MISSING -->
+            <details class="acc">
+              <summary>
+                <div class="sum-left">
+                  <span class="badge">Fix</span>
+                  <div class="title">
+                    Templates / favorites missing or reset
+                  </div>
+                </div>
+                <div class="chev" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M6 9l6 6 6-6"
+                      stroke="rgba(238,240,255,.85)"
+                      stroke-width="1.7"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
+              </summary>
+              <div class="body">
+                <p>
+                  Templates and favorites are stored locally in your browser.
+                  They can be lost if:
+                </p>
+                <ul>
+                  <li>
+                    You uninstall the extension (Chrome may remove its local
+                    storage).
+                  </li>
+                  <li>You switch Chrome profiles.</li>
+                  <li>Your browser clears site/extension data.</li>
+                </ul>
+                <div class="hint">
+                  Tip: Keep one main Chrome profile for Pro, and avoid frequent
+                  uninstall/reinstall cycles.
+                </div>
+              </div>
+            </details>
+
+            <!-- CONTEXT MENU MISSING -->
+            <details class="acc">
+              <summary>
+                <div class="sum-left">
+                  <span class="badge">Fix</span>
+                  <div class="title">
+                    Right-click menu doesn’t show Courier Web
+                  </div>
+                </div>
+                <div class="chev" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M6 9l6 6 6-6"
+                      stroke="rgba(238,240,255,.85)"
+                      stroke-width="1.7"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
+              </summary>
+              <div class="body">
+                <ul>
+                  <li>
+                    Open <code>chrome://extensions</code> and confirm the
+                    extension is enabled.
+                  </li>
+                  <li>Refresh the webpage and try again.</li>
+                  <li>
+                    Some special pages (Chrome Web Store, internal pages) do not
+                    allow extensions to run.
+                  </li>
+                </ul>
+              </div>
+            </details>
+
+            <!-- SHORTCUTS LIMITED -->
+            <details class="acc">
+              <summary>
+                <div class="sum-left">
+                  <span class="badge">Help</span>
+                  <div class="title">Shortcuts don’t work on some sites</div>
+                </div>
+                <div class="chev" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M6 9l6 6 6-6"
+                      stroke="rgba(238,240,255,.85)"
+                      stroke-width="1.7"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
+              </summary>
+              <div class="body">
+                <p>
+                  Some sites and special pages restrict extension shortcuts.
+                  Test on a normal webpage first. You can always use right-click
+                  as a fallback.
+                </p>
+              </div>
+            </details>
+
+            <!-- IMAGE / CAPTURE -->
+            <details class="acc">
+              <summary>
+                <div class="sum-left">
+                  <span class="badge">Help</span>
+                  <div class="title">
+                    Image analysis / capture region not working
+                  </div>
+                </div>
+                <div class="chev" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M6 9l6 6 6-6"
+                      stroke="rgba(238,240,255,.85)"
+                      stroke-width="1.7"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
+              </summary>
+              <div class="body">
+                <p>If a site blocks capture or the image is protected, try:</p>
+                <ul>
+                  <li>
+                    Use the region capture tool (if enabled) instead of
+                    right-click image.
+                  </li>
+                  <li>Zoom in and capture only the relevant area.</li>
+                  <li>Refresh the page and retry.</li>
+                </ul>
+              </div>
+            </details>
+
+            <!-- CONTACT -->
+            <details class="acc" open>
+              <summary>
+                <div class="sum-left">
+                  <span class="badge">Contact</span>
+                  <div class="title">
+                    Contact support (best way to get help)
+                  </div>
+                </div>
+                <div class="chev" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M6 9l6 6 6-6"
+                      stroke="rgba(238,240,255,.85)"
+                      stroke-width="1.7"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
+              </summary>
+              <div class="body">
+                <div class="callout">
+                  <div>
+                    <div
+                      style="
+                        color: rgba(238, 240, 255, 0.7);
+                        font-size: 13px;
+                        font-weight: 850;
+                      "
+                    >
+                      Email
+                    </div>
+                    <strong id="supportEmailText"
+                      >support@courierweb.net</strong
+                    >
+                    <div
+                      style="
+                        margin-top: 6px;
+                        color: rgba(238, 240, 255, 0.7);
+                        font-size: 13px;
+                      "
+                    >
+                      Include your license key (if Pro) and what happened.
+                      Screenshots help.
+                    </div>
+
+                    <div class="actions">
+                      <!-- 1) mailto -->
+                      <a
+                        class="btn"
+                        id="supportMailto"
+                        href="mailto:support@courierweb.net?subject=Courier%20Web%20Support&body=Hey%20Courier%20Web%2C%0A%0AWhat%20I%20was%20doing%3A%0A%0AWhat%20happened%3A%0A%0AExpected%20result%3A%0A%0AWebsite%20URL%20(if%20relevant)%3A%0A%0AChrome%20version%3A%0AExtension%20version%3A%0APro%20license%20key%20(if%20Pro)%3A%0A%0AScreenshots%2FScreen%20recording%3A%0A%0AThanks!"
+                      >
+                        Email (app)
+                      </a>
+
+                      <!-- 2) gmail compose -->
+                      <a
+                        class="btn btn-primary"
+                        id="supportGmail"
+                        target="_blank"
+                        rel="noopener"
+                        href="https://mail.google.com/mail/?view=cm&fs=1&to=support@courierweb.net&su=Courier%20Web%20Support&body=Hey%20Courier%20Web%2C%0A%0AWhat%20I%20was%20doing%3A%0A%0AWhat%20happened%3A%0A%0AExpected%20result%3A%0A%0AWebsite%20URL%20(if%20relevant)%3A%0A%0AChrome%20version%3A%0AExtension%20version%3A%0APro%20license%20key%20(if%20Pro)%3A%0A%0AScreenshots%2FScreen%20recording%3A%0A%0AThanks!"
+                      >
+                        Open Gmail
+                      </a>
+
+                      <!-- 3) copy -->
+                      <button class="btn" id="supportCopy" type="button">
+                        Copy email
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="hint">
+                  <strong>Pro issues:</strong> include your Gumroad email
+                  (optional) + license key + “limit reached” screenshot.<br />
+                  <strong>Bug reports:</strong> include your Chrome version +
+                  extension version + the site URL (if relevant).
+                </div>
+
+                <div class="hint">
+                  Privacy note: Courier Web does not track browsing. Any content
+                  you capture is processed only when you trigger an action. See
+                  the Privacy Policy.
+                </div>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <div class="footer">
+          <div class="footer-row">
+            <div>© <span id="year"></span> Courier Web</div>
+            <div>
+              <a href="index.html">Home</a> ·
+              <a href="privacy.html">Privacy</a> ·
+              <a href="support.html">Support</a> ·
+              <a href="contact.html">Contact</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      // Smooth scroll for internal anchors (if you add any #links later)
+      document.addEventListener("click", (e) => {
+        const a = e.target.closest('a[href^="#"]');
+        if (!a) return;
+        const id = a.getAttribute("href");
+        if (!id || id === "#") return;
+        const el = document.querySelector(id);
+        if (!el) return;
+        e.preventDefault();
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      // Copy email (always works)
+      const SUPPORT_EMAIL = "support@courierweb.net";
+      const copyBtn = document.getElementById("supportCopy");
+      if (copyBtn) {
+        copyBtn.addEventListener("click", async () => {
+          try {
+            await navigator.clipboard.writeText(SUPPORT_EMAIL);
+            const prev = copyBtn.textContent;
+            copyBtn.textContent = "Copied!";
+            setTimeout(() => (copyBtn.textContent = prev), 1200);
+          } catch (e) {
+            window.prompt("Copy this email:", SUPPORT_EMAIL);
+          }
+        });
+      }
+
+      // Accordion behavior: only one open at a time (optional but feels premium)
+      document.querySelectorAll("details.acc").forEach((d) => {
+        d.addEventListener("toggle", () => {
+          if (!d.open) return;
+          document.querySelectorAll("details.acc").forEach((other) => {
+            if (other !== d) other.open = false;
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
