@@ -30,10 +30,12 @@
       * {
         box-sizing: border-box;
       }
+
       html,
       body {
         height: 100%;
       }
+
       body {
         margin: 0;
         font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
@@ -61,6 +63,7 @@
         color: inherit;
         text-decoration: none;
       }
+
       .wrap {
         max-width: var(--max);
         margin: 0 auto;
@@ -79,6 +82,7 @@
         -webkit-text-fill-color: transparent;
       }
 
+      /* NAV */
       .nav {
         position: sticky;
         top: 0;
@@ -87,31 +91,41 @@
         background: rgba(5, 5, 18, 0.55);
         border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       }
+
       .nav-inner {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 14px 0;
+        padding: 12px 0;
+        gap: 12px;
       }
+
       .brand {
         display: flex;
         align-items: center;
         gap: 10px;
+        min-width: 0;
       }
+
       .brand img {
         width: 48px;
         height: 48px;
         object-fit: contain;
       }
+
       .brand .txt {
         display: flex;
         flex-direction: column;
         line-height: 1.05;
+        min-width: 0;
       }
+
       .brand .name {
         font-weight: 1000;
         font-size: 18px;
+        white-space: nowrap;
       }
+
       .brand .tag {
         font-size: 12px;
         color: rgba(238, 240, 255, 0.6);
@@ -132,12 +146,10 @@
         cursor: pointer;
         white-space: nowrap;
       }
+
       .btn:hover {
         background: rgba(255, 255, 255, 0.09);
         transform: translateY(-1px);
-      }
-      .btn:active {
-        transform: translateY(0px);
       }
 
       .btn-primary {
@@ -170,14 +182,17 @@
         box-shadow: var(--shadow);
         overflow: hidden;
       }
+
       .hero {
         padding: 22px;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       }
+
       h1 {
         margin: 0 0 8px;
         font-size: clamp(26px, 3.2vw, 40px);
       }
+
       .sub {
         margin: 0;
         color: rgba(238, 240, 255, 0.72);
@@ -185,6 +200,7 @@
         max-width: 70ch;
         font-size: 14.5px;
       }
+
       .meta {
         margin-top: 10px;
         color: rgba(238, 240, 255, 0.55);
@@ -204,10 +220,7 @@
         background: rgba(5, 5, 18, 0.38);
         padding: 16px;
       }
-      .panel h2 {
-        margin: 0 0 10px;
-        font-size: 15px;
-      }
+
       .panel.primary {
         border-color: rgba(34, 211, 238, 0.35);
         background: radial-gradient(
@@ -217,25 +230,32 @@
           ),
           rgba(5, 5, 18, 0.42);
       }
+
+      /* ROW FIX */
       .row {
         display: flex;
         justify-content: space-between;
         gap: 12px;
         padding: 12px 0;
         border-top: 1px solid rgba(255, 255, 255, 0.08);
+        align-items: flex-start;
       }
+
       .row:first-of-type {
         border-top: none;
         padding-top: 0;
       }
+
       .k {
         color: rgba(238, 240, 255, 0.7);
         font-weight: 850;
         font-size: 13px;
         min-width: 140px;
       }
+
       .v {
         text-align: right;
+        min-width: 0;
       }
 
       .email-link {
@@ -244,15 +264,9 @@
         text-underline-offset: 3px;
         color: rgba(34, 211, 238, 0.95);
         font-weight: 950;
-      }
-      .email-link:hover {
-        filter: brightness(1.1);
-      }
-
-      .hint {
-        margin-top: 6px;
-        color: rgba(238, 240, 255, 0.58);
-        font-size: 12.5px;
+        max-width: 100%;
+        overflow-wrap: anywhere;
+        word-break: break-word;
       }
 
       .actions {
@@ -266,7 +280,6 @@
       .list {
         margin: 0;
         padding-left: 18px;
-        color: rgba(238, 240, 255, 0.82);
         line-height: 1.75;
         font-size: 14px;
       }
@@ -276,6 +289,7 @@
         color: rgba(238, 240, 255, 0.55);
         font-size: 13px;
       }
+
       .footer-row {
         display: flex;
         justify-content: space-between;
@@ -285,11 +299,30 @@
         padding-top: 14px;
       }
 
+      /* Tablet */
       @media (max-width: 860px) {
         .content {
           grid-template-columns: 1fr;
         }
         .v {
+          text-align: left;
+        }
+        .actions {
+          justify-content: flex-start;
+        }
+      }
+
+      /* Mobile fix */
+      @media (max-width: 480px) {
+        .row {
+          flex-direction: column;
+          gap: 8px;
+        }
+        .k {
+          min-width: 0;
+        }
+        .v {
+          width: 100%;
           text-align: left;
         }
         .actions {
@@ -330,62 +363,41 @@
           <div class="content">
             <div class="panel primary">
               <h2>Contact options</h2>
-              <p class="hint" style="margin-bottom: 10px">
-                Choose the category that best fits your request.
-              </p>
 
               <ul class="list" style="margin-bottom: 14px">
                 <li><strong>Support:</strong> bugs, issues, or questions</li>
                 <li><strong>Licensing:</strong> Pro, Founders, or billing</li>
                 <li><strong>Privacy:</strong> data or policy questions</li>
               </ul>
+
               <div class="row">
                 <div class="k">Email</div>
                 <div class="v">
-                  <a
-                    class="email-link"
-                    id="mailtoLink"
-                    href="mailto:contact@courierweb.net?subject=Courier%20Web%20Support&body=Hey%20Courier%20Web%2C%0A%0A"
-                  >
+                  <a class="email-link" href="mailto:contact@courierweb.net">
                     contact@courierweb.net
                   </a>
 
                   <div class="actions">
-                    <!-- 1) mailto -->
                     <a
                       class="btn"
-                      id="emailSupportBtn"
-                      href="mailto:contact@courierweb.net?subject=Courier%20Web%20Support&body=Hey%20Courier%20Web%2C%0A%0A"
+                      href="mailto:contact@courierweb.net"
                     >
                       Email (app)
                     </a>
-
-                    <!-- 2) open gmail compose -->
                     <a
                       class="btn btn-primary"
-                      id="gmailComposeBtn"
                       target="_blank"
-                      rel="noopener"
-                      href="https://mail.google.com/mail/?view=cm&fs=1&to=contact@courierweb.net&su=Courier%20Web%20Support&body=Hey%20Courier%20Web%2C%0A%0A"
+                      href="https://mail.google.com/mail/?view=cm&fs=1&to=contact@courierweb.net"
                     >
                       Open Gmail
                     </a>
-
-                    <!-- 3) copy -->
-                    <button class="btn" id="copyEmailBtn" type="button">
-                      Copy email
-                    </button>
                   </div>
-
-                  <div class="hint">Support · Pro licensing · Privacy</div>
                 </div>
               </div>
 
               <div class="row">
                 <div class="k">Typical reply</div>
-                <div class="v">
-                  <div>1–2 business days</div>
-                </div>
+                <div class="v">1–2 business days</div>
               </div>
             </div>
 
@@ -394,8 +406,8 @@
               <ul class="list">
                 <li>Extension not opening? Try reloading the page.</li>
                 <li>Pro not unlocked? Check your license email.</li>
-                <li>Buttons missing? Open extension options and enable templates.</li>
-                <li>Still stuck? Email us and include a screenshot.</li>
+                <li>Buttons missing? Enable templates in options.</li>
+                <li>Still stuck? Email us with a screenshot.</li>
               </ul>
             </div>
           </div>
@@ -416,24 +428,8 @@
     </main>
 
     <script>
-      document.getElementById("year").textContent = new Date().getFullYear();
-
-      const SUPPORT_EMAIL = "contact@courierweb.net";
-
-      // Copy email (always works)
-      const copyBtn = document.getElementById("copyEmailBtn");
-      if (copyBtn) {
-        copyBtn.addEventListener("click", async () => {
-          try {
-            await navigator.clipboard.writeText(SUPPORT_EMAIL);
-            const prev = copyBtn.textContent;
-            copyBtn.textContent = "Copied!";
-            setTimeout(() => (copyBtn.textContent = prev), 1200);
-          } catch (e) {
-            window.prompt("Copy this email:", SUPPORT_EMAIL);
-          }
-        });
-      }
+      document.getElementById("year").textContent =
+        new Date().getFullYear();
     </script>
   </body>
 </html>

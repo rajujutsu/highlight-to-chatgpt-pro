@@ -939,8 +939,81 @@
           grid-template-columns: repeat(2, 1fr);
         }
       }
+      .nav-pe .nav-inner {
+        min-width: 0;
+      }
 
-      /* PROOF TEST — you should instantly see a thick lime outline */
+      .nav-pe .brand {
+        min-width: 0;
+      }
+      .nav-pe .brand .txt {
+        min-width: 0;
+      }
+      .nav-pe .brand .name,
+      .nav-pe .brand .tag {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      @media (max-width: 720px) {
+        .nav-pe .nav-inner {
+          gap: 10px;
+          padding: 10px 0;
+        }
+
+        .nav-pe .brand {
+          gap: 10px;
+        }
+
+        .nav-pe .brand img {
+          width: 46px;
+          height: 46px;
+        }
+
+        .nav-pe .brand .name {
+          font-size: 16px;
+          letter-spacing: 0.1px;
+        }
+
+        .nav-pe .brand .tag {
+          font-size: 11px;
+          margin-top: 2px;
+        }
+
+        .nav-pe .nav-cta {
+          gap: 8px;
+        }
+
+        .nav-pe .btn {
+          padding: 10px 10px;
+          border-radius: 14px;
+          font-size: 13px;
+        }
+
+        .nav-pe .nav-cta a.btn:not(.btn-primary) {
+          width: 42px;
+          padding: 10px 0;
+        }
+        .nav-pe .nav-cta a.btn:not(.btn-primary)::before {
+          content: "💳";
+          font-size: 14px;
+          line-height: 1;
+        }
+        .nav-pe .nav-cta a.btn:not(.btn-primary) {
+          color: transparent;
+        }
+
+        .nav-pe #topInstall {
+        }
+        .nav-pe #topInstall {
+          letter-spacing: -0.2px;
+        }
+        .nav-pe #topInstall::after {
+          content: "";
+        }
+      }
+
       #destStack {
         outline: 4px solid lime !important;
       }
@@ -954,7 +1027,7 @@
     <div class="fx" aria-hidden="true"></div>
     <div class="particles" id="particles" aria-hidden="true"></div>
 
-    <header class="nav">
+    <header class="nav nav-pe">
       <div class="wrap">
         <div class="nav-inner">
           <a class="brand" href="index.html#top" aria-label="Courier Web home">
@@ -977,7 +1050,6 @@
           </nav>
 
           <div class="nav-cta">
-            <a class="btn" href="index.html#pricing">Pricing</a>
             <a class="btn btn-primary" id="topInstall" href="#"
               >Add to Chrome →</a
             >

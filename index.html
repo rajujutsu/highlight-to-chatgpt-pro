@@ -2,7 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
     <title>Courier Web — Capture & Connect</title>
     <meta
       name="description"
@@ -37,6 +40,9 @@
         --max: 1120px;
 
         --ease: cubic-bezier(0.2, 0.9, 0.2, 1);
+
+        --pad: 20px;
+        --navH: 76px;
       }
 
       * {
@@ -72,6 +78,7 @@
       a {
         color: inherit;
         text-decoration: none;
+        -webkit-tap-highlight-color: transparent;
       }
       img {
         max-width: 100%;
@@ -81,7 +88,11 @@
       .wrap {
         max-width: var(--max);
         margin: 0 auto;
-        padding: 0 20px;
+        padding: 0 var(--pad);
+      }
+
+      section[id] {
+        scroll-margin-top: calc(var(--navH) + 12px);
       }
 
       /* ====== Ambient animated background ====== */
@@ -192,8 +203,9 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 14px;
-        padding: 14px 0;
+        gap: 12px;
+        padding: 12px 0;
+        min-height: var(--navH);
       }
 
       .brand {
@@ -207,6 +219,7 @@
         height: 64px;
         object-fit: contain;
         filter: drop-shadow(0 12px 34px rgba(0, 0, 0, 0.4));
+        flex: 0 0 auto;
       }
 
       .brand .name {
@@ -225,6 +238,7 @@
         display: flex;
         flex-direction: column;
         line-height: 1.05;
+        min-width: 0;
       }
 
       .grad {
@@ -261,6 +275,7 @@
         display: flex;
         gap: 10px;
         align-items: center;
+        flex: 0 0 auto;
       }
 
       /* Buttons + shiny hover */
@@ -282,6 +297,7 @@
         white-space: nowrap;
         user-select: none;
         overflow: hidden;
+        touch-action: manipulation;
       }
       .btn::after {
         content: "";
@@ -308,6 +324,10 @@
       }
       .btn:active {
         transform: translateY(0);
+      }
+      .btn:focus-visible {
+        outline: 2px solid rgba(34, 211, 238, 0.65);
+        outline-offset: 2px;
       }
 
       .btn-primary {
@@ -352,9 +372,9 @@
         border-radius: 99px;
         background: linear-gradient(180deg, var(--cyan), var(--violet));
         box-shadow: 0 0 18px rgba(34, 211, 238, 0.55);
+        flex: 0 0 auto;
       }
 
-      /* ====== Hero ====== */
       main {
         padding-bottom: 90px;
       }
@@ -459,19 +479,20 @@
       }
       .dots {
         display: flex;
-        gap: 8px;
+        gap: 10px;
         align-items: center;
         flex-wrap: wrap;
       }
       .dot {
-        width: 10px;
-        height: 10px;
+        width: 12px;
+        height: 12px;
         border-radius: 99px;
         border: 1px solid rgba(255, 255, 255, 0.18);
         background: rgba(255, 255, 255, 0.07);
         cursor: pointer;
         transition: transform 0.16s var(--ease), background 0.16s var(--ease),
           border-color 0.16s var(--ease);
+        touch-action: manipulation;
       }
       .dot.active {
         background: rgba(34, 211, 238, 0.22);
@@ -508,6 +529,67 @@
         font-size: 15px;
       }
 
+      .pricing-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+      }
+
+      .price-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 20px;
+        border-radius: 18px;
+        min-height: 340px;
+      }
+
+      .pricing-grid .price-card {
+        position: relative;
+        padding-top: 44px; 
+      }
+
+      .pricing-grid .price-card .pill {
+        position: absolute;
+        top: 16px;
+        left: 16px;
+
+        margin: 0;
+        transform: none;
+      }
+
+      .price-top {
+        text-align: center;
+      }
+
+      .price-amount {
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin: 10px 0 4px;
+      }
+
+      .price-period {
+        font-size: 0.9rem;
+        opacity: 0.7;
+      }
+
+      .price-desc {
+        font-size: 0.9rem;
+        margin-top: 10px;
+        opacity: 0.85;
+        min-height: 48px; /* forces equal height */
+      }
+
+      .price-btn {
+        margin-top: 18px;
+        padding: 12px;
+        border-radius: 12px;
+        text-align: center;
+        font-weight: 600;
+        white-space: nowrap; /* prevents wrapping */
+        width: 100%;
+      }
+
       .grid {
         display: grid;
         grid-template-columns: repeat(12, 1fr);
@@ -521,7 +603,7 @@
         background: rgba(255, 255, 255, 0.05);
         box-shadow: var(--shadow2);
         padding: 16px;
-        display: flex; /* helps internal spacing */
+        display: flex;
         flex-direction: column;
         gap: 10px;
         transition: transform 0.22s var(--ease), border-color 0.22s var(--ease),
@@ -585,7 +667,6 @@
         text-decoration-color: rgba(238, 240, 255, 0.24);
       }
 
-      /* Responsive */
       @media (max-width: 920px) {
         .hero-grid {
           grid-template-columns: 1fr;
@@ -597,37 +678,120 @@
           grid-column: span 6;
         }
       }
+
       @media (max-width: 720px) {
-        .wrap {
-          padding: 0 16px;
+        :root {
+          --pad: 16px;
+          --navH: 70px;
         }
+
+        .wrap {
+          padding: 0 var(--pad);
+        }
+
         .nav-inner {
-          padding: 12px 0;
+          padding: 10px 0;
+          gap: 10px;
+        }
+
+        .brand {
+          gap: 10px;
+        }
+        .brand img {
+          width: 46px;
+          height: 46px;
+        }
+        .brand .name {
+          font-size: 16px;
+        }
+        .brand .tag {
+          font-size: 12px;
+        }
+
+        .nav-cta {
+          gap: 8px;
         }
         .btn {
           padding: 11px 12px;
           border-radius: 14px;
+          min-height: 44px;
         }
+        /* tighten top-right CTA text a bit on small phones */
+        .nav-cta .btn {
+          font-size: 13px;
+        }
+
         .hero {
-          padding: 44px 0 8px;
+          padding: 34px 0 8px;
         }
+
         h1 {
-          font-size: clamp(30px, 8.6vw, 44px);
+          font-size: clamp(28px, 8.8vw, 42px);
+          letter-spacing: -0.8px;
         }
         .lead {
           font-size: 15px;
         }
+
+        .hero-ctas {
+          gap: 10px;
+        }
+        /* stacked CTAs (full width) for best mobile conversion */
+        .hero-ctas .btn {
+          width: 100%;
+        }
+
         section {
-          padding: 40px 0;
+          padding: 36px 0;
+        }
+
+        .grid {
+          gap: 12px;
         }
         .feat {
           grid-column: span 12;
         }
-        .brand img {
-          width: 56px;
-          height: 56px;
+
+        /* card padding a little tighter */
+        .card-pad {
+          padding: 14px;
+        }
+
+        /* shot controls wrap nicely */
+        .shot-controls {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 10px;
+        }
+
+        /* prevent pills from feeling cramped */
+        .pill {
+          font-size: 12px;
+          padding: 7px 10px;
         }
       }
+
+      /* super small phones (<= 380px) */
+      @media (max-width: 380px) {
+        .brand .txt {
+          display: none; /* logo-only to avoid header overflow */
+        }
+        .nav-cta .btn {
+          padding: 10px 10px;
+          font-size: 12px;
+        }
+      }
+
+      /* performance + battery: reduce heavy background effects on small devices */
+      @media (max-width: 720px) {
+        .fx::after {
+          opacity: 0.03;
+        }
+        .particles {
+          opacity: 0.22;
+        }
+      }
+
       @media (prefers-reduced-motion: reduce) {
         * {
           animation: none !important;
@@ -635,9 +799,20 @@
           scroll-behavior: auto !important;
         }
       }
+
+      /* If you reference .dest-grid elsewhere, keep it */
       @media (max-width: 720px) {
         .dest-grid {
           grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (max-width: 640px) {
+        .pricing-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .price-card {
+          min-height: auto;
         }
       }
     </style>
@@ -855,109 +1030,99 @@
             </div>
           </div>
 
-          <div class="grid">
-            <div class="feat reveal" style="grid-column: span 4">
-              <div class="pill"><span class="spark"></span> First 50</div>
-              <h3 style="margin-top: 10px">Founders Thread</h3>
-              <div
-                style="font-weight: 1000; font-size: 36px; letter-spacing: -1px"
-              >
-                $4.99
-                <span style="font-size: 14px; color: rgba(238, 240, 255, 0.65)"
-                  >one-time</span
-                >
+          <div class="grid pricing-grid">
+            <!-- Founders -->
+            <div class="feat reveal price-card" style="grid-column: span 4">
+              <div class="price-top">
+                <div class="pill"><span class="spark"></span> First 50</div>
+                <h3>Founders Thread</h3>
+
+                <div class="price-line">
+                  <span class="price-amount">$4.99</span>
+                  <span class="price-period">one-time</span>
+                </div>
+
+                <p class="price-desc">
+                  Early-bird lifetime access. Limited to the first 50 users.
+                </p>
               </div>
-              <p
-                style="
-                  margin: 10px 0 0;
-                  color: rgba(238, 240, 255, 0.78);
-                  line-height: 1.65;
-                  font-size: 14px;
-                "
-              >
-                Limited early pricing. Best value for early supporters.
-              </p>
-              <div style="margin-top: 14px; display: grid; gap: 10px">
+
+              <div class="price-actions">
                 <a
-                  class="btn btn-primary"
+                  class="btn btn-primary price-btn"
                   href="https://rajujutsu.gumroad.com/l/wjptpf"
                   target="_blank"
                   rel="noopener"
-                  >Claim Founders</a
+                  >Get Founders</a
                 >
-                <a class="btn" href="prompt-engineering.html">Get templates</a>
+                <a class="btn price-btn" href="prompt-engineering.html"
+                  >Get templates</a
+                >
               </div>
             </div>
 
+            <!-- Annual -->
             <div
-              class="feat reveal"
+              class="feat reveal price-card"
               style="
                 grid-column: span 4;
                 border-color: rgba(34, 211, 238, 0.42);
               "
             >
-              <div class="pill"><span class="spark"></span> Annual</div>
-              <h3 style="margin-top: 10px">Weaver</h3>
-              <div
-                style="font-weight: 1000; font-size: 36px; letter-spacing: -1px"
-              >
-                $12.99
-                <span style="font-size: 14px; color: rgba(238, 240, 255, 0.65)"
-                  >/ year</span
-                >
+              <div class="price-top">
+                <div class="pill"><span class="spark"></span> Annual</div>
+                <h3>Weaver</h3>
+
+                <div class="price-line">
+                  <span class="price-amount">$12.99</span>
+                  <span class="price-period">/ year</span>
+                </div>
+
+                <p class="price-desc">
+                  Unlimited templates + favorites. For people who use Courier
+                  Web every day.
+                </p>
               </div>
-              <p
-                style="
-                  margin: 10px 0 0;
-                  color: rgba(238, 240, 255, 0.78);
-                  line-height: 1.65;
-                  font-size: 14px;
-                "
-              >
-                Unlimited templates + favorites. Built for daily workflows.
-              </p>
-              <div style="margin-top: 14px; display: grid; gap: 10px">
+
+              <div class="price-actions">
                 <a
-                  class="btn btn-primary"
+                  class="btn btn-primary price-btn"
                   href="https://rajujutsu.gumroad.com/l/swipjj"
                   target="_blank"
                   rel="noopener"
-                  >Go Weaver Annual</a
+                  >Go Annual</a
                 >
-                <a class="btn" id="finalInstall" href="#">Install free first</a>
+                <a class="btn price-btn" id="finalInstall" href="#"
+                  >Install free first</a
+                >
               </div>
             </div>
 
-            <div class="feat reveal" style="grid-column: span 4">
-              <div class="pill"><span class="spark"></span> Lifetime</div>
-              <h3 style="margin-top: 10px">Nexus License</h3>
-              <div
-                style="font-weight: 1000; font-size: 36px; letter-spacing: -1px"
-              >
-                $39.99
-                <span style="font-size: 14px; color: rgba(238, 240, 255, 0.65)"
-                  >one-time</span
-                >
+            <!-- Lifetime -->
+            <div class="feat reveal price-card" style="grid-column: span 4">
+              <div class="price-top">
+                <div class="pill"><span class="spark"></span> Lifetime</div>
+                <h3>Nexus License</h3>
+
+                <div class="price-line">
+                  <span class="price-amount">$29.99</span>
+                  <span class="price-period">one-time</span>
+                </div>
+
+                <p class="price-desc">
+                  One payment. Lifetime access. Pay once. Use it forever.
+                </p>
               </div>
-              <p
-                style="
-                  margin: 10px 0 0;
-                  color: rgba(238, 240, 255, 0.78);
-                  line-height: 1.65;
-                  font-size: 14px;
-                "
-              >
-                One payment. Lifetime access. Most importantly, No subscription.
-              </p>
-              <div style="margin-top: 14px; display: grid; gap: 10px">
+
+              <div class="price-actions">
                 <a
-                  class="btn btn-primary"
+                  class="btn btn-primary price-btn"
                   href="https://rajujutsu.gumroad.com/l/pdbzbw"
                   target="_blank"
                   rel="noopener"
-                  >Get Lifetime</a
+                  >Buy Lifetime</a
                 >
-                <a class="btn" href="prompt-engineering.html"
+                <a class="btn price-btn" href="prompt-engineering.html"
                   >Prompt templates</a
                 >
               </div>
@@ -999,7 +1164,7 @@
         }
       );
 
-      // Reveal on scroll
+      // Reveal on scroll (✅ cheap on mobile; avoids constant scroll handlers)
       const io = new IntersectionObserver(
         (entries) =>
           entries.forEach((ent) => {
@@ -1017,8 +1182,7 @@
         { src: "assets/mock1.png", title: "Highlight → Prompt → Send" },
         {
           src: "assets/mock2.png",
-          title:
-            "Capture anything from code, stock charts or articles",
+          title: "Capture anything from code, stock charts or articles",
         },
         {
           src: "assets/mock6.png",
@@ -1073,22 +1237,23 @@
       buildDots();
       if (!prefersReduced) restart();
 
-      // Particles (subtle)
+      // Particles: auto-downshift on small screens for perf
       (function particles() {
         const host = document.getElementById("particles");
         if (!host) return;
-        const reduced = prefersReduced;
-        if (reduced) return;
+        if (prefersReduced) return;
 
-        const count = 18;
+        const isSmall = window.matchMedia("(max-width: 720px)").matches;
+        const count = isSmall ? 10 : 18;
+
         for (let i = 0; i < count; i++) {
           const el = document.createElement("div");
           el.className = "p";
           const left = Math.random() * 100;
-          const top = 80 + Math.random() * 40; // start lower
-          const dur = 10 + Math.random() * 14;
+          const top = 80 + Math.random() * 40;
+          const dur = (isSmall ? 12 : 10) + Math.random() * 14;
           const delay = Math.random() * 10;
-          const size = 4 + Math.random() * 6;
+          const size = (isSmall ? 3 : 4) + Math.random() * 6;
 
           el.style.left = left + "vw";
           el.style.top = top + "vh";
