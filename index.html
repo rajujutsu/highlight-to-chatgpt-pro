@@ -625,22 +625,30 @@
         min-height: 340px;
       }
 
+      /* Pricing cards: keep pill in top-right, add space below it */
       .pricing-grid .price-card {
         position: relative;
-        padding-top: 44px;
+        padding-top: 60px; /* pushes title down away from pill */
       }
 
       .pricing-grid .price-card .pill {
         position: absolute;
         top: 16px;
-        left: 16px;
-
-        margin: 0;
-        transform: none;
+        left: 16px; /* move to top-right corner */
+        right: auto;
       }
 
       .price-top {
         text-align: center;
+      }
+
+      .price-top h3 {
+        margin-bottom: 18px;
+      }
+
+      .price-top .chrome-ico {
+        width: 10px;
+        height: 10px;
       }
 
       .price-amount {
@@ -990,12 +998,10 @@
           padding: 7px 10px;
         }
 
-        /* On mobile, move nav chip below buttons naturally if tight */
         .nav-chip {
-          display: none; /* keep header clean on phones */
+          display: none;
         }
 
-        /* Updates: single column */
         .updates-grid .col {
           grid-column: span 12;
         }
@@ -1064,20 +1070,12 @@
 
           <nav class="nav-links" aria-label="Site">
             <a href="#features">Features</a>
-            <a href="#how">How it works</a>
             <a href="#updates">Updates</a>
+            <a href="tutorials.html">Tutorials</a>
             <a href="prompt-engineering.html">Prompt Engineering</a>
           </nav>
 
           <div class="nav-cta">
-            <span
-              class="nav-chip"
-              title="Courier Web works on desktop Chrome only"
-            >
-              <span class="chrome-ico" aria-hidden="true"></span>
-              Chrome (Desktop)
-            </span>
-
             <a class="btn" href="#pricing">Pricing</a>
             <a class="btn btn-primary" id="topInstall" href="#"
               >Add to Chrome →</a
@@ -1097,7 +1095,6 @@
                 actions
               </div>
 
-              <!-- NEW: Chrome-only badge near the hero -->
               <div class="mini-row" style="margin-top: 10px">
                 <span class="chrome-pill">
                   <span class="chrome-ico" aria-hidden="true"></span>
@@ -1304,15 +1301,14 @@
                           ><span class="dotx"></span> In progress</span
                         >
                       </div>
-                      <div class="ttl">Spring '26 Button Themes</div>
+                      <div class="ttl">Spring '26 Button Themes, Adding Claude + DeepSeek</div>
                       <ul>
                         <li>
                           Cherry Blossom, Fresh Mint, Lemon Zest, Lavender
                           Fields and animated Rainy Fields.
                         </li>
                         <li>
-                          If you have any other suggestion please follow
-                          @courier_web on Threads.
+                          New LLMs!
                         </li>
                       </ul>
                     </div>
@@ -1324,12 +1320,21 @@
                           ><span class="dotx"></span> Planned</span
                         >
                       </div>
-                      <div class="ttl">Tab Inbox</div>
+                      <div class="ttl">Tab Functionality</div>
                       <ul>
                         <li>First rollout for tab functions.</li>
                         <li>
                           Every tab will automatically be archived, converted,
                           saved or closed.
+                        </li>
+                        <li>
+                          No more highlighting entire pages. Click the tab and
+                          send it to LLMs to summarize or save it to another
+                          destination.
+                        </li>
+                        <li>
+                          Focus Mode: Tabs will fade after certain period of
+                          time and time tracker for tabs.
                         </li>
                       </ul>
                     </div>
@@ -1341,17 +1346,9 @@
                           ><span class="dotx"></span> Planned</span
                         >
                       </div>
-                      <div class="ttl">AI Tab Summarizer</div>
+                      <div class="ttl">AI compiler</div>
                       <ul>
-                        <li>
-                          No more highlighting entire pages. Click the tab and
-                          send it to LLMs to summarize or save it to another
-                          destination.
-                        </li>
-                        <li>
-                          Focus Mode: Tabs will fade after certain period of
-                          time and time tracker for tabs.
-                        </li>
+                        <li>Convert key conversations into notes</li>
                       </ul>
                     </div>
                   </div>
@@ -1453,7 +1450,9 @@
             <!-- Founders -->
             <div class="feat reveal price-card" style="grid-column: span 4">
               <div class="price-top">
-                <div class="pill"><span class="spark"></span> First 50</div>
+                <div class="pill">
+                  <span class="chrome-ico" aria-hidden="true"></span> First 50
+                </div>
                 <h3>Founders Thread</h3>
 
                 <div class="price-line">
@@ -1489,7 +1488,9 @@
               "
             >
               <div class="price-top">
-                <div class="pill"><span class="spark"></span> Annual</div>
+                <div class="pill">
+                  <span class="chrome-ico" aria-hidden="true"></span> Annual
+                </div>
                 <h3>Weaver</h3>
 
                 <div class="price-line">
@@ -1520,7 +1521,10 @@
             <!-- Lifetime -->
             <div class="feat reveal price-card" style="grid-column: span 4">
               <div class="price-top">
-                <div class="pill"><span class="spark"></span> Lifetime</div>
+                <div class="pill">
+                  <span class="chrome-ico" aria-hidden="true"></span>
+                  Lifetime
+                </div>
                 <h3>Nexus License</h3>
 
                 <div class="price-line">

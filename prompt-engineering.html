@@ -333,7 +333,6 @@
         filter: brightness(1.05);
       }
 
-      /* NEW: smaller “utility” buttons used inside ticker */
       .btn-soft {
         padding: 10px 12px;
         border-radius: 14px;
@@ -647,7 +646,6 @@
         white-space: nowrap;
       }
 
-      /* ===== DESTINATION TICKER (FIX: no overlap + text containment) ===== */
       .dest-ticker {
         display: grid;
         align-items: center;
@@ -692,19 +690,18 @@
         color: rgba(238, 240, 255, 0.82);
       }
 
-      /* IMPORTANT: allow the middle column to shrink */
       .dest-stack {
         position: relative;
         z-index: 1;
         flex: 1;
-        min-width: 240px; /* key: prevents collapsing to tiny width */
+        min-width: 240px; 
         max-width: 520px;
-        height: auto; /* no forced height */
-        perspective: none; /* optional */
+        height: auto; 
+        perspective: none; 
       }
 
       .dest-item {
-        position: relative; /* <- NOT absolute */
+        position: relative; 
         inset: auto;
         display: grid;
         grid-template-columns: auto minmax(0, 1fr) auto;
@@ -726,7 +723,7 @@
 
       .dest-item.show {
         opacity: 1;
-        max-height: 80px; /* enough to show one line */
+        max-height: 80px; 
         transform: translateY(0);
       }
 
@@ -750,7 +747,6 @@
         box-shadow: 0 0 18px rgba(34, 211, 238, 0.22);
       }
 
-      /* ✅ keep text inside the box */
       .dest-name {
         min-width: 0;
         overflow: hidden;
@@ -762,7 +758,6 @@
         font-size: 13.5px;
       }
 
-      /* ✅ hint can’t push outside container */
       .dest-hint {
         max-width: 240px;
         overflow: hidden;
@@ -778,7 +773,6 @@
         background: rgba(255, 255, 255, 0.045);
       }
 
-      /* Actions stay in their own grid column, never overlapped */
       .dest-actions {
         position: relative;
         z-index: 1;
@@ -1040,12 +1034,11 @@
 
           <nav class="nav-links" aria-label="Site">
             <a href="index.html#features">Features</a>
-            <a href="index.html#how">How it works</a>
-            <a
-              href="prompt-engineering.html"
+            <a href="tutorials.html">Tutorials</a>
+
+            <a href="prompt-engineering.html"
               style="background: rgba(255, 255, 255, 0.06)"
-              >Prompt Engineering</a
-            >
+              >Prompt Engineering</a>
             <a href="index.html#pricing">Pricing</a>
           </nav>
 
@@ -1241,7 +1234,6 @@
         }
       });
 
-      // Reveal
       const io = new IntersectionObserver(
         (entries) =>
           entries.forEach((ent) => {
@@ -1251,7 +1243,6 @@
       );
       document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
 
-      // Year
       document.getElementById("year").textContent = new Date().getFullYear();
 
       // Particles
@@ -1284,7 +1275,6 @@
         }
       })();
 
-      // Flipping destination ticker (cleaner data + display)
       (function destinations() {
         const host = document.getElementById("destStack");
         if (!host) return;
@@ -1435,7 +1425,7 @@
         list.slice(0, 3).forEach((g) => {
           const card = document.createElement("a");
           card.className = "guide";
-          card.href = g.href; // ✅ real link
+          card.href = g.href; 
           card.setAttribute("data-cat", g.cat);
           card.setAttribute(
             "data-title",
@@ -1463,7 +1453,7 @@
         list.forEach((a) => {
           const row = document.createElement("a");
           row.className = "row";
-          row.href = a.href; // ✅ real link
+          row.href = a.href; 
           row.setAttribute("data-cat", a.cat);
           row.setAttribute(
             "data-title",
