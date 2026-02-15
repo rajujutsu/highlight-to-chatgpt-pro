@@ -1706,6 +1706,7 @@
         window.matchMedia &&
         window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       buildDots();
+      setShot(0);
       if (!prefersReduced) restart();
 
       // Particles: auto-downshift on small screens for perf
