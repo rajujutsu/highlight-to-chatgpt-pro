@@ -529,6 +529,21 @@
         transform: scale(1.01);
         transition: transform 0.6s var(--ease), filter 0.6s var(--ease);
       }
+
+      #shotMedia img,
+      #shotMedia video {
+        width: 100%;
+        height: auto;
+        display: block;
+        transform: scale(1.01);
+        transition: transform 0.6s var(--ease), filter 0.6s var(--ease);
+      }
+
+      .card:hover #shotMedia img,
+      .card:hover #shotMedia video {
+        transform: scale(1.035);
+        filter: saturate(1.05);
+      }
       .card:hover .shot img {
         transform: scale(1.035);
         filter: saturate(1.05);
@@ -702,6 +717,150 @@
         margin-bottom: 10px;
       }
 
+      /* ====== Updates / Dev Notes ====== */
+      .updates-grid {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 14px;
+        align-items: start;
+      }
+      .updates-grid .col {
+        grid-column: span 6;
+      }
+
+      .update-card {
+        border-radius: var(--r2);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.07),
+          rgba(255, 255, 255, 0.03)
+        );
+        box-shadow: var(--shadow2);
+        overflow: hidden;
+      }
+      .update-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 14px 16px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(5, 5, 18, 0.22);
+      }
+      .update-head h3 {
+        margin: 0;
+        font-size: 16px;
+        letter-spacing: -0.2px;
+      }
+      .update-body {
+        padding: 14px 16px 16px;
+      }
+      .update-body p {
+        margin: 0 0 12px;
+        color: var(--muted);
+        line-height: 1.6;
+        font-size: 14px;
+      }
+
+      .tag-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 10px;
+        border-radius: 999px;
+        font-weight: 950;
+        font-size: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.05);
+        color: rgba(238, 240, 255, 0.85);
+        white-space: nowrap;
+      }
+      .tag-chip .dotx {
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.35);
+        box-shadow: 0 0 14px rgba(255, 255, 255, 0.12);
+      }
+      .tag-planned {
+        border-color: rgba(163, 230, 53, 0.28);
+        background: rgba(163, 230, 53, 0.08);
+      }
+      .tag-planned .dotx {
+        background: rgba(163, 230, 53, 0.75);
+        box-shadow: 0 0 16px rgba(163, 230, 53, 0.35);
+      }
+      .tag-building {
+        border-color: rgba(34, 211, 238, 0.28);
+        background: rgba(34, 211, 238, 0.08);
+      }
+      .tag-building .dotx {
+        background: rgba(34, 211, 238, 0.8);
+        box-shadow: 0 0 16px rgba(34, 211, 238, 0.35);
+      }
+      .tag-shipped {
+        border-color: rgba(139, 92, 246, 0.3);
+        background: rgba(139, 92, 246, 0.09);
+      }
+      .tag-shipped .dotx {
+        background: rgba(139, 92, 246, 0.85);
+        box-shadow: 0 0 16px rgba(139, 92, 246, 0.35);
+      }
+
+      .timeline {
+        display: grid;
+        gap: 12px;
+      }
+      .log {
+        position: relative;
+        padding-left: 18px;
+        border-left: 1px solid rgba(255, 255, 255, 0.12);
+      }
+      .log::before {
+        content: "";
+        position: absolute;
+        left: -6px;
+        top: 6px;
+        width: 12px;
+        height: 12px;
+        border-radius: 99px;
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        background: radial-gradient(
+          circle at 30% 30%,
+          rgba(34, 211, 238, 0.55),
+          rgba(34, 211, 238, 0.08)
+        );
+        box-shadow: 0 0 18px rgba(34, 211, 238, 0.22);
+      }
+      .log .row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .log .date {
+        font-weight: 950;
+        font-size: 12px;
+        color: rgba(238, 240, 255, 0.72);
+      }
+      .log .ttl {
+        font-weight: 950;
+        font-size: 14px;
+        margin: 4px 0 6px;
+      }
+      .log ul {
+        margin: 0;
+        padding-left: 18px;
+        color: rgba(238, 240, 255, 0.78);
+        line-height: 1.6;
+        font-size: 13.5px;
+      }
+      .log li {
+        margin: 4px 0;
+      }
+
       /* Reveal animations */
       .reveal {
         opacity: 0;
@@ -835,6 +994,11 @@
         .nav-chip {
           display: none; /* keep header clean on phones */
         }
+
+        /* Updates: single column */
+        .updates-grid .col {
+          grid-column: span 12;
+        }
       }
 
       @media (max-width: 380px) {
@@ -901,17 +1065,23 @@
           <nav class="nav-links" aria-label="Site">
             <a href="#features">Features</a>
             <a href="#how">How it works</a>
+            <a href="#updates">Updates</a>
             <a href="prompt-engineering.html">Prompt Engineering</a>
           </nav>
 
           <div class="nav-cta">
-            <span class="nav-chip" title="Courier Web works on desktop Chrome only">
+            <span
+              class="nav-chip"
+              title="Courier Web works on desktop Chrome only"
+            >
               <span class="chrome-ico" aria-hidden="true"></span>
               Chrome (Desktop)
             </span>
 
             <a class="btn" href="#pricing">Pricing</a>
-            <a class="btn btn-primary" id="topInstall" href="#">Add to Chrome →</a>
+            <a class="btn btn-primary" id="topInstall" href="#"
+              >Add to Chrome →</a
+            >
           </div>
         </div>
       </div>
@@ -952,16 +1122,21 @@
                 <a class="btn" href="#features">See features</a>
               </div>
 
-              <!-- NEW: helper line under the main CTA -->
               <div class="install-note">
-                Works on <b>Google Chrome (desktop)</b>. Not available on Safari,
-                Firefox, or mobile browsers.
+                Works on <b>Google Chrome (desktop)</b>. Not available on
+                Safari, Firefox, or mobile browsers.
               </div>
 
               <div class="mini-row">
-                <span class="pill"><span class="spark"></span> Custom prompts</span>
-                <span class="pill"><span class="spark"></span> Clean overlay</span>
-                <span class="pill"><span class="spark"></span> Route to tools</span>
+                <span class="pill"
+                  ><span class="spark"></span> Custom prompts</span
+                >
+                <span class="pill"
+                  ><span class="spark"></span> Clean overlay</span
+                >
+                <span class="pill"
+                  ><span class="spark"></span> Route to tools</span
+                >
               </div>
             </div>
 
@@ -971,12 +1146,8 @@
                   <span class="spark"></span> Product preview
                 </div>
 
-                <div class="shot">
-                  <img
-                    id="shotImg"
-                    src="assets/mock1.png"
-                    alt="Courier Web screenshot"
-                  />
+                <div class="shot" id="shotFrame">
+                  <div id="shotMedia"></div>
                 </div>
 
                 <div class="shot-controls">
@@ -1088,6 +1259,181 @@
                 <a class="btn btn-primary" id="midInstall" href="#"
                   >Add to Chrome →</a
                 >
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="updates">
+        <div class="wrap">
+          <div class="head reveal">
+            <div>
+              <h2>Dev notes & updates</h2>
+              <p class="sub">
+                What’s shipping, what’s next, and what we’re actively improving.
+              </p>
+            </div>
+            <div class="pill" title="Auto-labeled at runtime">
+              <span class="spark"></span> Updated:
+              <span id="updatedStamp"></span>
+            </div>
+          </div>
+
+          <div class="updates-grid">
+            <!-- Upcoming -->
+            <div class="col reveal">
+              <div class="update-card">
+                <div class="update-head">
+                  <h3>Upcoming</h3>
+                  <span class="tag-chip tag-planned"
+                    ><span class="dotx"></span> Planned</span
+                  >
+                </div>
+                <div class="update-body">
+                  <p>
+                    These are the next improvements we’re aiming to ship soon.
+                    (This list can change as feedback comes in.)
+                  </p>
+
+                  <div class="timeline">
+                    <div class="log">
+                      <div class="row">
+                        <div class="date">Next</div>
+                        <span class="tag-chip tag-building"
+                          ><span class="dotx"></span> In progress</span
+                        >
+                      </div>
+                      <div class="ttl">Spring '26 Button Themes</div>
+                      <ul>
+                        <li>
+                          Cherry Blossom, Fresh Mint, Lemon Zest, Lavender
+                          Fields and animated Rainy Fields.
+                        </li>
+                        <li>
+                          If you have any other suggestion please follow
+                          @courier_web on Threads.
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div class="log">
+                      <div class="row">
+                        <div class="date">Soon</div>
+                        <span class="tag-chip tag-planned"
+                          ><span class="dotx"></span> Planned</span
+                        >
+                      </div>
+                      <div class="ttl">Tab Inbox</div>
+                      <ul>
+                        <li>First rollout for tab functions.</li>
+                        <li>
+                          Every tab will automatically be archived, converted,
+                          saved or closed.
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div class="log">
+                      <div class="row">
+                        <div class="date">Future</div>
+                        <span class="tag-chip tag-planned"
+                          ><span class="dotx"></span> Planned</span
+                        >
+                      </div>
+                      <div class="ttl">AI Tab Summarizer</div>
+                      <ul>
+                        <li>
+                          No more highlighting entire pages. Click the tab and
+                          send it to LLMs to summarize or save it to another
+                          destination.
+                        </li>
+                        <li>
+                          Focus Mode: Tabs will fade after certain period of
+                          time and time tracker for tabs.
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Changelog -->
+            <div class="col reveal">
+              <div class="update-card">
+                <div class="update-head">
+                  <h3>Changelog</h3>
+                  <span class="tag-chip tag-shipped"
+                    ><span class="dotx"></span> Shipped</span
+                  >
+                </div>
+                <div class="update-body">
+                  <p>
+                    A quick history of what’s been added. Keep this short,
+                    clear, and real.
+                  </p>
+
+                  <div class="timeline">
+                    <div class="log">
+                      <div class="row">
+                        <div class="date">v1.6.x</div>
+                        <span class="tag-chip tag-shipped"
+                          ><span class="dotx"></span> Live</span
+                        >
+                      </div>
+                      <div class="ttl">UI/UX Changes</div>
+                      <ul>
+                        <li>Improvements to UI.</li>
+                        <li>
+                          Auto save and close tabs for certain destinations.
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div class="log">
+                      <div class="row">
+                        <div class="date">v1.5.x</div>
+                        <span class="tag-chip tag-shipped"
+                          ><span class="dotx"></span> Live</span
+                        >
+                      </div>
+                      <div class="ttl">Core workflow</div>
+                      <ul>
+                        <li>Added multiple destinations besides ChatGPT</li>
+                        <li>Focus on productivity.</li>
+                      </ul>
+                    </div>
+
+                    <div class="log">
+                      <div class="row">
+                        <div class="date">Early</div>
+                        <span class="tag-chip tag-shipped"
+                          ><span class="dotx"></span> Live</span
+                        >
+                      </div>
+                      <div class="ttl">Quality + polish</div>
+                      <ul>
+                        <li>Introduced image capturing.</li>
+                        <li>Website launched.</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div
+                    style="
+                      margin-top: 14px;
+                      display: flex;
+                      gap: 10px;
+                      flex-wrap: wrap;
+                    "
+                  >
+                    <a class="btn" href="#pricing">See pricing</a>
+                    <a class="btn btn-primary" id="updatesInstall" href="#"
+                      >Add to Chrome →</a
+                    >
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -1223,21 +1569,25 @@
       const STORE_LINK = meta ? meta.content.trim() : "";
 
       // Install buttons
-      ["topInstall", "heroInstall", "midInstall", "finalInstall"].forEach(
-        (id) => {
-          const el = document.getElementById(id);
-          if (!el) return;
-          if (STORE_LINK) {
-            el.href = STORE_LINK;
-            el.target = "_blank";
-            el.rel = "noopener";
-          } else {
-            el.href = "#pricing";
-          }
+      [
+        "topInstall",
+        "heroInstall",
+        "midInstall",
+        "finalInstall",
+        "updatesInstall",
+      ].forEach((id) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        if (STORE_LINK) {
+          el.href = STORE_LINK;
+          el.target = "_blank";
+          el.rel = "noopener";
+        } else {
+          el.href = "#pricing";
         }
-      );
+      });
 
-      // Reveal on scroll (✅ cheap on mobile; avoids constant scroll handlers)
+      // Reveal on scroll
       const io = new IntersectionObserver(
         (entries) =>
           entries.forEach((ent) => {
@@ -1250,20 +1600,42 @@
       // Year
       document.getElementById("year").textContent = new Date().getFullYear();
 
-      // Hero screenshot carousel (ONLY 3 mockups)
+      // Updates "stamp"
+      const stamp = document.getElementById("updatedStamp");
+      if (stamp) {
+        const d = new Date();
+        stamp.textContent = d.toLocaleDateString(undefined, {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        });
+      }
+
+      // Hero screenshot carousel
       const shots = [
-        { src: "assets/mock1.png", title: "Highlight → Prompt → Send" },
         {
-          src: "assets/mock2.png",
-          title: "Capture anything from code, stock charts or articles",
+          type: "image",
+          src: "assets/mock1.png",
+          title: "Highlight → Prompt → Send",
         },
         {
+          type: "image",
+          src: "assets/mock2.png",
+          title: "Capture just about anything",
+        },
+        {
+          type: "image",
           src: "assets/mock6.png",
           title: "Customize your buttons with personal templates",
         },
+        {
+          type: "video",
+          src: "assets/demo.mp4",
+          title: "Customize Your Prompts & Layout",
+        },
       ];
 
-      const img = document.getElementById("shotImg");
+      const mediaWrap = document.getElementById("shotMedia");
       const title = document.getElementById("shotTitle");
       const dotsWrap = document.getElementById("shotDots");
 
@@ -1272,8 +1644,34 @@
 
       function setShot(i) {
         idx = i;
-        img.src = shots[i].src;
-        title.textContent = shots[i].title;
+        const shot = shots[i];
+
+        // Clear previous media
+        mediaWrap.innerHTML = "";
+
+        if (shot.type === "video") {
+          const v = document.createElement("video");
+          v.src = shot.src;
+          v.autoplay = true;
+          v.loop = true;
+          v.muted = true;
+          v.playsInline = true;
+          v.preload = "metadata"; // lighter load
+          v.setAttribute("aria-label", "Courier Web demo video");
+
+          mediaWrap.appendChild(v);
+
+          // If autoplay gets blocked (rare on desktop), try play()
+          v.play().catch(() => {});
+        } else {
+          const im = document.createElement("img");
+          im.src = shot.src;
+          im.alt = "Courier Web screenshot";
+          mediaWrap.appendChild(im);
+        }
+
+        title.textContent = shot.title;
+
         [...dotsWrap.children].forEach((d, di) =>
           d.classList.toggle("active", di === i)
         );
@@ -1338,6 +1736,46 @@
           host.appendChild(el);
         }
       })();
+
+      // ===== Share discount function =====
+      const SUPABASE_FN =
+        "https://uxhblqxzmiobvbntnpsh.supabase.co/functions/v1/generate-share-code";
+
+      const SUPABASE_ANON =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV4aGJscXh6bWlvYnZibnRucHNoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk4NDQ1MjgsImV4cCI6MjA4NTQyMDUyOH0.eyn8ydBWN9AR-VoeYImNofouSuwgI8xKG467NuiC0Uk";
+
+      async function unlockDiscount(source = "twitter") {
+        const resultEl = document.getElementById("discountResult");
+        if (resultEl) resultEl.textContent = "Generating code…";
+
+        try {
+          const res = await fetch(SUPABASE_FN, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              apikey: SUPABASE_ANON,
+              Authorization: `Bearer ${SUPABASE_ANON}`,
+            },
+            body: JSON.stringify({ source }),
+          });
+
+          const data = await res.json();
+
+          if (resultEl) {
+            resultEl.innerHTML = `
+        <div style="margin-top:10px;">
+          <div style="font-weight:900;">Your discount code:</div>
+          <div style="font-size:20px; margin-top:6px;">${data.code}</div>
+          <div style="opacity:.7; font-size:13px; margin-top:6px;">
+            Use this code at checkout.
+          </div>
+        </div>
+      `;
+          }
+        } catch (e) {
+          if (resultEl) resultEl.textContent = "Something went wrong.";
+        }
+      }
     </script>
   </body>
 </html>
