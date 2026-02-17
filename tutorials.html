@@ -990,44 +990,43 @@
 
       // ========= Tutorials data =========
       const lessons = [
-        {
-          id: "setup",
-          title: "Install + first capture",
-          category: "getting-started",
-          minutes: 2,
-          desc: "Install, highlight, open the overlay, and send your first message.",
-          mp4: "assets/tutorials/install.mp4",
-          poster: "assets/tutorials/poster.png",
-          prompt: `Summarize this highlight in 5 bullets. Then add 3 actionable next steps. 
-          Keep it concise.`,
-          chapters: [
-            { t: 0, label: "Install + pin extension" },
-            { t: 34, label: "Change character length" },
-            { t: 60, label: "Select text" },
-          ],
-        },
-        {
-          id: "templates",
-          title: "Custom prompt buttons (templates)",
-          category: "prompts",
-          minutes: 2.5,
-          desc: "Make your own templates and keep outputs consistent.",
-          mp4: "assets/tutorials/templates.mp4",
-          poster: "assets/tutorials/poster.png",
-          prompt: `You are my assistant.
+  {
+    id: "setup",
+    title: "Install + first capture",
+    category: "getting-started",
+    minutes: 2,
+    desc: "Install, highlight, open the overlay, and send your first message.",
+    mp4: "https://videos.courierweb.net/install.mp4",
+    poster: "assets/tutorials/poster.png",
+    prompt: `Summarize this highlight in 5 bullets. Then add 3 actionable next steps. 
+Keep it concise.`,
+    chapters: [
+      { t: 0, label: "Install + pin extension" },
+      { t: 34, label: "Change character length" },
+      { t: 60, label: "Select text" },
+    ],
+  },
+  {
+    id: "templates",
+    title: "Custom prompt buttons (templates)",
+    category: "prompts",
+    minutes: 2.5,
+    desc: "Make your own templates and keep outputs consistent.",
+    mp4: "https://videos.courierweb.net/templates.mp4",
+    poster: "assets/tutorials/poster.png",
+    prompt: `You are my assistant.
 Rewrite the highlighted text as:
 1) A short LinkedIn post (<=1200 chars)
 2) A punchy headline
 3) 5 hashtags
 Tone: confident, not salesy.`,
-          chapters: [
-            { t: 21, label: "Create a template or prompt" },
-            { t: 46, label: "Enable buttons" },
-            { t: 64, label: "Choose custom template" },
-          ],
-        },
-      ];
-
+    chapters: [
+      { t: 21, label: "Create a template or prompt" },
+      { t: 46, label: "Enable buttons" },
+      { t: 64, label: "Choose custom template" },
+    ],
+  },
+];
       // ========= DOM =========
       const listEl = document.getElementById("lessonList");
       const qEl = document.getElementById("q");
