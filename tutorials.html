@@ -992,28 +992,27 @@
       const lessons = [
         {
           id: "setup",
-          title: "Install + first capture (60 sec)",
+          title: "Install + first capture",
           category: "getting-started",
-          minutes: 1,
+          minutes: 2,
           desc: "Install, highlight, open the overlay, and send your first message.",
-          mp4: "assets/tutorials/01-install-first-capture.mp4",
+          mp4: "assets/tutorials/install.mp4",
           poster: "assets/tutorials/poster.png",
-          prompt: `Summarize this highlight in 5 bullets.
-Then add 3 actionable next steps.
-Keep it concise.`,
+          prompt: `Summarize this highlight in 5 bullets. Then add 3 actionable next steps. 
+          Keep it concise.`,
           chapters: [
             { t: 0, label: "Install + pin extension" },
-            { t: 18, label: "Highlight text" },
-            { t: 35, label: "Pick destination + send" },
+            { t: 34, label: "Change character length" },
+            { t: 60, label: "Select text" },
           ],
         },
         {
           id: "templates",
           title: "Custom prompt buttons (templates)",
           category: "prompts",
-          minutes: 3,
+          minutes: 2.5,
           desc: "Make your own templates and keep outputs consistent.",
-          mp4: "assets/tutorials/02-custom-prompts.mp4",
+          mp4: "assets/tutorials/templates.mp4",
           poster: "assets/tutorials/poster.png",
           prompt: `You are my assistant.
 Rewrite the highlighted text as:
@@ -1022,67 +1021,9 @@ Rewrite the highlighted text as:
 3) 5 hashtags
 Tone: confident, not salesy.`,
           chapters: [
-            { t: 0, label: "Why templates matter" },
-            { t: 38, label: "Create a button" },
-            { t: 96, label: "Favorites + organization" },
-          ],
-        },
-        {
-          id: "notion",
-          title: "Send highlights to Notion (clean notes)",
-          category: "destinations",
-          minutes: 2,
-          desc: "Turn browsing into a Notion knowledge base.",
-          mp4: "assets/tutorials/03-notion-workflow.mp4",
-          poster: "assets/tutorials/poster.png",
-          prompt: `Convert this highlight into a Notion-ready note with:
-- Title
-- Summary (2 sentences)
-- Key points (bullets)
-- Questions to research next`,
-          chapters: [
-            { t: 0, label: "Pick Notion destination" },
-            { t: 25, label: "Format for notes" },
-            { t: 75, label: "Save + verify" },
-          ],
-        },
-        {
-          id: "reddit",
-          title: "Reddit-ready posts (no cringe)",
-          category: "destinations",
-          minutes: 3,
-          desc: "Create helpful posts from highlights without sounding like marketing.",
-          mp4: "assets/tutorials/04-reddit-workflow.mp4",
-          poster: "assets/tutorials/poster.png",
-          prompt: `Write a Reddit post based on this highlight.
-Rules:
-- Sound like a normal person
-- Be specific and helpful
-- Include 1 question at the end
-- No hype, no 'AI', no 'tool promotion'`,
-          chapters: [
-            { t: 0, label: "Pick subreddit mindset" },
-            { t: 45, label: "Structure: context → value → question" },
-            { t: 120, label: "Polish + post" },
-          ],
-        },
-        {
-          id: "pro",
-          title: "Pro workflows: favorites + layouts",
-          category: "pro",
-          minutes: 4,
-          desc: "How to set up your daily driver configuration.",
-          mp4: "assets/tutorials/05-pro-layouts.mp4",
-          poster: "assets/tutorials/poster.png",
-          prompt: `Turn this highlight into a reusable workflow template:
-- What is the goal?
-- Which prompt button should I use?
-- Which destination should it go to?
-- What should the final output format be?`,
-          chapters: [
-            { t: 0, label: "Favorites" },
-            { t: 70, label: "Button layout" },
-            { t: 150, label: "Save as a daily flow" },
+            { t: 21, label: "Create a template or prompt" },
+            { t: 46, label: "Enable buttons" },
+            { t: 64, label: "Choose custom template" },
           ],
         },
       ];
