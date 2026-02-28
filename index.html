@@ -17,6 +17,22 @@
       name="cw-store-link"
       content="https://chromewebstore.google.com/detail/courier-web/mpnccpidfbpfdnognccmgknoefpakiea"
     />
+    <meta
+      name="cw-store-link-edge"
+      content="https://microsoftedge.microsoft.com/addons/detail/YOUR_EDGE_ID"
+    />
+    <meta
+      name="cw-store-link-firefox"
+      content="https://addons.mozilla.org/en-US/firefox/addon/YOUR_FIREFOX_SLUG/"
+    />
+    <meta
+      name="cw-store-link-safari"
+      content="https://apps.apple.com/app/idYOUR_APP_ID"
+    />
+    <meta
+      name="cw-store-link-opera"
+      content="https://addons.opera.com/en/extensions/details/YOUR_OPERA_SLUG/"
+    />
 
     <style>
       :root {
@@ -375,7 +391,7 @@
         flex: 0 0 auto;
       }
 
-      /* ====== Chrome-only UI additions ====== */
+      /* ====== Browser support badge ====== */
       .chrome-pill {
         display: inline-flex;
         align-items: center;
@@ -390,6 +406,103 @@
       }
       .chrome-pill strong {
         font-weight: 1000;
+      }
+      .browser-logos {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        flex: 0 0 auto;
+      }
+      .browser-logo {
+        width: 18px;
+        height: 18px;
+        border-radius: 999px;
+        display: inline-grid;
+        place-items: center;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12),
+          0 4px 12px rgba(0, 0, 0, 0.18);
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.04);
+      }
+      .browser-logo.square {
+        border-radius: 6px;
+      }
+      .browser-logo img {
+        width: 12px;
+        height: 12px;
+        display: block;
+      }
+      .browser-logo.arc-app {
+        width: 18px;
+        height: 18px;
+        border-radius: 5px;
+        background: #eceef5;
+        border-color: rgba(255, 255, 255, 0.2);
+        position: relative;
+      }
+      .browser-logo.arc-app::before {
+        content: "";
+        position: absolute;
+        left: 3px;
+        right: 3px;
+        top: 3px;
+        bottom: 4px;
+        border-radius: 999px 999px 70% 70%;
+        background: linear-gradient(
+          180deg,
+          #6ba7ff 0%,
+          #8fc2ff 24%,
+          #f7dc6a 66%,
+          #ff7b68 100%
+        );
+        box-shadow: inset 0 -1px 2px rgba(0, 0, 0, 0.08);
+      }
+      .browser-logo.arc-app::after {
+        content: "";
+        position: absolute;
+        left: 4px;
+        right: 4px;
+        bottom: 2px;
+        height: 6px;
+        border-radius: 999px 999px 6px 6px;
+        background: #eceef5;
+      }
+      .browser-logo.edge-app {
+        width: 18px;
+        height: 18px;
+        border-radius: 999px;
+        position: relative;
+        background: transparent;
+        border: 0;
+        box-shadow: none;
+      }
+      .browser-logo.edge-app::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 999px;
+        background: conic-gradient(
+          from 230deg,
+          #0b7bd7 0deg 115deg,
+          #1177cf 115deg 150deg,
+          #29b6e8 150deg 255deg,
+          #3fd37a 255deg 360deg
+        );
+      }
+      .browser-logo.edge-app::after {
+        content: "";
+        position: absolute;
+        inset: 2px;
+        border-radius: 999px;
+        background:
+          radial-gradient(circle at 62% 38%, transparent 0 28%, #050512 29% 30%, transparent 31%),
+          radial-gradient(circle at 62% 38%, #eef0ff 0 27%, transparent 28%),
+          radial-gradient(circle at 74% 72%, #050512 0 23%, transparent 24%),
+          radial-gradient(circle at 74% 72%, rgba(63, 211, 122, 0.95) 0 19%, transparent 20%),
+          radial-gradient(circle at 34% 78%, #0b7bd7 0 44%, transparent 45%);
+        transform: rotate(-10deg);
+        opacity: 0.98;
       }
       .chrome-ico {
         width: 16px;
@@ -1244,7 +1357,7 @@
           <div class="nav-cta">
             <a class="btn" href="#pricing">Pricing</a>
             <a class="btn btn-primary" id="topInstall" href="#"
-              >Add to Chrome →</a
+              >Add to Browser →</a
             >
           </div>
         </div>
@@ -1263,8 +1376,22 @@
 
               <div class="mini-row" style="margin-top: 10px">
                 <span class="chrome-pill">
-                  <span class="chrome-ico" aria-hidden="true"></span>
-                  <strong>Chrome Extension</strong> · Desktop only
+                  <span class="browser-logos" aria-hidden="true">
+                    <span class="browser-logo">
+                      <img
+                        src="https://cdn.simpleicons.org/googlechrome"
+                        alt=""
+                      />
+                    </span>
+                    <span class="browser-logo square">
+                      <img src="https://cdn.simpleicons.org/brave" alt="" />
+                    </span>
+                    <span class="browser-logo arc-app"></span>
+                    <span class="browser-logo">
+                      <img src="assets/edge.png" alt="" />
+                    </span>
+                  </span>
+                  <strong>Desktop only</strong>
                 </span>
               </div>
 
@@ -1286,8 +1413,8 @@
               </div>
 
               <div class="install-note">
-                Works on <b>Google Chrome (desktop)</b>. Not available on
-                Safari, Firefox, or mobile browsers.
+                Works on <b>Chrome, Brave, Arc, and Edge (desktop)</b>. Not
+                available on Safari, Firefox, or mobile browsers.
               </div>
 
               <div class="mini-row">
@@ -1534,7 +1661,7 @@
                   >Prompt Engineering</a
                 >
                 <a class="btn btn-primary" id="midInstall" href="#"
-                  >Add to Chrome →</a
+                  >Add to Browser →</a
                 >
               </div>
             </div>
@@ -1584,7 +1711,7 @@
                       <div class="ttl">Expand</div>
                       <ul>
                         <li>
-                          Coming to Edge, Brave, Safari, Arc, Opera, Mozilla
+                          Coming to Safari, Opera, Firefox (Mozilla), and more
                         </li>
                         <li>
                           Desktop app
@@ -1708,7 +1835,7 @@
                   >
                     <a class="btn" href="#pricing">See pricing</a>
                     <a class="btn btn-primary" id="updatesInstall" href="#"
-                      >Add to Chrome →</a
+                      >Add to Browser →</a
                     >
                   </div>
                 </div>
@@ -1732,7 +1859,7 @@
             <div class="feat reveal price-card" style="grid-column: span 4">
               <div class="price-top">
                 <div class="pill">
-                  <span class="chrome-ico" aria-hidden="true"></span> First 50
+                  First 50
                 </div>
                 <h3>Founders Thread</h3>
 
@@ -1770,7 +1897,7 @@
             >
               <div class="price-top">
                 <div class="pill">
-                  <span class="chrome-ico" aria-hidden="true"></span> Annual
+                   Annual
                 </div>
                 <h3>Weaver</h3>
 
@@ -1803,7 +1930,6 @@
             <div class="feat reveal price-card" style="grid-column: span 4">
               <div class="price-top">
                 <div class="pill">
-                  <span class="chrome-ico" aria-hidden="true"></span>
                   Lifetime
                 </div>
                 <h3>Nexus License</h3>
@@ -1849,11 +1975,37 @@
     </main>
 
     <script>
-      // Store link
-      const meta = document.querySelector('meta[name="cw-store-link"]');
-      const STORE_LINK = meta ? meta.content.trim() : "";
+      // Store link routing (browser-aware)
+      function getStoreMeta(name) {
+        const m = document.querySelector(`meta[name="${name}"]`);
+        return m ? m.content.trim() : "";
+      }
+      const STORE_URLS = {
+        chrome: getStoreMeta("cw-store-link"),
+        edge: getStoreMeta("cw-store-link-edge"),
+        firefox: getStoreMeta("cw-store-link-firefox"),
+        safari: getStoreMeta("cw-store-link-safari"),
+        opera: getStoreMeta("cw-store-link-opera"),
+      };
+      function detectInstallBrowser() {
+        const ua = navigator.userAgent || "";
+        const brands = navigator.userAgentData?.brands || [];
+        const hasBrand = (name) =>
+          brands.some((b) => (b.brand || "").toLowerCase().includes(name));
+        if (/Edg\//.test(ua) || hasBrand("edge")) return "edge";
+        if (/Firefox\//.test(ua)) return "firefox";
+        if (/OPR\//.test(ua) || hasBrand("opera")) return "opera";
+        if (/Safari\//.test(ua) && !/Chrome|Chromium|Edg|OPR/.test(ua))
+          return "safari";
+        return "chrome";
+      }
+      function getInstallLabel() {
+        return "Add to Browser →";
+      }
+      const installBrowser = detectInstallBrowser();
+      const installUrl = STORE_URLS[installBrowser] || STORE_URLS.chrome || "";
+      const installText = getInstallLabel();
 
-      // Install buttons
       [
         "topInstall",
         "heroInstall",
@@ -1863,10 +2015,11 @@
       ].forEach((id) => {
         const el = document.getElementById(id);
         if (!el) return;
-        if (STORE_LINK) {
-          el.href = STORE_LINK;
+        if (installUrl) {
+          el.href = installUrl;
           el.target = "_blank";
           el.rel = "noopener";
+          el.textContent = installText;
         } else {
           el.href = "#pricing";
         }

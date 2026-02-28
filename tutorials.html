@@ -17,6 +17,22 @@
       name="cw-store-link"
       content="https://chromewebstore.google.com/detail/courier-web/mpnccpidfbpfdnognccmgknoefpakiea"
     />
+    <meta
+      name="cw-store-link-edge"
+      content="https://microsoftedge.microsoft.com/addons/detail/YOUR_EDGE_ID"
+    />
+    <meta
+      name="cw-store-link-firefox"
+      content="https://addons.mozilla.org/en-US/firefox/addon/YOUR_FIREFOX_SLUG/"
+    />
+    <meta
+      name="cw-store-link-safari"
+      content="https://apps.apple.com/app/idYOUR_APP_ID"
+    />
+    <meta
+      name="cw-store-link-opera"
+      content="https://addons.opera.com/en/extensions/details/YOUR_OPERA_SLUG/"
+    />
 
     <style>
       :root {
@@ -805,7 +821,7 @@
           <div class="nav-cta">
             <a class="btn" href="index.html#pricing">Pricing</a>
             <a class="btn btn-primary" id="topInstall" href="#"
-              >Add to Chrome →</a
+              >Add to Browser →</a
             >
           </div>
         </div>
@@ -972,17 +988,45 @@
     </main>
 
     <script>
-      // ========= Store link wiring =========
-      const meta = document.querySelector('meta[name="cw-store-link"]');
-      const STORE_LINK = meta ? meta.content.trim() : "";
+      // ========= Store link wiring (browser-aware) =========
+      function getStoreMeta(name) {
+        const m = document.querySelector(`meta[name="${name}"]`);
+        return m ? m.content.trim() : "";
+      }
+      const STORE_URLS = {
+        chrome: getStoreMeta("cw-store-link"),
+        edge: getStoreMeta("cw-store-link-edge"),
+        firefox: getStoreMeta("cw-store-link-firefox"),
+        safari: getStoreMeta("cw-store-link-safari"),
+        opera: getStoreMeta("cw-store-link-opera"),
+      };
+      function detectInstallBrowser() {
+        const ua = navigator.userAgent || "";
+        const brands = navigator.userAgentData?.brands || [];
+        const hasBrand = (name) =>
+          brands.some((b) => (b.brand || "").toLowerCase().includes(name));
+        if (/Edg\//.test(ua) || hasBrand("edge")) return "edge";
+        if (/Firefox\//.test(ua)) return "firefox";
+        if (/OPR\//.test(ua) || hasBrand("opera")) return "opera";
+        if (/Safari\//.test(ua) && !/Chrome|Chromium|Edg|OPR/.test(ua))
+          return "safari";
+        return "chrome";
+      }
+      function getInstallLabel() {
+        return "Add to Browser →";
+      }
+      const installBrowser = detectInstallBrowser();
+      const installUrl = STORE_URLS[installBrowser] || STORE_URLS.chrome || "";
+      const installText = getInstallLabel();
       const topInstall = document.getElementById("topInstall");
       const installBtn = document.getElementById("installBtn");
       [topInstall, installBtn].forEach((el) => {
         if (!el) return;
-        if (STORE_LINK) {
-          el.href = STORE_LINK;
+        if (installUrl) {
+          el.href = installUrl;
           el.target = "_blank";
           el.rel = "noopener";
+          el.textContent = installText;
         } else {
           el.href = "index.html#pricing";
         }
