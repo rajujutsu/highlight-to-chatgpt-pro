@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Courier Web — Complete User Guide</title>
+<style>
+  :root {
+    --sidebar-w: 260px;
+    --accent: #6c63ff;
+    --accent-light: #ede9ff;
+    --bg: #f8f8fb;
+    --surface: #ffffff;
+    --border: #e5e5ee;
+    --text: #1a1a2e;
+    --muted: #6b6b8a;
+    --code-bg: #f0effe;
+    --tip-bg: #edf7f0;
+    --tip-border: #4caf85;
+    --warn-bg: #fff8ed;
+    --warn-border: #f5a623;
+    --pro-bg: #f3f0ff;
+    --pro-border: #6c63ff;
+    --sidebar-bg: #1a1a2e;
+    --sidebar-text: #c8c8e0;
+    --sidebar-active: #6c63ff;
+    --sidebar-hover: #2a2a45;
+    --hl: #ffe066;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    display: flex;
+    min-height: 100vh;
+  }
+
+  /* ── Sidebar ── */
+  #sidebar {
+    width: var(--sidebar-w);
+    background: var(--sidebar-bg);
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    overflow-y: auto;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.25s ease;
+  }
+
+  #sidebar-logo {
+    padding: 20px 18px 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  #sidebar-logo .name {
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.02em;
+  }
+  #sidebar-logo .sub {
+    font-size: 11px;
+    color: var(--sidebar-text);
+    margin-top: 2px;
+  }
+
+  #sidebar-search {
+    padding: 12px 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  #sidebar-search input {
+    width: 100%;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px;
+    color: #fff;
+    padding: 7px 10px 7px 30px;
+    font-size: 13px;
+    outline: none;
+    transition: border 0.2s;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: 10px center;
+  }
+  #sidebar-search input::placeholder { color: rgba(255,255,255,0.35); }
+  #sidebar-search input:focus { border-color: var(--sidebar-active); }
+
+  #search-count {
+    font-size: 11px;
+    color: var(--sidebar-text);
+    margin-top: 5px;
+    min-height: 16px;
+    padding-left: 2px;
+  }
+
+  #nav {
+    flex: 1;
+    padding: 8px 0 20px;
+    overflow-y: auto;
+  }
+
+  .nav-section > .nav-h1 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    color: var(--sidebar-text);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 0;
+    transition: background 0.15s, color 0.15s;
+    text-decoration: none;
+    user-select: none;
+  }
+  .nav-section > .nav-h1:hover { background: var(--sidebar-hover); color: #fff; }
+  .nav-section > .nav-h1.active { color: #fff; background: var(--sidebar-active); }
+
+  .nav-section > .nav-h1 .caret {
+    margin-left: auto;
+    transition: transform 0.2s;
+    opacity: 0.5;
+    font-size: 10px;
+  }
+  .nav-section.open > .nav-h1 .caret { transform: rotate(90deg); }
+
+  .nav-sub {
+    display: none;
+    flex-direction: column;
+  }
+  .nav-section.open .nav-sub { display: flex; }
+
+  .nav-sub a {
+    display: block;
+    padding: 5px 14px 5px 32px;
+    font-size: 12.5px;
+    color: var(--sidebar-text);
+    text-decoration: none;
+    transition: background 0.15s, color 0.15s;
+    border-left: 2px solid transparent;
+  }
+  .nav-sub a:hover { background: var(--sidebar-hover); color: #fff; }
+  .nav-sub a.active { color: var(--sidebar-active); border-left-color: var(--sidebar-active); background: rgba(108,99,255,0.08); }
+
+  /* ── Main ── */
+  #main {
+    margin-left: var(--sidebar-w);
+    flex: 1;
+    max-width: calc(100% - var(--sidebar-w));
+  }
+
+  /* Search bar (top) */
+  #topbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(248,248,251,0.95);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 40px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  #top-search-wrap {
+    display: flex;
+    align-items: center;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 6px 12px;
+    gap: 8px;
+    flex: 1;
+    max-width: 500px;
+    transition: border 0.2s, box-shadow 0.2s;
+  }
+  #top-search-wrap:focus-within {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-light);
+  }
+  #top-search-wrap svg { flex-shrink: 0; }
+
+  #top-search {
+    border: none;
+    outline: none;
+    font-size: 14px;
+    background: transparent;
+    color: var(--text);
+    width: 100%;
+  }
+  #top-search::placeholder { color: var(--muted); }
+
+  #clear-search {
+    cursor: pointer;
+    color: var(--muted);
+    background: none;
+    border: none;
+    font-size: 16px;
+    line-height: 1;
+    padding: 0 2px;
+    display: none;
+  }
+  #clear-search:hover { color: var(--text); }
+
+  .search-nav-btns {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .search-nav-btns button {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 5px 10px;
+    font-size: 13px;
+    cursor: pointer;
+    color: var(--text);
+    transition: background 0.15s;
+  }
+  .search-nav-btns button:hover { background: var(--accent-light); }
+  .search-nav-btns button:disabled { opacity: 0.35; cursor: default; }
+  #search-status { font-size: 13px; color: var(--muted); white-space: nowrap; }
+
+  /* Content */
+  #content {
+    padding: 48px 60px 80px;
+    max-width: 860px;
+  }
+
+  /* Hero */
+  .hero {
+    margin-bottom: 52px;
+    padding-bottom: 36px;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero h1 {
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .hero .sub { color: var(--muted); font-size: 15px; margin-bottom: 28px; }
+
+  .hero-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px;
+    margin-top: 20px;
+  }
+  .hero-feat {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .hero-feat .icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+  .hero-feat strong { display: block; font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+  .hero-feat span { font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+
+  /* Sections */
+  .section {
+    margin-bottom: 64px;
+    scroll-margin-top: 56px;
+  }
+
+  h2.section-title {
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 24px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border);
+    color: var(--text);
+    scroll-margin-top: 56px;
+  }
+  h2.section-title .sec-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    width: 28px;
+    height: 28px;
+    margin-right: 10px;
+    flex-shrink: 0;
+  }
+
+  h3.sub-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 28px 0 12px;
+    color: var(--text);
+    scroll-margin-top: 56px;
+  }
+
+  p { margin-bottom: 12px; }
+
+  /* Steps */
+  .steps { display: flex; flex-direction: column; gap: 12px; margin: 16px 0; }
+  .step {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .step .num {
+    background: var(--accent);
+    color: #fff;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .step .step-body strong { display: block; font-size: 14px; margin-bottom: 3px; }
+  .step .step-body span { font-size: 13.5px; color: var(--muted); }
+
+  /* Tables */
+  .table-wrap { overflow-x: auto; margin: 16px 0; border-radius: 10px; border: 1px solid var(--border); }
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  thead { background: var(--accent); color: #fff; }
+  thead th { padding: 10px 14px; text-align: left; font-weight: 600; }
+  tbody tr:nth-child(even) { background: rgba(108,99,255,0.04); }
+  tbody td { padding: 9px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tbody tr:last-child td { border-bottom: none; }
+  .check { color: #4caf50; font-size: 15px; }
+  .cross { color: #f44336; font-size: 15px; }
+
+  /* Callouts */
+  .callout {
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin: 16px 0;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    font-size: 13.5px;
+  }
+  .callout .icon { flex-shrink: 0; font-size: 16px; margin-top: 1px; }
+  .callout.tip { background: var(--tip-bg); border-left: 3px solid var(--tip-border); }
+  .callout.warn { background: var(--warn-bg); border-left: 3px solid var(--warn-border); }
+  .callout.pro { background: var(--pro-bg); border-left: 3px solid var(--pro-border); }
+  .callout strong { display: block; margin-bottom: 3px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.04em; }
+
+  /* Code */
+  code {
+    font-family: 'SF Mono', 'Fira Code', Menlo, monospace;
+    background: var(--code-bg);
+    color: #5a4fcf;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 13px;
+  }
+  .code-block {
+    background: #1a1a2e;
+    color: #c8c8e0;
+    border-radius: 10px;
+    padding: 16px 18px;
+    font-family: 'SF Mono', 'Fira Code', Menlo, monospace;
+    font-size: 13px;
+    margin: 12px 0;
+    overflow-x: auto;
+    line-height: 1.6;
+  }
+
+  /* Variable list */
+  .var-grid { display: grid; grid-template-columns: auto 1fr; gap: 6px 20px; margin: 12px 0; align-items: baseline; }
+  .var-grid code { white-space: nowrap; }
+  .var-grid .vd { font-size: 13.5px; color: var(--muted); }
+
+  /* Lists */
+  ul.doc-list, ol.doc-list {
+    padding-left: 22px;
+    margin: 10px 0 14px;
+  }
+  ul.doc-list li, ol.doc-list li { margin-bottom: 6px; font-size: 14px; }
+
+  /* Kbd */
+  kbd {
+    display: inline-flex;
+    align-items: center;
+    background: var(--surface);
+    border: 1px solid #d0d0e0;
+    border-bottom-width: 2px;
+    border-radius: 5px;
+    padding: 2px 8px;
+    font-family: 'SF Mono', Menlo, monospace;
+    font-size: 12px;
+    color: var(--text);
+    white-space: nowrap;
+  }
+
+  /* Badge */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 20px;
+    padding: 2px 9px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    vertical-align: middle;
+  }
+
+  /* Search highlight */
+  mark.hl {
+    background: var(--hl);
+    color: #000;
+    border-radius: 2px;
+    padding: 0 1px;
+  }
+  mark.hl.current-hl {
+    background: #ff9900;
+    outline: 2px solid #ff6600;
+  }
+
+  /* No results */
+  #no-results {
+    display: none;
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--muted);
+  }
+  #no-results .nr-icon { font-size: 40px; margin-bottom: 12px; }
+  #no-results h3 { font-size: 18px; margin-bottom: 6px; }
+
+  /* Hamburger (mobile) */
+  #back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 5px 10px;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    background: var(--surface);
+    transition: color 0.15s, border-color 0.15s;
+    white-space: nowrap;
+  }
+  #back-btn:hover { color: var(--text); border-color: var(--accent); }
+
+  #hamburger {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    color: var(--text);
+  }
+
+  @media (max-width: 800px) {
+    #sidebar { transform: translateX(-100%); }
+    #sidebar.open { transform: translateX(0); }
+    #main { margin-left: 0; max-width: 100%; }
+    #content { padding: 24px 20px 60px; }
+    #topbar { padding: 10px 16px; }
+    #hamburger { display: block; }
+    #sidebar-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 99;
+    }
+    #sidebar-overlay.visible { display: block; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Sidebar overlay (mobile) -->
+<div id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+<!-- ── Sidebar ── -->
+<nav id="sidebar">
+  <div id="sidebar-logo">
+    <div class="name">Courier Web</div>
+    <div class="sub">Complete User Guide</div>
+  </div>
+
+  <div id="sidebar-search">
+    <input type="text" id="sidebar-search-input" placeholder="Quick search…" autocomplete="off" oninput="sidebarSearch(this.value)" />
+    <div id="search-count"></div>
+  </div>
+
+  <div id="nav">
+    <div class="nav-section open">
+      <a class="nav-h1" href="#s1" onclick="toggleNav(this)">
+        <span>1 · Installation &amp; Setup</span><span class="caret">▶</span>
+      </a>
+      <div class="nav-sub">
+        <a href="#s1-1">1.1 Installing from the Store</a>
+        <a href="#s1-2">1.2 Browser Support</a>
+        <a href="#s1-3">1.3 Keyboard Shortcuts</a>
+      </div>
+    </div>
+    <div class="nav-section">
+      <a class="nav-h1" href="#s2" onclick="toggleNav(this)">
+        <span>2 · Highlight &amp; Prompt</span><span class="caret">▶</span>
+      </a>
+      <div class="nav-sub">
+        <a href="#s2-1">2.1 How It Works</a>
+        <a href="#s2-2">2.2 Quick Buttons</a>
+        <a href="#s2-3">2.3 Built-in AI Tools</a>
+        <a href="#s2-4">2.4 Destinations</a>
+        <a href="#s2-5">2.5 Capturing Images</a>
+        <a href="#s2-6">2.6 Custom Templates</a>
+      </div>
+    </div>
+    <div class="nav-section">
+      <a class="nav-h1" href="#s3" onclick="toggleNav(this)">
+        <span>3 · Side Panel</span><span class="caret">▶</span>
+      </a>
+      <div class="nav-sub">
+        <a href="#s3-1">3.1 Opening the Side Panel</a>
+        <a href="#s3-2">3.2 Provider &amp; Model</a>
+        <a href="#s3-3">3.3 Local Model (Ollama)</a>
+        <a href="#s3-4">3.4 Auto-Use Selection</a>
+        <a href="#s3-5">3.5 Chat Threads &amp; History</a>
+        <a href="#s3-6">3.6 Side Panel Themes</a>
+      </div>
+    </div>
+    <div class="nav-section">
+      <a class="nav-h1" href="#s4" onclick="toggleNav(this)">
+        <span>4 · YouTube</span><span class="caret">▶</span>
+      </a>
+      <div class="nav-sub">
+        <a href="#s4-1">4.1 How It Works</a>
+        <a href="#s4-2">4.2 Transcript Sources</a>
+        <a href="#s4-3">4.3 Prompt Ideas</a>
+      </div>
+    </div>
+    <div class="nav-section">
+      <a class="nav-h1" href="#s5" onclick="toggleNav(this)">
+        <span>5 · Settings</span><span class="caret">▶</span>
+      </a>
+      <div class="nav-sub">
+        <a href="#s5-1">5.1 Destination Settings</a>
+        <a href="#s5-2">5.2 Prompt Queue</a>
+        <a href="#s5-3">5.3 History</a>
+        <a href="#s5-4">5.4 Backup &amp; Restore</a>
+        <a href="#s5-5">5.5 Languages</a>
+      </div>
+    </div>
+    <div class="nav-section">
+      <a class="nav-h1" href="#s6" onclick="toggleNav(this)">
+        <span>6 · Free vs Pro</span><span class="caret">▶</span>
+      </a>
+      <div class="nav-sub">
+        <a href="#s6-1">6.1 Activating Pro</a>
+      </div>
+    </div>
+    <div class="nav-section">
+      <a class="nav-h1" href="#s7" onclick="toggleNav(this)">
+        <span>7 · API Keys</span><span class="caret">▶</span>
+      </a>
+      <div class="nav-sub">
+        <a href="#s7-1">7.1 Where to Enter Keys</a>
+        <a href="#s7-2">7.2 Where to Get Each Key</a>
+        <a href="#s7-3">7.3 Clearing / Updating</a>
+        <a href="#s7-4">7.4 Keys vs Destinations</a>
+      </div>
+    </div>
+    <div class="nav-section">
+      <a class="nav-h1" href="#s8" onclick="toggleNav(this)">
+        <span>8 · Paste Mode</span><span class="caret">▶</span>
+      </a>
+      <div class="nav-sub">
+        <a href="#s8-1">8.1 The Three Modes</a>
+        <a href="#s8-2">8.2 Defaults Per Destination</a>
+        <a href="#s8-3">8.3 How to Change</a>
+        <a href="#s8-4">8.4 Troubleshooting Paste</a>
+      </div>
+    </div>
+    <div class="nav-section">
+      <a class="nav-h1" href="#s9" onclick="toggleNav(this)">
+        <span>9 · Troubleshooting</span><span class="caret">▶</span>
+      </a>
+      <div class="nav-sub"></div>
+    </div>
+  </div>
+</nav>
+
+<!-- ── Main ── -->
+<div id="main">
+  <!-- Top search bar -->
+  <div id="topbar">
+    <a href="index.html" id="back-btn" title="Back to home">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Home
+    </a>
+    <button id="hamburger" onclick="toggleSidebar()" title="Toggle menu">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <div id="top-search-wrap">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="top-search" type="text" placeholder="Search the guide…" autocomplete="off" oninput="mainSearch(this.value)" onkeydown="searchKeyNav(event)" />
+      <button id="clear-search" onclick="clearSearch()" title="Clear">×</button>
+    </div>
+    <div class="search-nav-btns" id="search-nav" style="display:none">
+      <button onclick="prevMatch()" id="btn-prev" title="Previous match">↑</button>
+      <button onclick="nextMatch()" id="btn-next" title="Next match">↓</button>
+    </div>
+    <span id="search-status"></span>
+  </div>
+
+  <div id="content">
+    <!-- No results -->
+    <div id="no-results">
+      <div class="nr-icon">🔍</div>
+      <h3>No results found</h3>
+      <p>Try a different search term.</p>
+    </div>
+
+    <!-- Hero -->
+    <div class="hero">
+      <h1>Courier Web</h1>
+      <p class="sub">Complete User Guide &nbsp;·&nbsp; March 2026</p>
+      <p>Courier Web is a browser extension that brings an AI prompt toolbar to every webpage you visit. Select text or images, choose a prompt, and send instantly to 19+ AI and writing destinations — all without leaving your current page.</p>
+      <div class="hero-features">
+        <div class="hero-feat">
+          <div class="icon">✦</div>
+          <div>
+            <strong>Highlight &amp; Prompt</strong>
+            <span>Select text or images on any page, choose a prompt, send to 19+ destinations.</span>
+          </div>
+        </div>
+        <div class="hero-feat">
+          <div class="icon">◈</div>
+          <div>
+            <strong>Side Panel Chat</strong>
+            <span>A full AI assistant that lives alongside any webpage in your browser.</span>
+          </div>
+        </div>
+        <div class="hero-feat">
+          <div class="icon">▶</div>
+          <div>
+            <strong>YouTube AI</strong>
+            <span>Fetch transcripts and run AI prompts on any YouTube video.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ Section 1 ══ -->
+    <div class="section" id="s1">
+      <h2 class="section-title"><span class="sec-num">1</span>Installation &amp; Setup</h2>
+      <p>Courier Web works with Chrome, Edge, Brave, Arc, and any other Chromium-based browser. Firefox and Safari support is coming soon.</p>
+
+      <h3 class="sub-title" id="s1-1">1.1 Installing from the Store</h3>
+      <div class="steps">
+        <div class="step"><div class="num">1</div><div class="step-body"><strong>Open the extension store</strong><span>In Chrome: Chrome Web Store. In Edge: Microsoft Edge Add-ons. In Brave or Arc: use the Chrome Web Store.</span></div></div>
+        <div class="step"><div class="num">2</div><div class="step-body"><strong>Search for Courier Web</strong><span>Type "Courier Web" in the search bar and press Enter.</span></div></div>
+        <div class="step"><div class="num">3</div><div class="step-body"><strong>Click Add to Browser</strong><span>Click <em>Add to Chrome</em> (or Edge / Brave) and confirm the permission prompt.</span></div></div>
+        <div class="step"><div class="num">4</div><div class="step-body"><strong>Pin the extension</strong><span>Click the puzzle piece icon in your toolbar, find Courier Web, and click the pin icon 📌 to keep it visible.</span></div></div>
+        <div class="step"><div class="num">5</div><div class="step-body"><strong>Open the side panel</strong><span>Click the Courier Web icon. The side panel opens on the right side of your browser window.</span></div></div>
+      </div>
+      <div class="callout tip"><div class="icon">💡</div><div><strong>Tip</strong>Pinning the extension is important — it gives you one-click access to the side panel and keeps the icon always visible.</div></div>
+
+      <h3 class="sub-title" id="s1-2">1.2 Browser Support</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Browser</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Chrome</td><td>✅ Fully supported</td></tr>
+            <tr><td>Microsoft Edge</td><td>✅ Fully supported</td></tr>
+            <tr><td>Brave</td><td>✅ Fully supported</td></tr>
+            <tr><td>Arc</td><td>✅ Fully supported</td></tr>
+            <tr><td>Other Chromium browsers</td><td>✅ Supported</td></tr>
+            <tr><td>Firefox</td><td>🔜 Coming soon</td></tr>
+            <tr><td>Safari</td><td>🔜 Coming soon</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="sub-title" id="s1-3">1.3 Keyboard Shortcuts</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Shortcut</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr><td><kbd>Cmd/Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>K</kbd></td><td>Open Courier Web on the current page</td></tr>
+            <tr><td><kbd>Cmd/Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Y</kbd></td><td>Send selected text to your chosen destination</td></tr>
+            <tr><td><kbd>Cmd/Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>U</kbd></td><td>Capture a screen region <span class="badge">Pro</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>To view or change shortcuts, navigate to <code>chrome://extensions/shortcuts</code>.</p>
+    </div>
+
+    <!-- ══ Section 2 ══ -->
+    <div class="section" id="s2">
+      <h2 class="section-title"><span class="sec-num">2</span>Highlight &amp; Prompt</h2>
+      <p>Highlight &amp; Prompt is Courier Web's core tool. Select any text and a small toolbar appears near your selection — giving you instant one-click access to AI actions and your chosen destinations.</p>
+
+      <h3 class="sub-title" id="s2-1">2.1 How It Works</h3>
+      <div class="steps">
+        <div class="step"><div class="num">1</div><div class="step-body"><strong>Select text</strong><span>Click and drag to highlight any text on a webpage. The toolbar appears automatically.</span></div></div>
+        <div class="step"><div class="num">2</div><div class="step-body"><strong>Click a Quick Button</strong><span>Up to three buttons appear. Click any to send your text with that prompt to your destination.</span></div></div>
+        <div class="step"><div class="num">3</div><div class="step-body"><strong>Or right-click for more</strong><span>Right-click your selection to see the full menu: built-in tools, custom templates, and capture options.</span></div></div>
+        <div class="step"><div class="num">4</div><div class="step-body"><strong>Your destination opens</strong><span>The prompt and selected text are sent to your chosen destination — e.g., a new ChatGPT tab opens with the prompt pre-filled.</span></div></div>
+      </div>
+      <div class="callout tip"><div class="icon">💡</div><div>By default the toolbar only appears when you've selected at least 12 characters. Change this in Settings → <em>Minimum character length</em> — set it to 0 to always show.</div></div>
+
+      <h3 class="sub-title" id="s2-2">2.2 Quick Buttons</h3>
+      <p>The toolbar shows up to three Quick Buttons — configurable one-click actions. Each can be set to <em>Weave</em> (default destination) or a custom template. Free users get one button; Pro users get all three.</p>
+      <p>Quick Buttons are fully customizable with themes, colors, and shapes. There are over 50 built-in themes including Core (Default, Neon, Minimal, Ocean, Stellar, Aurora), Seasonal, Holiday, and fun themes like Star Wars, Pokémon, and Hologram.</p>
+
+      <h3 class="sub-title" id="s2-3">2.3 Built-in AI Tools (Right-Click Menu)</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Tool</th><th>What It Does</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Summarize — key points</strong></td><td>Condenses text into 5–10 bullet-point key points, preserving names and numbers.</td></tr>
+            <tr><td><strong>Extract — action items</strong></td><td>Pulls out action items, owners, deadlines, and open questions.</td></tr>
+            <tr><td><strong>Write — executive summary</strong></td><td>Produces a structured exec summary: context, what happened, why it matters, next steps.</td></tr>
+            <tr><td><strong>Analyze — argument &amp; evidence</strong></td><td>Breaks down the main claim, supporting evidence, weak points, and counterarguments.</td></tr>
+            <tr><td><strong>Review — risks &amp; assumptions</strong></td><td>Surfaces assumptions, failure modes, ambiguities, and clarifying questions.</td></tr>
+            <tr><td><strong>Rewrite — clearer &amp; tighter</strong></td><td>Rewrites text to be clearer and more concise while preserving meaning.</td></tr>
+            <tr><td><strong>Rewrite — professional tone</strong></td><td>Rewrites in a polished, professional tone with no slang.</td></tr>
+            <tr><td><strong>Rewrite — shorten</strong></td><td>Cuts text by ~30–50% while keeping all important meaning.</td></tr>
+            <tr><td><strong>Email — draft message</strong></td><td>Turns text into a professional email with subject line and clear ask.</td></tr>
+            <tr><td><strong>Email — reply (polite + firm)</strong></td><td>Drafts a polite but firm reply, with an alternate more-direct version.</td></tr>
+            <tr><td><strong>Study — structured notes</strong></td><td>Converts text into study notes with headings, bullets, definitions, and a summary.</td></tr>
+            <tr><td><strong>Study — flashcards (Q/A)</strong></td><td>Creates 8–15 testable Q&amp;A flashcards from the text.</td></tr>
+            <tr><td><strong>Dev — explain code behavior</strong></td><td>Explains code purpose, behavior, inputs/outputs, and flags any bugs.</td></tr>
+            <tr><td><strong>Dev — generate docstring</strong></td><td>Creates a developer-friendly docstring, usage example, and TODOs.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout pro"><div class="icon">⭐</div><div><strong>Pro</strong>Hide all built-in tools so only your custom templates appear. Go to Settings and enable <em>Hide free built-in prompts</em>.</div></div>
+
+      <h3 class="sub-title" id="s2-4">2.4 Destinations</h3>
+      <p>You can change your default destination in Settings, or set per-site rules to route different websites to different destinations.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Category</th><th>Destinations</th></tr></thead>
+          <tbody>
+            <tr><td>AI chat</td><td>ChatGPT, Claude, Gemini, DeepSeek, Grok, Groq, Perplexity, Kimi, Z.ai, OpenRouter</td></tr>
+            <tr><td>Search</td><td>Google</td></tr>
+            <tr><td>Writing &amp; docs</td><td>Google Docs, Gmail, Notion</td></tr>
+            <tr><td>Social &amp; comms</td><td>LinkedIn, X (Twitter), Facebook, Reddit, Slack</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout tip"><div class="icon">💡</div><div>For AI chat destinations, Courier Web opens a new tab and injects your text directly into the chat input. For social destinations, it opens the site and pastes into the appropriate compose box.</div></div>
+
+      <h3 class="sub-title" id="s2-5">2.5 Capturing Images</h3>
+      <ul class="doc-list">
+        <li><strong>Capture Image</strong> — right-click any image on a page and choose <em>Capture image</em>. The image is copied and sent to your destination.</li>
+        <li><strong>Capture Region</strong> <span class="badge">Pro</span> — use <kbd>Cmd/Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>U</kbd>, then click and drag to draw a box over any area of the screen.</li>
+      </ul>
+      <div class="callout pro"><div class="icon">⭐</div><div><strong>Pro feature</strong>Screen region capture is a Pro feature. Free users can capture images already on the page.</div></div>
+
+      <h3 class="sub-title" id="s2-6">2.6 Custom Templates</h3>
+      <p>Pro users can create reusable prompt templates that appear in the right-click menu and can be assigned to Quick Buttons. Templates support placeholder variables:</p>
+      <div class="var-grid">
+        <code>{{text}}</code><span class="vd">Your highlighted text. If omitted, it's appended automatically.</span>
+        <code>{{url}}</code><span class="vd">The URL of the current page.</span>
+        <code>{{title}}</code><span class="vd">The title of the current page.</span>
+        <code>{{audience}}</code><span class="vd">A reusable variable you set once in Settings (e.g. "non-technical managers").</span>
+        <code>{{tone}}</code><span class="vd">A reusable variable you set once in Settings (e.g. "friendly and concise").</span>
+        <code>{{goal}}</code><span class="vd">A reusable variable you set once in Settings (e.g. "persuade to sign up").</span>
+      </div>
+      <div class="callout tip"><div class="icon">💡</div><div><strong>Example template</strong><br>Name: <em>Tweet this</em> &nbsp;|&nbsp; Prompt: <em>Rewrite the following for Twitter in under 280 characters, punchy and direct: {{text}}</em></div></div>
+      <p>To create a template: open Settings → scroll to Custom Templates → enter a name and prompt → click <em>Add template</em>. Templates sync across browser profiles via Chrome sync storage.</p>
+    </div>
+
+    <!-- ══ Section 3 ══ -->
+    <div class="section" id="s3">
+      <h2 class="section-title"><span class="sec-num">3</span>Side Panel Assistant</h2>
+      <p>The side panel is a full AI chat interface that opens alongside any webpage. It persists as you navigate between pages, so you can reference what you're reading while you chat.</p>
+
+      <h3 class="sub-title" id="s3-1">3.1 Opening the Side Panel</h3>
+      <ul class="doc-list">
+        <li>Click the Courier Web icon in your browser toolbar.</li>
+        <li>Or use the keyboard shortcut: <kbd>Cmd/Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>K</kbd>.</li>
+        <li>The panel slides in on the right side of your window.</li>
+        <li>Resize it by dragging the left edge.</li>
+        <li>The panel stays open as you navigate between tabs and pages.</li>
+      </ul>
+
+      <h3 class="sub-title" id="s3-2">3.2 Choosing a Provider &amp; Model</h3>
+      <p>The side panel supports multiple AI providers. Switch between them from the dropdown at the top of the panel.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Provider</th><th>How to get a key</th></tr></thead>
+          <tbody>
+            <tr><td>OpenAI (ChatGPT)</td><td>platform.openai.com → API keys</td></tr>
+            <tr><td>Anthropic (Claude)</td><td>console.anthropic.com → API keys</td></tr>
+            <tr><td>Google (Gemini)</td><td>aistudio.google.com → Get API key</td></tr>
+            <tr><td>DeepSeek</td><td>platform.deepseek.com → API keys</td></tr>
+            <tr><td>Groq</td><td>console.groq.com → API keys</td></tr>
+            <tr><td>Grok (xAI)</td><td>console.x.ai → API keys</td></tr>
+            <tr><td>Kimi (Moonshot)</td><td>platform.moonshot.cn → API keys</td></tr>
+            <tr><td>Perplexity</td><td>perplexity.ai/settings/api → keys</td></tr>
+            <tr><td>Z.ai</td><td>z.ai → API keys</td></tr>
+            <tr><td>OpenRouter</td><td>openrouter.ai/keys</td></tr>
+            <tr><td>Local (Ollama etc.)</td><td>No key needed — point to your local endpoint</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout tip"><div class="icon">🔒</div><div>All API keys are stored locally in your browser — Courier Web never sends them to any external server.</div></div>
+
+      <h3 class="sub-title" id="s3-3">3.3 Setting Up a Local Model (Ollama)</h3>
+      <p>Run AI models locally on your computer with no API key and no internet connection required.</p>
+      <div class="steps">
+        <div class="step"><div class="num">1</div><div class="step-body"><strong>Install Ollama</strong><span>Download and install from ollama.com. On Mac it starts automatically in the background.</span></div></div>
+        <div class="step"><div class="num">2</div><div class="step-body"><strong>Pull a model</strong><span>In your terminal run: <code>ollama pull llama3.2</code> (downloads ~2 GB, one-time)</span></div></div>
+        <div class="step"><div class="num">3</div><div class="step-body"><strong>Verify it's running</strong><span>In your terminal: <code>curl http://127.0.0.1:11434</code> — you should see a response.</span></div></div>
+        <div class="step"><div class="num">4</div><div class="step-body"><strong>Open the side panel</strong><span>Click the Courier Web icon in Chrome.</span></div></div>
+        <div class="step"><div class="num">5</div><div class="step-body"><strong>Add the model</strong><span>In Settings, enter your model details (see table below) and click Save.</span></div></div>
+        <div class="step"><div class="num">6</div><div class="step-body"><strong>Allow localhost</strong><span>Chrome will ask to allow access to 127.0.0.1 — click Allow.</span></div></div>
+        <div class="step"><div class="num">7</div><div class="step-body"><strong>Start chatting</strong><span>Select your model from the dropdown and type a message.</span></div></div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Field</th><th>Value for Ollama + Llama 3.2</th></tr></thead>
+          <tbody>
+            <tr><td>Display name</td><td>Llama 3.2 (or anything you like)</td></tr>
+            <tr><td>Model ID</td><td><code>llama3.2</code> (must match <code>ollama list</code> exactly)</td></tr>
+            <tr><td>Endpoint</td><td><code>http://127.0.0.1:11434/v1/chat/completions</code></td></tr>
+            <tr><td>API Key</td><td>(leave blank)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout warn"><div class="icon">⚠️</div><div><strong>"address already in use" error</strong><br>This just means Ollama is already running in the background — that's fine. You don't need to start it again.</div></div>
+
+      <h3 class="sub-title" id="s3-4">3.4 Auto-Use Selection</h3>
+      <p>When you have text highlighted on the current page, the side panel can automatically include it in your next message. Look for the <em>Auto-use selection</em> toggle in the side panel settings.</p>
+
+      <h3 class="sub-title" id="s3-5">3.5 Chat Threads &amp; History</h3>
+      <p>The side panel keeps a history of your chat threads. You can start new conversations, switch between threads, and revisit past chats. Threads are stored locally on your device.</p>
+
+      <h3 class="sub-title" id="s3-6">3.6 Side Panel Themes</h3>
+      <p>The side panel has its own theme setting, separate from the Quick Button themes. Switch between light and dark modes and other visual styles in the side panel settings.</p>
+    </div>
+
+    <!-- ══ Section 4 ══ -->
+    <div class="section" id="s4">
+      <h2 class="section-title"><span class="sec-num">4</span>YouTube Transcription &amp; Prompts</h2>
+      <p>When you open a YouTube video, Courier Web adds a button that can fetch the full transcript and let you run AI prompts on it — all without leaving YouTube.</p>
+      <div class="callout pro"><div class="icon">⭐</div><div><strong>Pro feature</strong>YouTube transcription features require a Courier Web Pro subscription.</div></div>
+
+      <h3 class="sub-title" id="s4-1">4.1 How It Works</h3>
+      <div class="steps">
+        <div class="step"><div class="num">1</div><div class="step-body"><strong>Open a YouTube video</strong><span>Navigate to any YouTube video page.</span></div></div>
+        <div class="step"><div class="num">2</div><div class="step-body"><strong>Find the Courier Web button</strong><span>A button appears in the YouTube page controls row, below the video player.</span></div></div>
+        <div class="step"><div class="num">3</div><div class="step-body"><strong>Fetch the transcript</strong><span>Click the button to open the transcript panel. It fetches automatically.</span></div></div>
+        <div class="step"><div class="num">4</div><div class="step-body"><strong>Choose a prompt</strong><span>Select from built-in options or type your own question.</span></div></div>
+        <div class="step"><div class="num">5</div><div class="step-body"><strong>Send to your destination</strong><span>The transcript (or your question about it) is sent to your chosen AI destination.</span></div></div>
+      </div>
+
+      <h3 class="sub-title" id="s4-2">4.2 Transcript Sources</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Source</th><th>How it works</th><th>Reliability</th></tr></thead>
+          <tbody>
+            <tr><td>YouTube captions</td><td>Pulls directly from YouTube's caption data (auto-generated or creator-uploaded)</td><td>High</td></tr>
+            <tr><td>Transcript panel</td><td>Reads from YouTube's built-in transcript panel in the page DOM</td><td>Medium</td></tr>
+            <tr><td>Local Whisper (advanced)</td><td>Optional local fallback for videos without captions — requires separate setup</td><td>Medium</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout warn"><div class="icon">⚠️</div><div>Some videos don't have captions at all. If no transcript can be found, Courier Web will tell you. Check for the CC button in the YouTube player.</div></div>
+
+      <h3 class="sub-title" id="s4-3">4.3 Prompt Ideas for YouTube</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Prompt</th><th>Best for</th></tr></thead>
+          <tbody>
+            <tr><td>Summarize this video</td><td>Getting the gist of any video quickly</td></tr>
+            <tr><td>What are the 5 main takeaways?</td><td>Talks, interviews, and educational content</td></tr>
+            <tr><td>Create study notes from this lecture</td><td>University lectures, online courses, tutorials</td></tr>
+            <tr><td>What tools or products were mentioned?</td><td>Review videos, "best of" lists, tech demos</td></tr>
+            <tr><td>Write a blog post based on this video</td><td>Repurposing video content into written articles</td></tr>
+            <tr><td>List all the action items mentioned</td><td>How-to videos, productivity talks</td></tr>
+            <tr><td>Translate this transcript to Spanish</td><td>Getting content in another language</td></tr>
+            <tr><td>Create flashcards from this lesson</td><td>Studying or reviewing educational content</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ══ Section 5 ══ -->
+    <div class="section" id="s5">
+      <h2 class="section-title"><span class="sec-num">5</span>Settings &amp; Advanced Features</h2>
+      <p>To open Settings: click the Courier Web logo inside the toolbar that appears when you highlight text, or right-click and choose <em>Settings</em>.</p>
+
+      <h3 class="sub-title" id="s5-1">5.1 Destination Settings</h3>
+      <p>Choose your default destination for all prompts. Set per-site routing rules — for example, always sending YouTube highlights to ChatGPT and Gmail highlights to Claude.</p>
+      <p>Per-site rules format: <code>hostname=destination</code> (one per line, e.g. <code>youtube.com=chatgpt</code>)</p>
+
+      <h3 class="sub-title" id="s5-2">5.2 Prompt Queue (Advanced)</h3>
+      <p>The prompt queue lets you batch up multiple sends and run them all at once, rather than opening a new tab for each. Most useful with ChatGPT. Enable under <em>Advanced → Prompt Queue</em> in Settings.</p>
+
+      <h3 class="sub-title" id="s5-3">5.3 History</h3>
+      <p>Courier Web keeps a local history of everything you've sent. Free users get a smaller history cap; Pro users get a larger one. You can search, review, and reuse past entries from the History page.</p>
+      <div class="callout tip"><div class="icon">🔒</div><div>Your history is stored locally and never sent to any server. To open: Settings → <em>Open History</em>.</div></div>
+
+      <h3 class="sub-title" id="s5-4">5.4 Backup &amp; Restore</h3>
+      <p>Export all your settings — templates, quick buttons, destinations, and preferences — as a backup file, and import them on another computer or after reinstalling.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Backup type</th><th>What's included</th></tr></thead>
+          <tbody>
+            <tr><td>Standard backup</td><td>Settings, templates, quick buttons, destinations, preferences. No API keys.</td></tr>
+            <tr><td>Full encrypted backup</td><td>Everything above plus API keys and Pro token, encrypted with a passphrase you set.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout warn"><div class="icon">⚠️</div><div>After reinstalling: use the <strong>Restore</strong> button (not Activate) — it will re-verify your license key and restore your Pro status automatically.</div></div>
+
+      <h3 class="sub-title" id="s5-5">5.5 Languages</h3>
+      <p>Courier Web is localized into English, German, Spanish, French, Japanese, and Brazilian Portuguese. The extension automatically uses your browser's language setting.</p>
+    </div>
+
+    <!-- ══ Section 6 ══ -->
+    <div class="section" id="s6">
+      <h2 class="section-title"><span class="sec-num">6</span>Free vs Pro</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Feature</th><th>Free</th><th>Pro</th></tr></thead>
+          <tbody>
+            <tr><td>Quick Buttons</td><td>1 button</td><td>3 buttons</td></tr>
+            <tr><td>Button themes</td><td>Core themes only</td><td>All 50+ themes</td></tr>
+            <tr><td>Custom templates</td><td class="cross">✗</td><td class="check">✓</td></tr>
+            <tr><td>Hide built-in prompts</td><td class="cross">✗</td><td class="check">✓</td></tr>
+            <tr><td>YouTube transcription</td><td class="cross">✗</td><td class="check">✓</td></tr>
+            <tr><td>Screen region capture</td><td class="cross">✗</td><td class="check">✓</td></tr>
+            <tr><td>History cap</td><td>Smaller</td><td>Larger</td></tr>
+            <tr><td>History export (JSON/CSV/MD)</td><td class="cross">✗</td><td class="check">✓</td></tr>
+            <tr><td>Backup Vault (export/import)</td><td class="cross">✗</td><td class="check">✓</td></tr>
+            <tr><td>Device reset (once/month)</td><td class="cross">✗</td><td class="check">✓</td></tr>
+            <tr><td>All 19+ destinations</td><td class="check">✓</td><td class="check">✓</td></tr>
+            <tr><td>All built-in AI tools</td><td class="check">✓</td><td class="check">✓</td></tr>
+            <tr><td>Side panel chat</td><td class="check">✓</td><td class="check">✓</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="sub-title" id="s6-1">6.1 Activating Pro</h3>
+      <div class="steps">
+        <div class="step"><div class="num">1</div><div class="step-body"><strong>Purchase</strong><span>Open Settings and click <em>Purchase Pro on Gumroad</em>. Complete the checkout.</span></div></div>
+        <div class="step"><div class="num">2</div><div class="step-body"><strong>Get your key</strong><span>Your license key is in your Gumroad receipt email.</span></div></div>
+        <div class="step"><div class="num">3</div><div class="step-body"><strong>Activate</strong><span>Paste the key into the license key field in Settings and click <em>Activate</em>.</span></div></div>
+        <div class="step"><div class="num">4</div><div class="step-body"><strong>Pro activates</strong><span>You're immediately upgraded. Pro is verified per device.</span></div></div>
+      </div>
+      <div class="callout tip"><div class="icon">💡</div><div>Your license key works on up to 4 devices simultaneously. To move it to a new device after reaching the limit, use <em>Reset Devices</em> in Settings (once per month).</div></div>
+    </div>
+
+    <!-- ══ Section 7 ══ -->
+    <div class="section" id="s7">
+      <h2 class="section-title"><span class="sec-num">7</span>API Keys</h2>
+      <p>API keys let the Side Panel send prompts directly to an AI provider using your own account. All keys are stored locally in your browser — Courier Web never sees or transmits them.</p>
+
+      <h3 class="sub-title" id="s7-1">7.1 Where to Enter Your Keys</h3>
+      <div class="steps">
+        <div class="step"><div class="num">1</div><div class="step-body"><strong>Open Settings</strong><span>Click the Courier Web icon or the logo inside the highlight toolbar.</span></div></div>
+        <div class="step"><div class="num">2</div><div class="step-body"><strong>Scroll to API Keys</strong><span>Scroll down until you reach the API Keys section.</span></div></div>
+        <div class="step"><div class="num">3</div><div class="step-body"><strong>Paste your key</strong><span>Click into the input for the provider you want, paste your key, then click Save.</span></div></div>
+        <div class="step"><div class="num">4</div><div class="step-body"><strong>Key is confirmed</strong><span>A message appears showing the key has been saved, with a masked preview (e.g. <code>sk-an...k29f</code>).</span></div></div>
+        <div class="step"><div class="num">5</div><div class="step-body"><strong>Select the model</strong><span>Open the Side Panel, click the model dropdown, and choose a model from that provider.</span></div></div>
+      </div>
+
+      <h3 class="sub-title" id="s7-2">7.2 Where to Get Each Key</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Provider</th><th>Where to get your API key</th><th>Key format</th></tr></thead>
+          <tbody>
+            <tr><td>OpenAI (ChatGPT)</td><td>platform.openai.com → API keys → Create new secret key</td><td><code>sk-...</code></td></tr>
+            <tr><td>Anthropic (Claude)</td><td>console.anthropic.com → API keys → Create key</td><td><code>sk-ant-...</code></td></tr>
+            <tr><td>Google (Gemini)</td><td>aistudio.google.com → Get API key → Create API key</td><td><code>AIza...</code></td></tr>
+            <tr><td>DeepSeek</td><td>platform.deepseek.com → API keys → Create new API key</td><td><code>sk-...</code></td></tr>
+            <tr><td>Groq</td><td>console.groq.com → API Keys → Create API Key</td><td><code>gsk_...</code></td></tr>
+            <tr><td>Grok (xAI)</td><td>console.x.ai → API Keys → Create API Key</td><td><code>xai-...</code></td></tr>
+            <tr><td>Kimi (Moonshot)</td><td>platform.moonshot.cn → API keys → Create</td><td><code>sk-...</code></td></tr>
+            <tr><td>Perplexity</td><td>perplexity.ai/settings/api → Generate</td><td><code>pplx-...</code></td></tr>
+            <tr><td>Z.ai</td><td>z.ai dashboard → API keys</td><td>—</td></tr>
+            <tr><td>OpenRouter</td><td>openrouter.ai/keys → Create Key</td><td><code>sk-or-...</code></td></tr>
+            <tr><td>Ollama (local)</td><td>No key needed — leave the field blank</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout tip"><div class="icon">💡</div><div>OpenRouter lets you access dozens of models (GPT-4o, Claude, Llama, Mistral, and more) with a single key — a good option if you want to try multiple providers without managing separate accounts.</div></div>
+
+      <h3 class="sub-title" id="s7-3">7.3 Clearing or Updating a Key</h3>
+      <p>To replace a key, paste the new one into the same field and click Save — it overwrites the old one. To remove a key entirely, click the <em>Clear</em> button next to the field. The Side Panel stops using that provider immediately.</p>
+
+      <h3 class="sub-title" id="s7-4">7.4 API Keys vs Destinations</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Mode</th><th>How it works</th><th>Requires API key?</th></tr></thead>
+          <tbody>
+            <tr><td>Highlight → Destination</td><td>Opens the AI's website in a new tab and injects your text into the chat box</td><td>No — uses your existing account on the site</td></tr>
+            <tr><td>Side Panel chat</td><td>Sends your message directly to the provider's API from your browser</td><td>Yes — one key per provider</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>You don't need an API key at all to use the Highlight &amp; Prompt feature. API keys are only needed for the Side Panel.</p>
+    </div>
+
+    <!-- ══ Section 8 ══ -->
+    <div class="section" id="s8">
+      <h2 class="section-title"><span class="sec-num">8</span>Paste Mode</h2>
+      <p>When you send highlighted text to a destination, Courier Web needs to get your content into that site's input box. There are three methods — called paste modes — that control exactly how this happens.</p>
+
+      <h3 class="sub-title" id="s8-1">8.1 The Three Paste Modes</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Mode</th><th>What it does</th><th>Best for</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Auto-inject</strong></td><td>Opens the destination site and automatically types your text directly into the chat or compose box — no manual action needed.</td><td>ChatGPT (most reliable)</td></tr>
+            <tr><td><strong>Paste helper</strong></td><td>Opens the destination site and a small helper tab. Text is copied to your clipboard automatically. Switch to the destination tab and press Cmd/Ctrl+V.</td><td>Claude, Gemini, DeepSeek, Groq, most AI sites</td></tr>
+            <tr><td><strong>Open only</strong></td><td>Opens the destination site but does not copy or inject anything. You navigate and paste manually.</td><td>Gmail, X, Google — where URLs already carry the content, or when you want full control</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="sub-title" id="s8-2">8.2 Default Paste Modes Per Destination</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Destination</th><th>Default mode</th><th>Why</th></tr></thead>
+          <tbody>
+            <tr><td>ChatGPT</td><td>Auto-inject</td><td>ChatGPT's input box is well-supported for direct injection</td></tr>
+            <tr><td>Claude</td><td>Paste helper</td><td>Uses a complex contenteditable editor; helper is more reliable</td></tr>
+            <tr><td>Gemini</td><td>Paste helper</td><td>Uses a custom Angular input that can block auto-injection</td></tr>
+            <tr><td>DeepSeek</td><td>Paste helper</td><td>Editor requires manual paste for consistent results</td></tr>
+            <tr><td>Groq</td><td>Paste helper</td><td>Paste helper ensures reliable delivery</td></tr>
+            <tr><td>Grok</td><td>Paste helper</td><td>Paste helper ensures reliable delivery</td></tr>
+            <tr><td>Perplexity</td><td>Paste helper</td><td>Paste helper ensures reliable delivery</td></tr>
+            <tr><td>Kimi</td><td>Paste helper</td><td>Paste helper ensures reliable delivery</td></tr>
+            <tr><td>OpenRouter</td><td>Paste helper</td><td>Paste helper ensures reliable delivery</td></tr>
+            <tr><td>Gmail</td><td>Open only</td><td>Gmail compose URLs already include subject and body text</td></tr>
+            <tr><td>X (Twitter)</td><td>Open only</td><td>Short text is passed directly in the tweet URL</td></tr>
+            <tr><td>Google</td><td>Open only</td><td>Search query is passed directly in the URL</td></tr>
+            <tr><td>Facebook</td><td>Paste helper</td><td>Requires browser permission grant first</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="sub-title" id="s8-3">8.3 How to Change Paste Mode</h3>
+      <ol class="doc-list">
+        <li>Open Settings (click the Courier Web icon or the logo in the highlight toolbar).</li>
+        <li>Scroll to the Destination section.</li>
+        <li>Expand <em>Paste mode</em> — you'll see a grid with every destination listed.</li>
+        <li>Use the dropdown next to each destination to switch modes.</li>
+        <li>Changes save automatically.</li>
+      </ol>
+      <p>Click <em>Reset paste modes</em> to restore all destinations to recommended defaults.</p>
+
+      <h3 class="sub-title" id="s8-4">8.4 Problems Paste Mode Can Fix</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Symptom</th><th>Try this</th></tr></thead>
+          <tbody>
+            <tr><td>Text never appears in ChatGPT</td><td>Switch ChatGPT to <em>Paste helper</em></td></tr>
+            <tr><td>Text gets cut off or garbled in ChatGPT</td><td>Switch to <em>Paste helper</em> — clipboard has no size limit</td></tr>
+            <tr><td>Claude / Gemini opens but nothing is pasted</td><td>Ensure mode is <em>Paste helper</em>, then press Cmd/Ctrl+V</td></tr>
+            <tr><td>Facebook: clicking button does nothing</td><td>Grant the Facebook permission when prompted, or switch to <em>Paste helper</em></td></tr>
+            <tr><td>Text appears twice in the input</td><td>Switch to <em>Open only</em> or <em>Paste helper</em></td></tr>
+            <tr><td>Helper tab opens but closes before you can paste</td><td>Text is already on your clipboard — switch tabs and press Cmd/Ctrl+V</td></tr>
+            <tr><td>Gmail / X opens but text isn't in compose box</td><td>Switch from <em>Open only</em> to <em>Paste helper</em></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout tip"><div class="icon">💡</div><div><strong>Quick rule of thumb:</strong> Auto-inject stops working after a site update → switch to Paste helper. Paste helper feels like too many steps → try Auto-inject. Just want to open the site yourself → use Open only.</div></div>
+    </div>
+
+    <!-- ══ Section 9 ══ -->
+    <div class="section" id="s9">
+      <h2 class="section-title"><span class="sec-num">9</span>Troubleshooting</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Problem</th><th>Fix</th></tr></thead>
+          <tbody>
+            <tr><td>Toolbar doesn't appear on highlights</td><td>Refresh the page. Courier Web may not activate on pages that were open before installation. Check that the minimum character length in Settings isn't set too high.</td></tr>
+            <tr><td>Menu not showing after right-click</td><td>Close the right-click menu and right-click again. Chrome menus don't update while they're open.</td></tr>
+            <tr><td>Clicking a button does nothing</td><td>Open DevTools (F12 → Console). A "blocked by client" message means a Chrome permission is missing. Go to <code>chrome://extensions</code> → Courier Web → Details → Site access.</td></tr>
+            <tr><td>"Address already in use" (Ollama)</td><td>Not an error — Ollama is already running in the background. No action needed.</td></tr>
+            <tr><td>Ollama model not found / 404</td><td>Run <code>ollama list</code> and copy the exact model name including any version tag (e.g. <code>llama3.2:latest</code>). The Model ID must match exactly.</td></tr>
+            <tr><td>CORS error with Ollama</td><td>Restart Ollama with: <code>OLLAMA_ORIGINS="*" ollama serve</code></td></tr>
+            <tr><td>403 error from Hugging Face</td><td>Your API token may be missing or the model is gated. Accept the terms of use on the model's page before trying again.</td></tr>
+            <tr><td>YouTube transcript not available</td><td>The video may not have captions. Check if the CC button appears in the YouTube player.</td></tr>
+            <tr><td>Templates not appearing in menu</td><td>Close and re-open the right-click menu. Templates update when saved but the change doesn't show until the menu is re-opened.</td></tr>
+            <tr><td>Extension changes not taking effect</td><td>Go to <code>chrome://extensions</code> and click the reload icon on the Courier Web card, then refresh the page.</td></tr>
+            <tr><td>Pro not showing after activation</td><td>Click <em>Restore</em> in the Pro section of Settings. If you recently reinstalled, use <em>Restore</em> (not <em>Activate</em>) to re-verify your saved license key.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout tip"><div class="icon">🩺</div><div><strong>Run Diagnostics</strong><br>Settings → Advanced → Diagnostics / Health runs a full check of your extension state, permissions, and endpoint connectivity. Use this first when something unexpectedly stops working.</div></div>
+    </div>
+
+    <p style="text-align:center;color:var(--muted);font-size:13px;margin-top:40px;padding-top:24px;border-top:1px solid var(--border);">
+      Courier Web &nbsp;·&nbsp; User Guide &nbsp;·&nbsp; March 2026
+    </p>
+  </div>
+</div>
+
+<script>
+// ── Search ──────────────────────────────────────────────────────────────────
+let allMatches = [];
+let matchIdx = -1;
+let lastQuery = '';
+
+// Store original HTML of the content area so we can restore it cleanly
+const contentEl = document.getElementById('content');
+
+// Build a snapshot of all text nodes (for restoring highlights)
+function mainSearch(query) {
+  query = query.trim();
+  document.getElementById('clear-search').style.display = query ? 'block' : 'none';
+
+  if (!query) {
+    clearSearch();
+    return;
+  }
+  if (query === lastQuery) return;
+  lastQuery = query;
+  performSearch(query);
+}
+
+function performSearch(query) {
+  // Remove previous highlights
+  removeHighlights();
+  allMatches = [];
+  matchIdx = -1;
+
+  const noResults = document.getElementById('no-results');
+  const sections = contentEl.querySelectorAll('.section, .hero');
+
+  if (!query) {
+    noResults.style.display = 'none';
+    sections.forEach(s => s.style.display = '');
+    updateSearchStatus();
+    return;
+  }
+
+  const regex = new RegExp(escapeRe(query), 'gi');
+
+  // Highlight matching text nodes
+  walkTextNodes(contentEl, node => {
+    if (!node.nodeValue.trim()) return;
+    const parent = node.parentNode;
+    if (!parent || ['SCRIPT','STYLE','INPUT'].includes(parent.tagName)) return;
+
+    let text = node.nodeValue;
+    let m, parts = [], last = 0, found = false;
+    while ((m = regex.exec(text)) !== null) {
+      found = true;
+      parts.push(document.createTextNode(text.slice(last, m.index)));
+      const mark = document.createElement('mark');
+      mark.className = 'hl';
+      mark.textContent = m[0];
+      parts.push(mark);
+      last = m.index + m[0].length;
+    }
+    if (found) {
+      parts.push(document.createTextNode(text.slice(last)));
+      const frag = document.createDocumentFragment();
+      parts.forEach(p => frag.appendChild(p));
+      parent.replaceChild(frag, node);
+    }
+  });
+
+  allMatches = Array.from(contentEl.querySelectorAll('mark.hl'));
+
+  // Show/hide sections
+  let anyVisible = false;
+  sections.forEach(s => {
+    const hasMatch = s.querySelector('mark.hl');
+    s.style.display = hasMatch ? '' : 'none';
+    if (hasMatch) anyVisible = true;
+  });
+
+  noResults.style.display = anyVisible ? 'none' : 'block';
+
+  if (allMatches.length > 0) {
+    document.getElementById('search-nav').style.display = 'flex';
+    matchIdx = 0;
+    highlightCurrent();
+  } else {
+    document.getElementById('search-nav').style.display = 'none';
+  }
+  updateSearchStatus();
+  updateSidebarCount(allMatches.length, query);
+}
+
+function removeHighlights() {
+  contentEl.querySelectorAll('mark.hl').forEach(mark => {
+    const parent = mark.parentNode;
+    if (parent) {
+      parent.replaceChild(document.createTextNode(mark.textContent), mark);
+      parent.normalize();
+    }
+  });
+}
+
+function clearSearch() {
+  lastQuery = '';
+  removeHighlights();
+  allMatches = [];
+  matchIdx = -1;
+  const q = document.getElementById('top-search');
+  if (q) q.value = '';
+  document.getElementById('clear-search').style.display = 'none';
+  document.getElementById('search-nav').style.display = 'none';
+  document.getElementById('search-status').textContent = '';
+  document.getElementById('no-results').style.display = 'none';
+  document.getElementById('search-count').textContent = '';
+  document.querySelectorAll('.section, .hero').forEach(s => s.style.display = '');
+  // Sync sidebar search
+  const si = document.getElementById('sidebar-search-input');
+  if (si) si.value = '';
+}
+
+function highlightCurrent() {
+  contentEl.querySelectorAll('mark.hl.current-hl').forEach(m => m.classList.remove('current-hl'));
+  if (allMatches[matchIdx]) {
+    allMatches[matchIdx].classList.add('current-hl');
+    allMatches[matchIdx].scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+  updateSearchStatus();
+}
+
+function nextMatch() {
+  if (!allMatches.length) return;
+  matchIdx = (matchIdx + 1) % allMatches.length;
+  highlightCurrent();
+}
+function prevMatch() {
+  if (!allMatches.length) return;
+  matchIdx = (matchIdx - 1 + allMatches.length) % allMatches.length;
+  highlightCurrent();
+}
+
+function updateSearchStatus() {
+  const el = document.getElementById('search-status');
+  const bnPrev = document.getElementById('btn-prev');
+  const bnNext = document.getElementById('btn-next');
+  if (!allMatches.length) {
+    el.textContent = '';
+    return;
+  }
+  el.textContent = `${matchIdx + 1} / ${allMatches.length}`;
+  bnPrev.disabled = allMatches.length <= 1;
+  bnNext.disabled = allMatches.length <= 1;
+}
+
+function updateSidebarCount(count, query) {
+  const el = document.getElementById('search-count');
+  if (!query) { el.textContent = ''; return; }
+  el.textContent = count ? `${count} match${count > 1 ? 'es' : ''}` : 'No matches';
+}
+
+function searchKeyNav(e) {
+  if (e.key === 'Enter') { e.shiftKey ? prevMatch() : nextMatch(); }
+  if (e.key === 'Escape') clearSearch();
+}
+
+function sidebarSearch(val) {
+  // Mirror to top search
+  const top = document.getElementById('top-search');
+  if (top) top.value = val;
+  mainSearch(val);
+}
+
+function walkTextNodes(root, fn) {
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
+  const nodes = [];
+  let n;
+  while ((n = walker.nextNode())) nodes.push(n);
+  nodes.forEach(fn);
+}
+
+function escapeRe(s) {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+// ── Sidebar nav ──────────────────────────────────────────────────────────────
+function toggleNav(link) {
+  const section = link.closest('.nav-section');
+  const isOpen = section.classList.contains('open');
+  section.classList.toggle('open', !isOpen);
+  // Don't follow link if toggling — scrolling handled by href
+}
+
+// Intercept nav-h1 clicks: toggle section open, then scroll
+document.querySelectorAll('.nav-h1').forEach(a => {
+  a.addEventListener('click', function(e) {
+    e.preventDefault();
+    const section = this.closest('.nav-section');
+    section.classList.toggle('open');
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+// Smooth scroll for sub-links and active state
+document.querySelectorAll('.nav-sub a').forEach(a => {
+  a.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+// Active section tracking via IntersectionObserver
+const anchors = document.querySelectorAll('.section, h3.sub-title');
+const navLinks = document.querySelectorAll('#nav a');
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      navLinks.forEach(l => {
+        l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+      });
+      document.querySelectorAll('.nav-h1').forEach(h => {
+        h.classList.toggle('active', h.getAttribute('href') === '#' + id);
+      });
+    }
+  });
+}, { rootMargin: '-56px 0px -60% 0px', threshold: 0 });
+
+anchors.forEach(el => { if (el.id) observer.observe(el); });
+
+// ── Mobile sidebar ───────────────────────────────────────────────────────────
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebar-overlay').classList.toggle('visible');
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebar-overlay').classList.remove('visible');
+}
+</script>
+</body>
+</html>
